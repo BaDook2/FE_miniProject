@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import Link from 'next/link';
+import login from '@/components/Login/loginAxois';
 import loginSchema from '../../../components/Login/loginSchema';
 import LoginInputBox from '../../../components/Login/LoginInputBox';
 
@@ -11,13 +12,23 @@ interface ILogin {
   email: string;
   password: string;
 }
+
 function Login() {
   const {
     register,
     formState: { errors },
+    handleSubmit,
+    watch,
+    setError,
   } = useForm<ILogin>({
     resolver: zodResolver(loginSchema),
   });
+  const clickLoginButton = async () => {
+    const errorMessage = login(watch('email'), watch('password'));
+    if (errorMessage) {
+      setError('email', { type: 'custom', message: errorMessage });
+    }
+  };
   return (
     <div className="h-screen mx-auto flex items-center justify-center">
       <div className="w-1/3 flex flex-col gap-12">
@@ -25,7 +36,10 @@ function Login() {
           <Image src="/logo.png" width={110} height={100} alt="logo" />
           <h1 className="text-8xl text-primary">FAST</h1>
         </div>
-        <form className="h-3/4 flex flex-col gap-20">
+        <form
+          className="h-3/4 flex flex-col gap-20"
+          onSubmit={handleSubmit(clickLoginButton)}
+        >
           <div className="flex flex-col gap-8">
             <LoginInputBox
               type="email"

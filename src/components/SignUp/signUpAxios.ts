@@ -3,7 +3,7 @@ import BASE_URL from '@/lib/constants';
 import { ISignUp } from '../../app/(auth)/signup/page';
 
 const requireAccessKey = (email: string) => {
-  const accessKeyURL = `${BASE_URL}api/register/email`;
+  const accessKeyURL = `${BASE_URL}/api/register/email`;
   const dataToJson = JSON.stringify({ email });
   try {
     axios.post(accessKeyURL, dataToJson, {
@@ -60,5 +60,22 @@ const signUp = (data: ISignUp) => {
     return 'An Known signUp Error';
   }
 };
+
+// const checkError = (URL: string, data: any) => {
+//   const dataToJSON = JSON.stringify(data);
+//   try {
+//     axios.post(URL, data, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     return null;
+//   } catch (err) {
+//     if (axios.isAxiosError(err) && err.response) {
+//       return err.response.data.message;
+//     }
+//     return `Unknown ${URL} error`;
+//   }
+// };
 
 export { requireAccessKey, checkAccessKey, signUp };

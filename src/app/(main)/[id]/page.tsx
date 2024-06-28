@@ -2,7 +2,6 @@
 
 import accommodationDataFetch from '@/components/AccommodationDetail/accommodationDataAxios';
 import { useCallback, useEffect, useState } from 'react';
-
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import AboutAccommondation from '@/components/AccommodationDetail/AboutAccommondation';
