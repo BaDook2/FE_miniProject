@@ -51,7 +51,10 @@ function SignUp() {
   };
 
   const clickAccessKeyCheckButton = async () => {
-    const errorMessage = checkAccessKey(watch('email'), watch('accessKey'));
+    const errorMessage = await checkAccessKey(
+      watch('email'),
+      watch('accessKey'),
+    );
     if (errorMessage) {
       setError('accessKey', { type: 'custom', message: errorMessage });
     } else {
