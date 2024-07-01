@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Header from '../../components/Haeder';
+import Header from '../../components/Header/Header';
 import '../globals.css';
 
 export default function RootLayout({
