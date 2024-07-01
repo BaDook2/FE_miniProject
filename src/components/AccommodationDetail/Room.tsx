@@ -1,7 +1,8 @@
 import { IRoom } from '@/app/(main)/[id]/page';
 import Link from 'next/link';
-import { MdOutlineShoppingCart } from 'react-icons/md';
 import ImageSlider from './ImageSlider';
+import CartAddButton from './CartAddButton';
+import ReserveButton from './ReserveButton';
 
 interface RoomProps {
   buildingName: string;
@@ -38,22 +39,15 @@ function Room({
           {room.price}원
         </span>
         <div className="flex justify-end items-center gap-2">
-          <button
-            type="button"
-            className="w-[45px] h-[45px] border-gray-400 border rounded-xl flex justify-center items-center"
-            aria-label="button"
-          >
-            <MdOutlineShoppingCart size="30" />
-          </button>
+          <CartAddButton
+            roomId={roomId}
+            checkInDatetime={`${checkInDate}T${checkInTime}`}
+            checkOutDatetime={`${checkOutDate}T${checkOutTime}`}
+          />
           <Link
             href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${roomId}}]`}
           >
-            <button
-              type="button"
-              className="bg-primary text-white w-[130px] h-[45px] rounded-xl text-lg"
-            >
-              예약하기
-            </button>
+            <ReserveButton text="예약하기" />
           </Link>
         </div>
       </div>
