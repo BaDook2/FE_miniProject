@@ -24,7 +24,7 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
   const clickLoginButton = async () => {
-    const errorMessage = login(watch('email'), watch('password'));
+    const errorMessage = await login(watch('email'), watch('password'));
     if (errorMessage) {
       setError('email', { type: 'custom', message: errorMessage });
     }

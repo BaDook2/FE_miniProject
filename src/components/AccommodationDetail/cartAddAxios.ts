@@ -1,28 +1,17 @@
 import BASE_URL from '@/lib/constants';
-import axios from 'axios';
+import { axiosPost } from '@/lib/fetchURL';
 import { ICartAdd } from './CartAddButton';
 
 const cartAdd = async ({ roomId, checkInDate, checkOutDate }: ICartAdd) => {
   const cartAddURL = `${BASE_URL}/api/cart`;
-  const dataToJson = JSON.stringify({
+  const dataToString = JSON.stringify({
     roomId,
     checkInDate,
     checkOutDate,
   });
-  try {
-    await axios.post(cartAddURL, dataToJson, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    if (err.response) {
-      return err.response.data.message;
-    }
-    return 'Unknown Cart Add Error';
-  }
+
+  const { data, error } = await axiosPost(cartAddURL, dataToString);
+  return { data, error };
 };
 
 export default cartAdd;
