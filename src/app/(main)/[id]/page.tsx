@@ -78,7 +78,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
       ) : (
         <>
           <div className="w-innerWidth flex gap-3 my-3">
-            <div className="w-[40vw] h-[400px]">
+            <div className="w-[60vw] h-[400px] rounded-xl overflow-hidden">
               <ImageSlider imgArr={accommodation?.img} />
             </div>
             {accommodation && <Kakaomap data={accommodation} />}

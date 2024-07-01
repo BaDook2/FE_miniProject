@@ -16,13 +16,7 @@ function ImageSlider({ imgArr }: { imgArr: string[] | undefined }) {
     >
       {imgArr?.map((url) => (
         <SwiperSlide className="py-10">
-          <Image
-            src={url}
-            alt="accommodation image"
-            fill
-            objectFit="cover"
-            className="rounded-xl"
-          />
+          <Image src={url} alt="accommodation image" fill objectFit="cover" />
         </SwiperSlide>
       ))}
     </Swiper>
