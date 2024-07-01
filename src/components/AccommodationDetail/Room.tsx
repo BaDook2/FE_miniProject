@@ -7,7 +7,6 @@ import ReserveButton from './ReserveButton';
 interface RoomProps {
   buildingName: string;
   room: IRoom;
-  roomId: string;
   numPeople: string;
   checkInTime: string;
   checkOutTime: string;
@@ -18,7 +17,6 @@ interface RoomProps {
 function Room({
   buildingName,
   room,
-  roomId,
   checkInDate,
   checkOutDate,
   numPeople,
@@ -40,12 +38,12 @@ function Room({
         </span>
         <div className="flex justify-end items-center gap-2">
           <CartAddButton
-            roomId={roomId}
+            roomId={room.roomId}
             checkInDatetime={`${checkInDate}T${checkInTime}`}
             checkOutDatetime={`${checkOutDate}T${checkOutTime}`}
           />
           <Link
-            href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${roomId}}]`}
+            href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${room.roomId}}]`}
           >
             <ReserveButton text="예약하기" />
           </Link>

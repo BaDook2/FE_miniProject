@@ -10,6 +10,7 @@ import ImageSlider from '@/components/AccommodationDetail/ImageSlider';
 import Kakaomap from '@/components/AccommodationDetail/KakaoMap';
 
 export interface IRoom {
+  roomId: string;
   title: string;
   price: number;
   minPeople: number; // 기준인원
@@ -119,7 +120,6 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
             checkInTime={data?.checkIn}
             checkOutTime={data?.checkOut}
             room={room}
-            roomId={params.id}
             checkInDate={checkInDate}
             checkOutDate={checkOutDate}
             numPeople={peopleCount}
