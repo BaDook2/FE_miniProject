@@ -39,8 +39,8 @@ function Room({
         <div className="flex justify-end items-center gap-2">
           <CartAddButton
             roomId={room.roomId}
-            checkInDatetime={`${checkInDate}T${checkInTime}`}
-            checkOutDatetime={`${checkOutDate}T${checkOutTime}`}
+            checkInDate={`${checkInDate}`}
+            checkOutDate={`${checkOutDate}`}
           />
           <Link
             href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${room.roomId}}]`}

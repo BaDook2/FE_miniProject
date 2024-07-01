@@ -2,16 +2,12 @@ import BASE_URL from '@/lib/constants';
 import axios from 'axios';
 import { ICartAdd } from './CartAddButton';
 
-const cartAdd = async ({
-  roomId,
-  checkInDatetime,
-  checkOutDatetime,
-}: ICartAdd) => {
+const cartAdd = async ({ roomId, checkInDate, checkOutDate }: ICartAdd) => {
   const cartAddURL = `${BASE_URL}/api/cart`;
   const dataToJson = JSON.stringify({
     roomId,
-    checkInDatetime,
-    checkOutDatetime,
+    checkInDate,
+    checkOutDate,
   });
   try {
     await axios.post(cartAddURL, dataToJson, {

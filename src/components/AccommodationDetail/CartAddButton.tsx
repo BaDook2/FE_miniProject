@@ -3,19 +3,16 @@
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
+import useCartStore from '@/lib/store';
 import cartAdd from './cartAddAxios';
 
 export interface ICartAdd {
   roomId: string;
-  checkInDatetime: string;
-  checkOutDatetime: string;
+  checkInDate: string;
+  checkOutDate: string;
 }
 
-function CartAddButton({
-  roomId,
-  checkInDatetime,
-  checkOutDatetime,
-}: ICartAdd) {
+function CartAddButton({ roomId, checkInDate, checkOutDate }: ICartAdd) {
   const [err, setErr] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openModal = () => {
@@ -25,12 +22,14 @@ function CartAddButton({
     dialogRef?.current?.close();
     setErr(null);
   };
-
+  const { incrementCartCount } = useCartStore();
   const handleClick = async () => {
-    const error = await cartAdd({ roomId, checkInDatetime, checkOutDatetime });
+    const error = await cartAdd({ roomId, checkInDate, checkOutDate });
     if (error) {
       setErr(error);
       openModal();
+    } else {
+      incrementCartCount();
     }
   };
   return (

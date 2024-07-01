@@ -2,18 +2,19 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
+import useCartStore from '@/lib/store';
 import fetchCartCount from './fetchCartCount';
 
-const Haeder = () => {
+const Header = () => {
   const pathname = usePathname();
-  const [cartCount, setCartCount] = useState<number>(0);
+  const { cartCount, setCartCount } = useCartStore();
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
-  }, []);
+  }, [setCartCount]);
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -59,4 +60,4 @@ const Haeder = () => {
   );
 };
 
-export default Haeder;
+export default Header;
