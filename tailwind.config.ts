@@ -21,6 +21,7 @@ const config: Config = {
         mineshaft: '#222222',
         pastelpink: '#FED2D9',
         scienceblue: '#016DD6',
+        Selago: '#F2F8FD',
       },
     },
   },

@@ -19,7 +19,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@_img/*": ["public/img/*"]
     }
   },
   "include": [
@@ -28,7 +29,8 @@
     "**/*.js",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next.config.mjs"
+    "next.config.mjs",
+    "src/app/bookingResult"
   ],
   "exclude": ["node_modules"]
 }

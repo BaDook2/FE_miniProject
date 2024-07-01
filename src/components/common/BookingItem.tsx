@@ -20,13 +20,21 @@ function BookingItem({ booking }: BookingItemProps) {
   const formatPrice = (price: number) => {
     return `${price.toLocaleString('ko-KR')}원`;
   };
-
+  const bookingRoomPrice =
+    typeof booking.roomPrice === 'string'
+      ? parseFloat(booking.roomPrice)
+      : booking.roomPrice;
+  const displayedPrice = booking.totalPrice ?? bookingRoomPrice ?? 0;
   return (
     <article key={booking.orderId} className="w-full bg-white p-5">
       <header>
-        <p className="text-xs mb-2 text-dovegray">
-          숙소 예약번호 {booking.orderId}
-        </p>
+        {booking.orderId ? (
+          <p className="text-xs mb-2 text-dovegray">
+            숙소 예약번호 {booking.orderId}
+          </p>
+        ) : (
+          ''
+        )}
         <h2 className="text-lg font-bold text-mineshaft">
           {booking.accommodationTitle}
         </h2>
@@ -34,14 +42,18 @@ function BookingItem({ booking }: BookingItemProps) {
         <p className="text-lg mb-2 font-bold">{booking.roomTitle}</p>
       </header>
       <section className="flex w-full">
-        <figure className="relative w-20 h-20 mr-2 rounded-xl">
-          <Image
-            src={booking.roomImg}
-            alt={booking.roomTitle}
-            fill
-            className="rounded-xl"
-          />
-        </figure>
+        {booking.roomImg ? (
+          <figure className="relative w-20 h-20 mr-2 rounded-xl">
+            <Image
+              src={booking.roomImg}
+              alt={booking.roomTitle}
+              fill
+              className="rounded-xl"
+            />
+          </figure>
+        ) : (
+          ''
+        )}
         <div>
           <p className="text-xs mb-2 text-dovegray">{`${formatDate(checkInDate)} ~ ${formatDate(checkOutDate)}`}</p>
           <p className="text-xs mb-2 text-dovegray">{`체크인 ${formatTime(checkInDate)} | 체크아웃 ${formatTime(checkOutDate)}`}</p>
@@ -50,7 +62,10 @@ function BookingItem({ booking }: BookingItemProps) {
       </section>
       <footer className="flex justify-end items-center gap-2">
         <p className="text-lg text-dovegray">숙박</p>
-        <p className="text-lg font-bold text-mineshaft">{`${formatPrice(booking.totalPrice)}`}</p>
+
+        <p className="text-lg font-bold text-mineshaft">
+          {formatPrice(displayedPrice)}
+        </p>
       </footer>
     </article>
   );

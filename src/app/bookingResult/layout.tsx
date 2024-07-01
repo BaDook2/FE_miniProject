@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Haeder';
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full h-fit pb-10 bg-concrete">
+    <div className="w-full h-fit bg-concrete">
       <nav className="mx-auto border-b-[1px] rounded-lg h-20">
         <div className="mx-auto w-innerWidth h-full flex items-center">
           <Header />

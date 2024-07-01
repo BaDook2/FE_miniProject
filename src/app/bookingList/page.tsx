@@ -9,21 +9,23 @@ import Loading from '@/components/common/Loading';
 import BackButton from '@/components/common/BackButton';
 
 export interface Booking {
-  orderId: string;
+  orderId?: string;
+  roomId?: string;
   accommodationTitle: string;
   roomTitle: string;
-  roomImg: string;
+  roomImg?: string;
   minPeople: number;
   maxPeople: number;
-  checkInDatetime: string;
-  checkOutDatetime: string;
-  totalPrice: number;
+  checkInDatetime: Date;
+  checkOutDatetime: Date;
+  totalPrice?: number;
+  roomPrice?: number;
 }
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 interface BookingResponse {
   bookingList: Booking[];
   totalElements: number;
 }
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 function BookingsPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +35,7 @@ function BookingsPage() {
     fetcher,
   );
 
-  if (error) return <div>Failed to load</div>;
+  if (error) return <div className="m-auto">예약 내역 없습니다.</div>;
   if (!data) return <Loading />;
   const totalPages = Math.ceil(data.totalElements / pageSize);
   const handleNextPage = () => {
@@ -55,7 +57,7 @@ function BookingsPage() {
         <h1 className="text-2xl font-bold">예약내역 확인</h1>
       </header>
       <main className="flex flex-col items-center">
-        <section className="w-2/3 flex flex-col gap-4">
+        <section className="w-full flex flex-col gap-4">
           {data.bookingList.map((booking) => (
             <BookingItem key={booking.orderId} booking={booking} />
           ))}
