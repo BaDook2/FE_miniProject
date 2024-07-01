@@ -218,6 +218,7 @@ const handlers = [
   }),
   http.get('api/cart', ({ request }) => {
     const url = new URL(request.url);
+    // eslint-disable-next-line no-console
     console.log(url);
     return HttpResponse.json({
       cartList: cartData.cartList,
@@ -230,6 +231,7 @@ const handlers = [
   }),
   http.delete('api/cart', ({ request }) => {
     const url = new URL(request.url);
+    // eslint-disable-next-line no-console
     console.log(url);
   }),
 ];

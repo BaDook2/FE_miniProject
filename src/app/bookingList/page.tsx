@@ -7,6 +7,8 @@ import BookingItem from '@/components/common/BookingItem';
 import Pagination from '@/components/common/Pagination';
 import Loading from '@/components/common/Loading';
 import BackButton from '@/components/common/BackButton';
+import Empty from '@/components/common/Empty';
+import BASE_URL from '@/lib/constants';
 
 export interface Booking {
   orderId?: string;
@@ -31,12 +33,16 @@ function BookingsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
   const { data, error } = useSWR<BookingResponse>(
-    `/api/booking?page=${currentPage}&size=${pageSize}`,
+    `${BASE_URL}/api/booking?page=${currentPage}&size=${pageSize}`,
     fetcher,
   );
 
-  if (error) return <div className="m-auto">예약 내역 없습니다.</div>;
+  if (error)
+    return <Empty message="예약 내역을 불러오는 도중 오류가 발생했습니다." />;
   if (!data) return <Loading />;
+  if (data.bookingList.length === 0)
+    return <Empty message="예약 내역이 없습니다." />;
+
   const totalPages = Math.ceil(data.totalElements / pageSize);
   const handleNextPage = () => {
     setCurrentPage((prev) => prev + 1);
