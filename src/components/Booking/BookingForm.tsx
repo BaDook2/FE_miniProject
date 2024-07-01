@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useBookingsFromQuery from '@/hooks/useSearchParams';
 import BookingSchema from './bookingSchema';
-import BookingInputBox from './BookingInputBox';
+import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
 
 export interface BookingFormInputs {
