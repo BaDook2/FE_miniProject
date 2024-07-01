@@ -12,6 +12,7 @@ const useBookingsFromQuery = (): Booking[] => {
     const bookings = JSON.parse(bookingsParam);
     return Array.isArray(bookings) ? bookings : [];
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Failed to parse bookings:', error);
     return [];
   }
