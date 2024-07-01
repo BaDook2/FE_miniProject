@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import formatNumber from '@/utils/formatNumber';
+import formatNumber from '@/lib/formatNumber';
+import Loading from '../common/Loading';
 
 interface Accommodation {
   id: number;
@@ -36,6 +37,7 @@ const fetchProjects = async ({
       ...(id && { cursorId: id }),
     },
   });
+
   return res.data;
 };
 
@@ -55,16 +57,17 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
   }, [category, queryClient]);
 
   // InfiniteQuery - InfiniteScroll
-  const { data, fetchNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['accommodations', category],
-    queryFn: ({ pageParam }) =>
-      fetchProjects({ pageParam, fetchedCategory: category }),
-    getNextPageParam: (lastPage) => {
-      const { nextCursorId: id, nextCursorMinPrice: minPrice } = lastPage;
-      return lastPage.nextData ? { minPrice, id } : undefined;
-    },
-    initialPageParam: { minPrice: '', id: '' },
-  });
+  const { data, fetchNextPage, isLoading, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['accommodations', category],
+      queryFn: ({ pageParam }) =>
+        fetchProjects({ pageParam, fetchedCategory: category }),
+      getNextPageParam: (lastPage) => {
+        const { nextCursorId: id, nextCursorMinPrice: minPrice } = lastPage;
+        return lastPage.nextData ? { minPrice, id } : undefined;
+      },
+      initialPageParam: { minPrice: '', id: '' },
+    });
 
   // 옵저버
   useEffect(() => {
@@ -150,6 +153,11 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
         )}
         <div ref={bottomRef} />
       </div>
+      {isFetchingNextPage && (
+        <div className="flex justify-center items-center h-16">
+          <Loading />
+        </div>
+      )}
     </section>
   );
 };

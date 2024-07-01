@@ -1,12 +1,19 @@
 import { Booking } from '@/app/bookingList/page';
+import { Cart } from '@/app/cart/page';
 import Image from 'next/image';
 import React from 'react';
 
 interface BookingItemProps {
-  booking: Booking;
+  booking: Booking | Cart;
+  isCheck?: boolean;
+  onCheckItem?: (roomId: number) => void;
 }
 
-function BookingItem({ booking }: BookingItemProps) {
+function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
+  const isBooking = (data: Booking | Cart): data is Booking => {
+    return (data as Booking).orderId !== undefined;
+  };
+
   const checkInDate = new Date(booking.checkInDatetime);
   const checkOutDate = new Date(booking.checkOutDatetime);
 
@@ -20,20 +27,27 @@ function BookingItem({ booking }: BookingItemProps) {
   const formatPrice = (price: number) => {
     return `${price.toLocaleString('ko-KR')}원`;
   };
-  const bookingRoomPrice =
-    typeof booking.roomPrice === 'string'
-      ? parseFloat(booking.roomPrice)
-      : booking.roomPrice;
+
+  let bookingRoomPrice = 0;
+  if (isBooking(booking)) {
+    if (typeof booking.roomPrice === 'string') {
+      bookingRoomPrice = parseFloat(booking.roomPrice);
+    } else if (typeof booking.roomPrice === 'number') {
+      bookingRoomPrice = booking.roomPrice;
+    }
+  }
+
   const displayedPrice = booking.totalPrice ?? bookingRoomPrice ?? 0;
   return (
-    <article key={booking.orderId} className="w-full bg-white p-5">
+    <article
+      key={isBooking(booking) ? booking.orderId : booking.cartId}
+      className="w-full bg-white p-5"
+    >
       <header>
-        {booking.orderId ? (
+        {isBooking(booking) && (
           <p className="text-xs mb-2 text-dovegray">
             숙소 예약번호 {booking.orderId}
           </p>
-        ) : (
-          ''
         )}
         <h2 className="text-lg font-bold text-mineshaft">
           {booking.accommodationTitle}
@@ -42,7 +56,15 @@ function BookingItem({ booking }: BookingItemProps) {
         <p className="text-lg mb-2 font-bold">{booking.roomTitle}</p>
       </header>
       <section className="flex w-full">
-        {booking.roomImg ? (
+        {isBooking(booking) ? null : (
+          <input
+            type="checkbox"
+            className="custom-checkbox mr-4 mt-1"
+            checked={isCheck}
+            onChange={() => onCheckItem && onCheckItem(booking.cartId)}
+          />
+        )}
+        {booking.roomImg && (
           <figure className="relative w-20 h-20 mr-2 rounded-xl">
             <Image
               src={booking.roomImg}
@@ -51,8 +73,6 @@ function BookingItem({ booking }: BookingItemProps) {
               className="rounded-xl"
             />
           </figure>
-        ) : (
-          ''
         )}
         <div>
           <p className="text-xs mb-2 text-dovegray">{`${formatDate(checkInDate)} ~ ${formatDate(checkOutDate)}`}</p>

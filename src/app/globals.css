@@ -34,5 +34,24 @@
   input {
     outline: none;
   }
+}
 
+.custom-checkbox {
+  @apply w-5 h-5 appearance-none border-2 border-gray-300 rounded-md relative cursor-pointer;
+}
+
+.custom-checkbox:checked {
+  @apply bg-primary border-transparent;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.25rem;
+  height: 0.5rem;
+  border: solid white;
+  border-width: 0 0.125rem 0.125rem 0;
+  transform: translate(-50%, -50%) rotate(45deg);
 }

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
 import BookingItem from '@/components/common/BookingItem';
-import Pagination from '@/components/BookingList/Pagination';
+import Pagination from '@/components/common/Pagination';
 import Loading from '@/components/common/Loading';
 import BackButton from '@/components/common/BackButton';
 

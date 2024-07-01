@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 // import accommodationsData from '../../public/api/mainmockdata.json';
 import bookingData from './bookingData';
+import cartData from './cartData';
 
 const handlers = [
   http.get('api/user', () => {
@@ -214,6 +215,22 @@ const handlers = [
       bookingList: bookingData.bookingList.slice(start, end),
       totalElements: bookingData.totalElements,
     });
+  }),
+  http.get('api/cart', ({ request }) => {
+    const url = new URL(request.url);
+    console.log(url);
+    return HttpResponse.json({
+      cartList: cartData.cartList,
+    });
+  }),
+  http.get('api/cart/count', () => {
+    return HttpResponse.json({
+      cartCount: 15,
+    });
+  }),
+  http.delete('api/cart', ({ request }) => {
+    const url = new URL(request.url);
+    console.log(url);
   }),
 ];
 export default handlers;
