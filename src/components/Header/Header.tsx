@@ -7,7 +7,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
 import fetchCartCount from './fetchCartCount';
-import CheckLogin from '../common/CheckLogin';
+// import CheckLogin from '../common/CheckLogin';
 
 const Header = () => {
   const pathname = usePathname();
@@ -57,7 +57,7 @@ const Header = () => {
           로그인/회원가입
         </Link>
       </div>
-      <CheckLogin />
+      {/* <CheckLogin /> */}
     </div>
   );
 };

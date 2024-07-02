@@ -8,7 +8,6 @@ const CheckLogin = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [err, setErr] = useState<string | null>(null);
   const router = useRouter();
-  // const [path, setPath] = useState(usePathname());
   const path = usePathname();
   const openModal = () => {
     dialogRef?.current?.showModal();
@@ -24,7 +23,6 @@ const CheckLogin = () => {
     const checkLogin = async () => {
       const URL = `${BASE_URL}/api/check`;
       const { errorMessage } = await axiosGet(URL);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (errorMessage) {
         openModal();
         setErr(errorMessage);
@@ -38,7 +36,7 @@ const CheckLogin = () => {
   return err ? (
     <dialog
       ref={dialogRef}
-      className="w-1/2 h-1/2 rounded-xl flex flex-col gap-10 justify-center items-center fixed"
+      className="w-1/2 h-1/2 rounded-xl flex flex-col gap-10 justify-center items-center fixed z-10"
     >
       <h3 className="text-2xl font-bold">{err}</h3>
       <button
