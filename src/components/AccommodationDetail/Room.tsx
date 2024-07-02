@@ -31,6 +31,7 @@ function Room({
   day = Math.ceil(day / (1000 * 60 * 60 * 24)) - 1;
   const roomPrice = room.price * day;
 
+  console.log('Room.tsx:', room.roomId);
   const bookingItem = {
     accommodationTitle: buildingName,
     roomTitle: room.title,

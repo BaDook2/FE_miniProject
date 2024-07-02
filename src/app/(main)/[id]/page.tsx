@@ -61,6 +61,8 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
     });
     setErr(errorMessage);
     setAccommodation(data);
+    console.log('[id] page.tsx:', accommodation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, checkInDate, checkOutDate]);
 
   useEffect(() => {

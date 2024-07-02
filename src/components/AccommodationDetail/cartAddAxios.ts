@@ -15,7 +15,7 @@ const cartAdd = async ({
     checkInDate,
     checkOutDate,
   });
-  console.log(dataToString);
+  console.log('dataToString: ', dataToString);
 
   const { data, errorMessage } = await axiosPost(cartAddURL, dataToString);
   return { data, errorMessage };
