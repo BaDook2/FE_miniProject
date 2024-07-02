@@ -1,29 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
-import type { AxiosError } from 'axios';
 import BASE_URL from '@/lib/constants';
+import { axiosGet } from '@/lib/fetchURL';
 
 axios.defaults.withCredentials = true;
 export async function middleware(req: NextRequest) {
-  try {
-    const response = await axios.get(`${BASE_URL}/api/check`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: req.headers.get('cookie') || '',
-      },
-    });
-
-    if (response.status === 200) {
-      return NextResponse.next();
-    }
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    if (axiosError.response && axiosError.response.status === 400) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
+  const loginCheckURL = `${BASE_URL}/api/check`;
+  const { status } = await axiosGet(loginCheckURL);
+  if (status === 200) {
+    return NextResponse.next();
   }
-
-  return NextResponse.redirect(new URL('/login', req.url));
+  return NextResponse.redirect(new URL('/', req.url));
 }
 
 export const config = {

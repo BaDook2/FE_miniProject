@@ -2,7 +2,6 @@
 
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { useRef, useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
 import useCartStore from '@/lib/store';
 import cartAdd from './cartAddAxios';
 
@@ -48,14 +47,16 @@ function CartAddButton({ roomId, checkInDate, checkOutDate }: ICartAdd) {
       </button>
       <dialog
         ref={dialogRef}
-        className="w-1/2 h-1/2 rounded-xl flex flex-col justify-center items-center fixed"
+        className="w-1/2 h-1/2 rounded-xl flex flex-col justify-center items-center fixed gap-7"
       >
         <h3 className="text-2xl font-bold">{err}</h3>
-        <button type="button" aria-label="close">
-          <RxCross2
-            onClick={closeModal}
-            className="absolute top-0 right-2 cursor-pointer size-11"
-          />
+        <button
+          type="button"
+          aria-label="close"
+          onClick={closeModal}
+          className="border-2 bg-primary w-1/4 rounded-xl h-10 text-white outline-none"
+        >
+          닫기
         </button>
       </dialog>
     </div>
