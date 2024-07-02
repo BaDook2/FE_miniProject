@@ -18,6 +18,7 @@ interface AccommodationListProps {
   category: string;
 }
 
+axios.defaults.withCredentials = true;
 const url = 'https://api.ananbada.store/api/accommodation';
 
 // Axios get

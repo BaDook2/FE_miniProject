@@ -30,6 +30,9 @@ interface BookingResponse {
   bookingList: Booking[];
   totalElements: number;
 }
+
+axios.defaults.withCredentials = true;
+
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 function BookingsPage() {

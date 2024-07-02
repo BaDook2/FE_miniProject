@@ -3,6 +3,7 @@ import axios from 'axios';
 import type { AxiosError } from 'axios';
 import BASE_URL from '@/lib/constants';
 
+axios.defaults.withCredentials = true;
 export async function middleware(req: NextRequest) {
   try {
     const response = await axios.get(`${BASE_URL}/api/check`, {

@@ -28,6 +28,7 @@ interface CartData {
   totalPage: number;
 }
 
+axios.defaults.withCredentials = true;
 const url = 'https://api.ananbada.store/api/cart';
 function Page() {
   const router = useRouter();

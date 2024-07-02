@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
+axios.defaults.withCredentials = true;
+
 export interface FetchResponse<T> {
   data: T | null;
   errorMessage: string | null;

@@ -2,6 +2,8 @@ import { BookingFormInputs } from '@/app/booking/page';
 import axios from 'axios';
 import { Booking } from '@/app/bookingList/page';
 
+axios.defaults.withCredentials = true;
+
 const bookingAxios = (data: BookingFormInputs, bookings: Booking[]) => {
   const registerURL = '/api/booking';
   const formatDate = (date: Date) => {
