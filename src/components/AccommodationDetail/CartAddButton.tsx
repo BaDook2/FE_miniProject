@@ -6,7 +6,7 @@ import useCartStore from '@/lib/store';
 import cartAdd from './cartAddAxios';
 
 export interface ICartAdd {
-  roomId: string;
+  roomId: number;
   checkInDate: string;
   checkOutDate: string;
   people: number;

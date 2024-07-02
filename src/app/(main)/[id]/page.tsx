@@ -11,7 +11,7 @@ import Kakaomap from '@/components/AccommodationDetail/KakaoMap';
 import exportDate from '@/components/common/exportDate';
 
 export interface IRoom {
-  roomId: string;
+  roomId: number;
   title: string;
   price: number;
   minPeople: number; // 기준인원
