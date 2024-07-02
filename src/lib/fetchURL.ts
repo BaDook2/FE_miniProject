@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from 'axios';
 
 export interface FetchResponse<T> {
   data: T | null;
-  errorCode: string | null;
   errorMessage: string | null;
 }
 
@@ -13,22 +12,20 @@ const fetchURL = async <T>(
     const response = await axiosRequest();
     // eslint-disable-next-line no-console
     console.log('response: ', response);
-    return { data: response.data, errorCode: null, errorMessage: null };
+    return { data: response.data, errorMessage: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     // eslint-disable-next-line no-console
     console.log('err: ', err);
-    if (err.response) {
+    if (err.response.data) {
       return {
         data: null,
-        errorCode: err.response.data.statusCode,
         errorMessage: err.response.data.message,
       };
     }
     return {
       data: null,
-      errorCode: 'Unknown Error Code',
-      errorMessage: null,
+      errorMessage: 'Unknown Error',
     };
   }
 };

@@ -24,13 +24,13 @@ function CartAddButton({ roomId, checkInDate, checkOutDate }: ICartAdd) {
   };
   const { incrementCartCount } = useCartStore();
   const handleClick = async () => {
-    const { error } = await cartAdd({
+    const { errorMessage } = await cartAdd({
       roomId,
       checkInDate,
       checkOutDate,
     });
-    if (error) {
-      setErr(error);
+    if (errorMessage) {
+      setErr(errorMessage);
       openModal();
     } else {
       incrementCartCount();

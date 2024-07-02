@@ -23,9 +23,9 @@ const CheckLogin = () => {
     const noCheckPageArr = ['/', '/login', '/signup'];
     const checkLogin = async () => {
       const URL = `${BASE_URL}/api/check`;
-      const { errorCode, errorMessage } = await axiosGet(URL);
+      const { errorMessage } = await axiosGet(URL);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (errorCode) {
+      if (errorMessage) {
         openModal();
         setErr(errorMessage);
       }

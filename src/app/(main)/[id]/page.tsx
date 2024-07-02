@@ -54,12 +54,12 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
   const [err, setErr] = useState<string | null>(null);
 
   const fetchData = useCallback(async (): Promise<void> => {
-    const { data, errorCode } = await accommodationDataFetch({
+    const { data, errorMessage } = await accommodationDataFetch({
       params,
       checkInDate,
       checkOutDate,
     });
-    setErr(errorCode);
+    setErr(errorMessage);
     setAccommodation(data);
   }, [params, checkInDate, checkOutDate]);
 
