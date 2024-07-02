@@ -62,19 +62,6 @@ function Room({
                 <ReserveButton text="예약하기" />
               </Link>
             </>
-          ) : null}
-
-          {isVaildPeriod ? (
-            <Link
-              href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${room.roomId}}]`}
-            >
-              <button
-                type="button"
-                className="bg-primary text-white w-[130px] h-[45px] rounded-xl text-lg"
-              >
-                예약하기
-              </button>
-            </Link>
           ) : (
             <div className="bg-primary opacity-40 text-white w-[130px] h-[45px] rounded-xl text-lg flex justify-center items-center cursor-not-allowed">
               예약하기
