@@ -61,6 +61,7 @@ function Room({
             <>
               <CartAddButton
                 roomId={room.roomId}
+                people={numPeople}
                 checkInDate={`${checkInDate}`}
                 checkOutDate={`${checkOutDate}`}
               />

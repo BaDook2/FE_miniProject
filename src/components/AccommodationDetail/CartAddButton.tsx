@@ -9,9 +9,15 @@ export interface ICartAdd {
   roomId: string;
   checkInDate: string;
   checkOutDate: string;
+  people: number;
 }
 
-function CartAddButton({ roomId, checkInDate, checkOutDate }: ICartAdd) {
+function CartAddButton({
+  roomId,
+  checkInDate,
+  checkOutDate,
+  people,
+}: ICartAdd) {
   const [err, setErr] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openModal = () => {
@@ -27,6 +33,7 @@ function CartAddButton({ roomId, checkInDate, checkOutDate }: ICartAdd) {
       roomId,
       checkInDate,
       checkOutDate,
+      people,
     });
     if (errorMessage) {
       setErr(errorMessage);
