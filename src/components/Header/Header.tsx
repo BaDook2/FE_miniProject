@@ -43,7 +43,7 @@ const Header = () => {
             <MdOutlineShoppingCart size={30} />
             {cartCount !== 0 && (
               <div className="w-5 h-5 border-primary bg-white border-2 absolute -top-2 -right-1 rounded-xl flex justify-center items-center">
-                <span className="text-primary text-sm">{cartCount}</span>
+                <span className="text-primary text-xs">{cartCount}</span>
               </div>
             )}
           </div>

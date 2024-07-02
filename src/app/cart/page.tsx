@@ -3,9 +3,11 @@
 import CartFooter from '@/components/Cart/CartFooter';
 import BackButton from '@/components/common/BackButton';
 import BookingItem from '@/components/common/BookingItem';
+import useCartStore from '@/lib/store';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { MdOutlineShoppingCart } from 'react-icons/md';
 
 export interface Cart {
   cartId: number;
@@ -34,6 +36,7 @@ function Page() {
   const [checkAll, setCheckAll] = useState<boolean>(false); // 전체선택
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const { cartCount, decrementCartCount } = useCartStore();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -84,6 +87,7 @@ function Page() {
         cartList: Array.from(selectedItems).join(','),
       },
     });
+    decrementCartCount(selectedItems.size);
     setSelectedItems(new Set());
     setCheckAll(false);
 
@@ -132,44 +136,63 @@ function Page() {
         </div>
         <div className="text-2xl font-bold">장바구니</div>
       </div>
-      <div className="flex items-center justify-between text-lg font-bold my-6">
-        <div className="flex items-center ">
-          <input
-            type="checkbox"
-            className="custom-checkbox"
-            checked={checkAll}
-            onChange={handleSelectAll}
-          />
-          <span className="ml-3">전체선택</span>
-        </div>
+      {cartCount ? (
         <div>
-          <button
-            type="button"
-            className=" cursor-pointer"
-            onClick={handleDeleteSelected}
-          >
-            선택삭제
-          </button>
+          <div className="flex items-center justify-between text-lg font-bold my-6">
+            <div className="flex items-center ">
+              <input
+                type="checkbox"
+                className="custom-checkbox"
+                checked={checkAll}
+                onChange={handleSelectAll}
+              />
+              <span className="ml-3">전체선택</span>
+            </div>
+            <div>
+              <button
+                type="button"
+                className=" cursor-pointer"
+                onClick={handleDeleteSelected}
+              >
+                선택삭제
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            {data &&
+              data.cartList.map((cart: Cart) => (
+                <BookingItem
+                  key={cart.cartId}
+                  booking={cart}
+                  isCheck={selectedItems.has(cart.cartId)}
+                  onCheckItem={handleSelectItem}
+                />
+              ))}
+          </div>
+          <CartFooter
+            totalPrice={totalPrice}
+            selectedItemsCount={selectedItems.size}
+            handleBooking={handleBooking}
+            alertMessage={alertMessage}
+            closeModal={closeModal}
+          />
         </div>
-      </div>
-      <div className="flex flex-col gap-4">
-        {data &&
-          data.cartList.map((cart: Cart) => (
-            <BookingItem
-              key={cart.cartId}
-              booking={cart}
-              isCheck={selectedItems.has(cart.cartId)}
-              onCheckItem={handleSelectItem}
-            />
-          ))}
-      </div>
-      <CartFooter
-        totalPrice={totalPrice}
-        selectedItemsCount={selectedItems.size}
-        handleBooking={handleBooking}
-        alertMessage={alertMessage}
-        closeModal={closeModal}
-      />
+      ) : (
+        <div className="w-innerWidth m-auto">
+          <div className="bg-white p-10 flex flex-col justify-center items-center text-dovegray">
+            <MdOutlineShoppingCart size={80} className="m-5" />
+            <div>장바구니에 담긴 상품이 없습니다</div>
+            <div>원하는 상품을 담아보세요</div>
+            <button
+              type="button"
+              className="text-primary bg-white border border-primary px-4 py-2 rounded-md m-5 hover:bg-primary hover:text-white transition-all"
+              onClick={() => router.push('/')}
+            >
+              홈으로 가기
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
