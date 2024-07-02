@@ -1,7 +1,7 @@
 'use client';
 
 import { MdOutlineShoppingCart } from 'react-icons/md';
-// import { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useCartStore from '@/lib/store';
 import cartAdd from './cartAddAxios';
 
@@ -18,34 +18,32 @@ function CartAddButton({
   checkOutDate,
   people,
 }: ICartAdd) {
-  // const [err, setErr] = useState<string | null>(null);
-  // const dialogRef = useRef<HTMLDialogElement>(null);
-  // const openModal = () => {
-  //   dialogRef?.current?.showModal();
-  // };
-  // const closeModal = () => {
-  //   dialogRef?.current?.close();
-  //   setErr(null);
-  // };
+  const [err, setErr] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const openModal = () => {
+    dialogRef?.current?.showModal();
+  };
+  const closeModal = () => {
+    dialogRef?.current?.close();
+    setErr(null);
+  };
   const { incrementCartCount } = useCartStore();
   const handleClick = async () => {
-    // const { errorMessage } =
-    await cartAdd({
+    const { errorMessage } = await cartAdd({
       roomId,
       people,
       checkInDate,
       checkOutDate,
     });
-    // const errorMessage = 'test';
-    // if (errorMessage) {
-    //   setErr(errorMessage);
-    //   openModal();
-    // } else {
-    incrementCartCount();
-    // }
+    if (errorMessage) {
+      setErr(errorMessage);
+      openModal();
+    } else {
+      incrementCartCount();
+    }
   };
   return (
-    <div className="">
+    <>
       <button
         type="button"
         className="w-[45px] h-[45px] border-gray-400 border rounded-xl flex justify-center items-center hover:bg-primary hover:text-white"
@@ -54,7 +52,7 @@ function CartAddButton({
       >
         <MdOutlineShoppingCart size="30" />
       </button>
-      {/* <dialog
+      <dialog
         ref={dialogRef}
         className="w-1/2 h-1/2 rounded-xl flex flex-col justify-center items-center fixed gap-7"
       >
@@ -67,8 +65,8 @@ function CartAddButton({
         >
           닫기
         </button>
-      </dialog> */}
-    </div>
+      </dialog>
+    </>
   );
 }
 

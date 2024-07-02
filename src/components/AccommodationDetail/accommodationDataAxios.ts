@@ -14,7 +14,6 @@ const accommodationDataFetch = async ({
   checkOutDate,
 }: INeedData): Promise<FetchResponse<IAccommodation>> => {
   const URL = `${BASE_URL}/api/accommodation/${params.id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`;
-  // const URL = `/api/accommodation`;
   const { data, errorMessage } = await axiosGet<IAccommodation>(URL);
   return { data, errorMessage };
 };
