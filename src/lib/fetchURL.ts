@@ -14,7 +14,7 @@ const fetchURL = async <T>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     if (err.response) {
-      return { data: null, error: err.message };
+      return { data: null, error: err.response.data.message };
     }
     return { data: null, error: 'Unknown Error' };
   }

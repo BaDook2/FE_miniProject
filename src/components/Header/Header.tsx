@@ -7,6 +7,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
 import fetchCartCount from './fetchCartCount';
+import CheckLogin from '../common/CheckLogin';
 
 const Header = () => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const Header = () => {
   return (
     <div className="flex items-center h-full w-full justify-between">
       <Link href="/" className="flex items-center h-full">
-        <Image src="/logo.png" alt="logo" width={70} height={70} />
+        <Image src="/logo.png" alt="logo" width={50} height={50} />
         <div className="text-4xl font-bold">FAST</div>
       </Link>
       <div className="flex items-center h-full gap-7 font-bold">
@@ -56,6 +57,7 @@ const Header = () => {
           로그인/회원가입
         </Link>
       </div>
+      <CheckLogin />
     </div>
   );
 };

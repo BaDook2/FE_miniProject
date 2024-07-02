@@ -13,6 +13,5 @@ const cartAdd = async ({ roomId, checkInDate, checkOutDate }: ICartAdd) => {
   const { data, error } = await axiosPost(cartAddURL, dataToString);
   return { data, error };
 };
-// delete this senetence
 
 export default cartAdd;

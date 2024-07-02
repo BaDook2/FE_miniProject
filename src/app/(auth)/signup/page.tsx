@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import { useState, useRef } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import SignUpSchema from '../../../components/SignUp/SignUpSchema';
 import SignUpInputBox from '../../../components/SignUp/SignUpInputBox';
 import {
@@ -32,8 +34,10 @@ function SignUp() {
   } = useForm<ISignUp>({
     resolver: zodResolver(SignUpSchema),
   });
+  const router = useRouter();
 
   const [isClicked, setIsClicked] = useState(false);
+  const [accessKeyChecked, setAccessKeyChecked] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const accessKeyRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
@@ -58,6 +62,7 @@ function SignUp() {
     if (errorMessage) {
       setError('accessKey', { type: 'custom', message: errorMessage });
     } else {
+      setAccessKeyChecked(true);
       phoneNumberRef.current?.focus();
     }
   };
@@ -83,16 +88,25 @@ function SignUp() {
     }
   };
 
+  const clickSignUpButton = async (event: ISignUp) => {
+    const errorMessage = await signUp(event);
+    if (errorMessage) {
+      setError('confirmPassword', { type: 'custom', message: errorMessage });
+    } else {
+      router.push('/login');
+    }
+  };
+
   return (
     <div className="h-screen mx-auto flex items-center justify-center">
       <div className="w-1/3 flex flex-col gap-12">
-        <div className="flex gap-2 justify-end">
+        <Link href="/login" className="flex gap-2 justify-end">
           <Image src="/logo.png" width={40} height={40} alt="logo" />
           <h1 className="text-3xl text-primary">FAST</h1>
-        </div>
+        </Link>
         <form
           className="h-3/4 flex flex-col gap-20"
-          onSubmit={handleSubmit(signUp)}
+          onSubmit={handleSubmit(clickSignUpButton)}
         >
           <div className="flex flex-col gap-8">
             <SignUpInputBox
@@ -113,7 +127,10 @@ function SignUp() {
                     accessKeyRef,
                   )
                 }
-                message={errors.email?.message}
+                message={
+                  errors.email?.message ||
+                  (isClicked === true ? '인증코드를 보냈습니다.' : '')
+                }
               />
               <button
                 type="button"
@@ -136,7 +153,10 @@ function SignUp() {
                       phoneNumberRef,
                     )
                   }
-                  message={errors.accessKey?.message}
+                  message={
+                    errors.accessKey?.message ||
+                    (accessKeyChecked ? '인증코드 확인' : '')
+                  }
                 />
                 <button
                   type="button"

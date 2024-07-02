@@ -8,6 +8,7 @@ import AboutAccommondation from '@/components/AccommodationDetail/AboutAccommond
 import Room from '@/components/AccommodationDetail/Room';
 import ImageSlider from '@/components/AccommodationDetail/ImageSlider';
 import Kakaomap from '@/components/AccommodationDetail/KakaoMap';
+import exportDate from '@/components/common/exportDate';
 
 export interface IRoom {
   roomId: string;
@@ -44,15 +45,12 @@ export interface IAccommodation {
 }
 
 function AccommodationDetail({ params }: { params: { id: string } }) {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  const todayToDate = `${today.getFullYear()}-${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}-${today.getDate() < 9 ? '0' : ''}${today.getDate()}`;
-  const tommorrowToDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth() < 9 ? '0' : ''}${tomorrow.getMonth() + 1}-${today.getDate() < 9 ? '0' : ''}${tomorrow.getDate()}`;
+  const { todayToDate, tommorrowToDate } = exportDate();
   const [accommodation, setAccommodation] = useState<IAccommodation | null>();
   const [peopleCount, setPeopleCount] = useState<string>('1');
   const [checkInDate, setCheckInDate] = useState<string>(todayToDate);
   const [checkOutDate, setCheckOutDate] = useState<string>(tommorrowToDate);
+  const [isVaildPeriod, setIsVaildPeriod] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
   const fetchData = useCallback(async (): Promise<void> => {
@@ -69,6 +67,11 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    const check = new Date(checkInDate) <= new Date(checkOutDate);
+    setIsVaildPeriod(check);
+  }, [checkInDate, checkOutDate]);
+
   return (
     <section className="w-innerWidth mx-auto">
       {err ? (
@@ -78,23 +81,34 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
       ) : (
         <>
           <div className="w-innerWidth flex gap-3 my-3">
-            <div className="w-[60vw] h-[400px] rounded-xl overflow-hidden">
-              <ImageSlider imgArr={accommodation?.img} />
-            </div>
-            {accommodation && <Kakaomap data={accommodation} />}
+            {accommodation && (
+              <>
+                <div className="w-3/5 h-[400px] rounded-xl overflow-hidden">
+                  <ImageSlider imgArr={accommodation.img} />
+                </div>
+                <div className="w-2/5 h-[400px] rounded-xl">
+                  <Kakaomap data={accommodation} />
+                </div>
+              </>
+            )}
           </div>
           <div className="w-innerWidth border-2 border-dovegray rounded-xl flex overflow-hidden">
-            <div className="flex flex-col justify-center items-center grow-0">
+            <div className="flex flex-col justify-center items-center w-20">
               <label htmlFor="peopleCount">인원</label>
-              <input
-                type="number"
+              <select
                 id="peopleCount"
-                className="w-8/12 text-center"
+                className="border-white appearance-none [text-align-last:center] relative w-1/2"
                 value={peopleCount}
                 onChange={(e) => {
                   setPeopleCount(e.target.value);
                 }}
-              />
+              >
+                {[...Array(10)].map((_, i) => (
+                  <option className="absolute left-7" value={`${i + 1}`}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col justify-center items-center border-l-[1px] border-r-[1px] border-dovegray grow">
               <label htmlFor="checkInDate">체크인</label>
@@ -121,18 +135,21 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
           </div>
           {accommodation && <AboutAccommondation data={accommodation} />}
           <span>
-            {accommodation?.room.map((room) => (
-              <Room
-                key={room.roomId}
-                buildingName={accommodation?.title}
-                checkInTime={accommodation?.checkIn}
-                checkOutTime={accommodation?.checkOut}
-                room={room}
-                checkInDate={checkInDate}
-                checkOutDate={checkOutDate}
-                numPeople={peopleCount}
-              />
-            ))}
+            {accommodation?.room
+              .filter((room) => room.maxPeople >= +peopleCount)
+              .map((room) => (
+                <Room
+                  key={room.roomId}
+                  buildingName={accommodation?.title}
+                  checkInTime={accommodation?.checkIn}
+                  checkOutTime={accommodation?.checkOut}
+                  room={room}
+                  checkInDate={checkInDate}
+                  checkOutDate={checkOutDate}
+                  numPeople={peopleCount}
+                  isVaildPeriod={isVaildPeriod}
+                />
+              ))}
           </span>
         </>
       )}
