@@ -27,7 +27,13 @@ function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
   const formatPrice = (price: number) => {
     return `${price.toLocaleString('ko-KR')}원`;
   };
+  function getDayOfWeek(date: Date) {
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
 
+    const dayOfWeek = week[new Date(date).getDay()];
+
+    return dayOfWeek;
+  }
   let bookingRoomPrice = 0;
   if (isBooking(booking)) {
     if (typeof booking.roomPrice === 'string') {
@@ -74,11 +80,23 @@ function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
             />
           </figure>
         )}
-        <div>
-          <p className="text-xs mb-2 text-dovegray">{`${formatDate(checkInDate)} ~ ${formatDate(checkOutDate)}`}</p>
-          <p className="text-xs mb-2 text-dovegray">{`체크인 ${formatTime(checkInDate)} | 체크아웃 ${formatTime(checkOutDate)}`}</p>
+        <article className="w-full flex flex-col gap-2">
+          <div className="w-full flex">
+            <div className="w-1/2 flex flex-col gap-1">
+              <p className="text-sm text-dovegray">체크인</p>
+              <p className="text-xl font-bold">{`${formatDate(checkInDate)} (${getDayOfWeek(checkInDate)})`}</p>
+              <p className="text-sm text-dovegray">{formatTime(checkInDate)}</p>
+            </div>
+            <div className="w-1/2 flex flex-col gap-1">
+              <p className="text-sm text-dovegray">체크아웃</p>
+              <p className="text-xl font-bold">{`${formatDate(checkOutDate)} (${getDayOfWeek(checkOutDate)})`}</p>
+              <p className="text-sm text-dovegray">
+                {formatTime(checkOutDate)}
+              </p>
+            </div>
+          </div>
           <p className="text-xs mb-2 text-dovegray">{`기준 ${booking.minPeople}명 / 최대 ${booking.maxPeople}명`}</p>
-        </div>
+        </article>
       </section>
       <footer className="flex justify-end items-center gap-2">
         <p className="text-lg text-dovegray">숙박</p>

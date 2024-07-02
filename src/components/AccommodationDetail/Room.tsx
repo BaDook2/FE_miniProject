@@ -7,7 +7,7 @@ import ReserveButton from './ReserveButton';
 interface RoomProps {
   buildingName: string;
   room: IRoom;
-  numPeople: string;
+  numPeople: number;
   checkInTime: string;
   checkOutTime: string;
   checkInDate: string;
@@ -25,10 +25,16 @@ function Room({
   checkOutTime,
   isVaildPeriod,
 }: RoomProps) {
+  const checkInDateObj = new Date(`${checkInDate}`);
+  const checkOutDateObj = new Date(`${checkOutDate}`);
+  let day = Math.abs(checkInDateObj.getTime() - checkOutDateObj.getTime());
+  day = Math.ceil(day / (1000 * 60 * 60 * 24)) - 1;
+  const roomPrice = room.price * day;
+
   const bookingItem = {
     accommodationTitle: buildingName,
     roomTitle: room.title,
-    roomPrice: room.price,
+    roomPrice,
     numPeople,
     minPeople: room.minPeople,
     maxPeople: room.maxPeople,

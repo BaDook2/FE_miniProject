@@ -11,10 +11,12 @@ const fetchURL = async <T>(
 ): Promise<FetchResponse<T>> => {
   try {
     const response = await axiosRequest();
+    // eslint-disable-next-line no-console
     console.log('response: ', response);
     return { data: response.data, errorCode: null, errorMessage: null };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
+    // eslint-disable-next-line no-console
     console.log('err: ', err);
     if (err.response) {
       return {

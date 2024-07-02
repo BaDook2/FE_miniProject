@@ -47,7 +47,7 @@ export interface IAccommodation {
 function AccommodationDetail({ params }: { params: { id: string } }) {
   const { todayToDate, tommorrowToDate } = exportDate();
   const [accommodation, setAccommodation] = useState<IAccommodation | null>();
-  const [peopleCount, setPeopleCount] = useState<string>('1');
+  const [peopleCount, setPeopleCount] = useState<number>(1);
   const [checkInDate, setCheckInDate] = useState<string>(todayToDate);
   const [checkOutDate, setCheckOutDate] = useState<string>(tommorrowToDate);
   const [isVaildPeriod, setIsVaildPeriod] = useState(true);
@@ -100,7 +100,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
                 className="border-white appearance-none [text-align-last:center] relative w-1/2"
                 value={peopleCount}
                 onChange={(e) => {
-                  setPeopleCount(e.target.value);
+                  setPeopleCount(Number(e.target.value));
                 }}
               >
                 {[...Array(10)].map((_, i) => (

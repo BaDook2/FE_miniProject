@@ -11,13 +11,16 @@ import Empty from '@/components/common/Empty';
 import BASE_URL from '@/lib/constants';
 
 export interface Booking {
+  name?: string;
+  phoneNumber?: number;
   orderId?: string;
   roomId?: string;
+  roomImg?: string;
   accommodationTitle: string;
   roomTitle: string;
-  roomImg?: string;
   minPeople: number;
   maxPeople: number;
+  numPeople: number;
   checkInDatetime: Date;
   checkOutDatetime: Date;
   totalPrice?: number;
