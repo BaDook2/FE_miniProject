@@ -10,8 +10,11 @@ const cartAdd = async ({ roomId, checkInDate, checkOutDate }: ICartAdd) => {
     checkOutDate,
   });
 
-  const { data, error } = await axiosPost(cartAddURL, dataToString);
-  return { data, error };
+  const { data, errorCode, errorMessage } = await axiosPost(
+    cartAddURL,
+    dataToString,
+  );
+  return { data, errorCode, errorMessage };
 };
 
 export default cartAdd;

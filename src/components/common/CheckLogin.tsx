@@ -23,11 +23,11 @@ const CheckLogin = () => {
     const noCheckPageArr = ['/', '/login', '/signup'];
     const checkLogin = async () => {
       const URL = `${BASE_URL}/api/check`;
-      const { error } = await axiosGet(URL);
+      const { errorCode, errorMessage } = await axiosGet(URL);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (error) {
+      if (errorCode) {
         openModal();
-        setErr(error);
+        setErr(errorMessage);
       }
     };
     if (!noCheckPageArr.includes(path)) {
