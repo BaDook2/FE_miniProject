@@ -46,7 +46,9 @@ const axiosPost = async <T>(
 };
 
 const axiosGet = async <T>(url: string): Promise<FetchResponse<T>> => {
-  const response = await fetchURL(() => axios.get(url));
+  const response = await fetchURL(() =>
+    axios.get(url, { withCredentials: true }),
+  );
   return response;
 };
 
