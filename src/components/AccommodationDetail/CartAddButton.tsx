@@ -31,9 +31,9 @@ function CartAddButton({
   const handleClick = async () => {
     const { errorMessage } = await cartAdd({
       roomId,
+      people,
       checkInDate,
       checkOutDate,
-      people,
     });
     if (errorMessage) {
       setErr(errorMessage);
