@@ -23,6 +23,18 @@ function Room({
   checkInTime,
   checkOutTime,
 }: RoomProps) {
+  const bookingItem = {
+    accommodationTitle: buildingName,
+    roomTitle: room.title,
+    roomPrice: room.price,
+    numPeople,
+    minPeople: room.minPeople,
+    maxPeople: room.maxPeople,
+    checkInDatetime: `${checkInDate}T${checkInTime}`,
+    checkOutDatetime: `${checkOutDate}T${checkOutTime}`,
+    roomId: room.roomId,
+  };
+  const encodedItems = JSON.stringify(bookingItem);
   return (
     <div className="flex py-4 border-dovegray border-b-2 ">
       <div className="w-5/12 h-[250px]">
@@ -42,9 +54,7 @@ function Room({
             checkInDate={`${checkInDate}`}
             checkOutDate={`${checkOutDate}`}
           />
-          <Link
-            href={`/booking?items=[{accommodationTitle:${buildingName},roomTitle:${room.title},roomPrice:${room.price},numPeople:${numPeople},minPeople:${room.minPeople},maxPeople:${room.maxPeople},checkInDatetime:${`${checkInDate}T${checkInTime}`},checkOutDatetime:${checkOutDate}T${checkOutTime}, roomId:${room.roomId}}]`}
-          >
+          <Link href={`/booking?items=[${encodedItems}]`}>
             <ReserveButton text="예약하기" />
           </Link>
         </div>
