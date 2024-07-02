@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import BASE_URL from '@/lib/constants';
 import { axiosGet } from '@/lib/fetchURL';
+import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 export async function middleware(req: NextRequest) {
