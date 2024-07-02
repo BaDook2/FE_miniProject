@@ -23,8 +23,7 @@ export interface Booking {
   numPeople: number;
   checkInDatetime: Date;
   checkOutDatetime: Date;
-  totalPrice?: number;
-  roomPrice?: number;
+  totalPrice: number;
 }
 interface BookingResponse {
   bookingList: Booking[];
@@ -71,7 +70,11 @@ function BookingsPage() {
       <main className="flex flex-col items-center">
         <section className="w-full flex flex-col gap-4">
           {data.bookingList.map((booking) => (
-            <BookingItem key={booking.orderId} booking={booking} />
+            <BookingItem
+              type="bookingList"
+              key={booking.orderId}
+              booking={booking}
+            />
           ))}
         </section>
         {totalPages !== 1 && (

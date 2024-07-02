@@ -1,19 +1,22 @@
 import { Booking } from '@/app/bookingList/page';
 import { Cart } from '@/app/cart/page';
+import { formatPrice } from '@/lib/formatNumber';
 import Image from 'next/image';
 import React from 'react';
 
 interface BookingItemProps {
+  type: string;
   booking: Booking | Cart;
   isCheck?: boolean;
   onCheckItem?: (roomId: number) => void;
 }
 
-function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
-  const isBooking = (data: Booking | Cart): data is Booking => {
-    return (data as Booking).orderId !== undefined;
-  };
-
+function BookingItem({
+  type,
+  booking,
+  isCheck,
+  onCheckItem,
+}: BookingItemProps) {
   const checkInDate = new Date(booking.checkInDatetime);
   const checkOutDate = new Date(booking.checkOutDatetime);
 
@@ -24,37 +27,48 @@ function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
   const formatTime = (date: Date) => {
     return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
   };
-  const formatPrice = (price: number) => {
-    return `${price.toLocaleString('ko-KR')}원`;
+
+  const formattedCheckInDate = formatDate(checkInDate);
+  const formattedCheckOutDate = formatDate(checkOutDate);
+
+  const dayDifference = (date1: string, date2: string) => {
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+    const timeDiff = Math.abs(d2.getTime() - d1.getTime());
+    return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
   };
-  function getDayOfWeek(date: Date) {
+  const bookingDay = dayDifference(formattedCheckInDate, formattedCheckOutDate);
+  const getDayOfWeek = (date: Date) => {
     const week = ['일', '월', '화', '수', '목', '금', '토'];
 
     const dayOfWeek = week[new Date(date).getDay()];
 
     return dayOfWeek;
-  }
-  let bookingRoomPrice = 0;
-  if (isBooking(booking)) {
-    if (typeof booking.roomPrice === 'string') {
-      bookingRoomPrice = parseFloat(booking.roomPrice);
-    } else if (typeof booking.roomPrice === 'number') {
-      bookingRoomPrice = booking.roomPrice;
-    }
-  }
+  };
 
-  const displayedPrice = booking.totalPrice ?? bookingRoomPrice ?? 0;
+  const getKey = () => {
+    if (type.includes('booking')) {
+      if ('orderId' in booking) {
+        return booking.orderId;
+      }
+    } else if (type === 'cart') {
+      if ('cartId' in booking) {
+        return booking.cartId;
+      }
+    }
+    return booking.roomId;
+  };
+
+  const displayedPrice = booking.totalPrice ?? 0;
   return (
-    <article
-      key={isBooking(booking) ? booking.orderId : booking.cartId}
-      className="w-full bg-white p-5"
-    >
+    <article key={getKey()} className="w-full bg-white p-5">
       <header>
-        {isBooking(booking) && (
-          <p className="text-xs mb-2 text-dovegray">
-            숙소 예약번호 {booking.orderId}
-          </p>
-        )}
+        {(type === 'bookingResult' || type === 'bookingList') &&
+          'orderId' in booking && (
+            <p className="text-xs mb-2 text-dovegray">
+              숙소 예약번호 {booking.orderId}
+            </p>
+          )}
         <h2 className="text-lg font-bold text-mineshaft">
           {booking.accommodationTitle}
         </h2>
@@ -62,7 +76,7 @@ function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
         <p className="text-lg mb-2 font-bold">{booking.roomTitle}</p>
       </header>
       <section className="flex w-full">
-        {isBooking(booking) ? null : (
+        {type === 'cart' && 'cartId' in booking && (
           <input
             type="checkbox"
             className="custom-checkbox mr-4 mt-1"
@@ -96,10 +110,14 @@ function BookingItem({ booking, isCheck, onCheckItem }: BookingItemProps) {
             </div>
           </div>
           <p className="text-xs mb-2 text-dovegray">{`기준 ${booking.minPeople}명 / 최대 ${booking.maxPeople}명`}</p>
+          {(type === 'bookingResult' || type === 'bookingList') &&
+            'name' in booking && (
+              <p className="text-end text-xs mb-2 text-dovegray">{`${booking.name} / ${booking.phoneNumber}`}</p>
+            )}
         </article>
       </section>
       <footer className="flex justify-end items-center gap-2">
-        <p className="text-lg text-dovegray">숙박</p>
+        <p className="text-lg text-dovegray">숙박 / {bookingDay}박</p>
 
         <p className="text-lg font-bold text-mineshaft">
           {formatPrice(displayedPrice)}

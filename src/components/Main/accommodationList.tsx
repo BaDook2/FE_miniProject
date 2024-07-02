@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import formatNumber from '@/lib/formatNumber';
+import { formatNumber } from '@/lib/formatNumber';
 import Loading from '../common/Loading';
 
 interface Accommodation {

@@ -7,7 +7,8 @@ axios.defaults.withCredentials = true;
 const bookingAxios = (data: BookingFormInputs, bookings: Booking[]) => {
   const registerURL = '/api/booking';
   const formatDate = (date: Date) => {
-    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    const parsedDate = new Date(date);
+    return `${parsedDate.getFullYear()}-${(parsedDate.getMonth() + 1).toString().padStart(2, '0')}-${parsedDate.getDate().toString().padStart(2, '0')}`;
   };
   const updatedBookings = bookings.map((booking) => ({
     name: data.name,

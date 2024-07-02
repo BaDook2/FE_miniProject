@@ -4,6 +4,7 @@ import bookingAxios from '@/components/Booking/bookingAxios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useBookingsFromQuery from '@/hooks/useSearchParams';
+import { formatPrice } from '@/lib/formatNumber';
 import BookingSchema from './bookingSchema';
 import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
@@ -21,6 +22,10 @@ function BookingForm() {
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const bookings = useBookingsFromQuery();
+  const totalSum = bookings.reduce(
+    (sum, booking) => sum + booking.totalPrice,
+    0,
+  );
   const {
     register,
     handleSubmit,
@@ -155,7 +160,7 @@ function BookingForm() {
         disabled={isSubmitDisabled}
         className={`w-full h-16 text-2xl text-bold rounded-xl text-concrete mb-4 ${isSubmitDisabled ? 'bg-pastelpink' : 'bg-primary'}`}
       >
-        예약하기
+        {formatPrice(totalSum)} 결제하기
       </button>
       <p className="text-sm mb-4">
         (주)Fast는 통신판매중개업자로서, 통신판매의 당사자가 아니라는 사실을

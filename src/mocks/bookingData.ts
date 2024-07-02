@@ -1,6 +1,8 @@
 const bookingData = {
   bookingList: [
     {
+      name: '김민수',
+      phoneNumber: '01012345678',
       orderId: '2793-3283-29321',
       accommodationTitle: '숙소 이름',
       roomTitle: '방 이름1',

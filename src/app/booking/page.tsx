@@ -26,7 +26,11 @@ function BookingPage() {
       <section className="flex flex-col gap-4 my-4">
         {bookings.length > 0 ? (
           bookings.map((booking) => (
-            <BookingItem key={booking.roomId} booking={booking} />
+            <BookingItem
+              type="booking"
+              key={booking.roomId}
+              booking={booking}
+            />
           ))
         ) : (
           <p>No bookings found.</p>

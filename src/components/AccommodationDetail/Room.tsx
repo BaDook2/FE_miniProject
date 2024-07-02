@@ -28,13 +28,13 @@ function Room({
   const checkInDateObj = new Date(`${checkInDate}`);
   const checkOutDateObj = new Date(`${checkOutDate}`);
   let day = Math.abs(checkInDateObj.getTime() - checkOutDateObj.getTime());
-  day = Math.ceil(day / (1000 * 60 * 60 * 24)) - 1;
-  const roomPrice = room.price * day;
+  day = Math.ceil(day / (1000 * 60 * 60 * 24));
+  const totalPrice = room.price * day;
 
   const bookingItem = {
     accommodationTitle: buildingName,
     roomTitle: room.title,
-    roomPrice,
+    totalPrice,
     numPeople,
     minPeople: room.minPeople,
     maxPeople: room.maxPeople,

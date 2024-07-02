@@ -16,6 +16,7 @@ const fetchURL = async <T>(
     return { data: response.data, errorMessage: null, status: response.status };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
+    // eslint-disable-next-line no-console
     console.log('err: ', err);
     if (err.response.data) {
       return {

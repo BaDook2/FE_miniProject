@@ -115,7 +115,7 @@ function Page() {
     const bookingItems = selectedCartItems.map((cart) => ({
       accommodationTitle: cart.accommodationTitle,
       roomTitle: cart.roomTitle,
-      roomPrice: cart.totalPrice,
+      totalPrice: cart.totalPrice,
       numPeople: cart.people,
       minPeople: cart.minPeople,
       maxPeople: cart.maxPeople,
@@ -164,6 +164,7 @@ function Page() {
               data.cartList.map((cart: Cart) => (
                 <BookingItem
                   key={cart.cartId}
+                  type="cart"
                   booking={cart}
                   isCheck={selectedItems.has(cart.cartId)}
                   onCheckItem={handleSelectItem}

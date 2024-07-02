@@ -1,5 +1,5 @@
 import React from 'react';
-import formatNumber from '@/lib/formatNumber';
+import { formatNumber } from '@/lib/formatNumber';
 import AlertModal from './AlertModal';
 
 interface CartFooterProps {

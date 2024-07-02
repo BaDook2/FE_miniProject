@@ -13,7 +13,7 @@ function Empty({ message }: EmptyProps) {
       <Link
         href="/"
         type="button"
-        className="w-1/4 h-16 text-2xl text-bold text-concrete flex justify-center items-center rounded-xl mb-4 bg-primary"
+        className="text-primary bg-white border border-primary px-4 py-2 rounded-md m-5 hover:bg-primary hover:text-white transition-all"
       >
         홈으로 가기
       </Link>
