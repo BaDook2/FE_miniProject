@@ -136,6 +136,10 @@ function Page() {
     router.push(`/booking?items=${encodedItems}`);
   };
 
+  const handleTitleClick = (accommodationId: number) => {
+    router.push(`/${accommodationId}`);
+  };
+
   return (
     <div className="w-innerWidth m-auto">
       <div className="relative flex justify-center items-center my-8">
@@ -144,7 +148,7 @@ function Page() {
         </div>
         <div className="text-2xl font-bold">장바구니</div>
       </div>
-      {!cartCount ? (
+      {cartCount ? (
         <div>
           <div className="flex items-center justify-between text-lg font-bold my-6">
             <div className="flex items-center ">
@@ -175,6 +179,7 @@ function Page() {
                   booking={cart}
                   isCheck={selectedItems.has(cart.cartId)}
                   onCheckItem={handleSelectItem}
+                  onAccommodationTitleClick={handleTitleClick}
                 />
               ))}
           </div>

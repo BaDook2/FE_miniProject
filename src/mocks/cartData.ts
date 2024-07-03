@@ -6,6 +6,7 @@ const cartData = {
       address: '서울특별시',
       roomId: 1,
       roomTitle: '방',
+      accommodationId: 1,
       checkInDatetime: '2024-07-02T15:00:00',
       checkOutDatetime: '2024-07-05T12:00:00',
       people: 2,

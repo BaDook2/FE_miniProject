@@ -9,6 +9,7 @@ interface BookingItemProps {
   booking: Booking | Cart;
   isCheck?: boolean;
   onCheckItem?: (roomId: number) => void;
+  onAccommodationTitleClick?: (accommodationId: number) => void;
 }
 
 function BookingItem({
@@ -16,6 +17,7 @@ function BookingItem({
   booking,
   isCheck,
   onCheckItem,
+  onAccommodationTitleClick,
 }: BookingItemProps) {
   const checkInDate = new Date(booking.checkInDatetime);
   const checkOutDate = new Date(booking.checkOutDatetime);
@@ -46,6 +48,12 @@ function BookingItem({
     return dayOfWeek;
   };
 
+  const handleTitleClick = () => {
+    if (type === 'cart' && 'cartId' in booking && onAccommodationTitleClick) {
+      onAccommodationTitleClick(booking.accommodationId);
+    }
+  };
+
   const getKey = () => {
     if (type.includes('booking')) {
       if ('orderId' in booking) {
@@ -69,7 +77,11 @@ function BookingItem({
               숙소 예약번호 {booking.orderId}
             </p>
           )}
-        <h2 className="text-lg font-bold text-mineshaft">
+        <h2
+          role="none"
+          className={`text-lg font-bold text-mineshaft ${type === 'cart' ? 'cursor-pointer' : ''}`}
+          onClick={handleTitleClick}
+        >
           {booking.accommodationTitle}
         </h2>
         <hr className="border-gray-300 my-2 text-mineshaft" />
