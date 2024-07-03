@@ -9,26 +9,23 @@ const fetchURL = async <T>(
 ): Promise<FetchResponse<T>> => {
   try {
     const response = await fetchRequest();
-    const data = await response.json();
-    console.log('response: ', response);
-    console.log('data: ', data);
-    return { data, errorMessage: null, status: response.status };
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || 'Unknown error occurred');
+    }
+
+    const data = (await response.json()) as T;
+    return {
+      data,
+      errorMessage: null,
+      status: response.status,
+    };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    console.log('err: ', err);
-    if (err.message) {
-      return {
-        data: null,
-        errorMessage: err.message,
-        status: err.status,
-      };
-    }
-    // eslint-disable-next-line no-console
-    console.log('err: ', err);
     return {
       data: null,
-      errorMessage: 'Unknown Error',
-      status: err.status,
+      errorMessage: err.message || 'Unknown Error',
+      status: err.status || null,
     };
   }
 };
@@ -37,7 +34,7 @@ const fetchPost = async <T>(
   url: string,
   data: string,
 ): Promise<FetchResponse<T>> => {
-  const response = await fetchURL<T>(() =>
+  return fetchURL<T>(() =>
     fetch(url, {
       method: 'POST',
       headers: {
@@ -47,20 +44,17 @@ const fetchPost = async <T>(
       body: data,
     }),
   );
-  return response;
 };
 
 const fetchGet = async <T>(url: string): Promise<FetchResponse<T>> => {
-  const response = await fetchURL<T>(() =>
+  return fetchURL<T>(() =>
     fetch(url, {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
     }),
   );
-  return response;
 };
 
 export { fetchPost, fetchGet };
