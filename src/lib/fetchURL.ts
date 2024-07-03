@@ -15,11 +15,12 @@ const fetchURL = async <T>(
     return { data, errorMessage: null, status: response.status };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    if (err.response.data) {
+    console.log('err: ', err);
+    if (err.message) {
       return {
         data: null,
-        errorMessage: err.response.data.message,
-        status: err.response.data.status,
+        errorMessage: err.message,
+        status: err.status,
       };
     }
     // eslint-disable-next-line no-console
@@ -27,7 +28,7 @@ const fetchURL = async <T>(
     return {
       data: null,
       errorMessage: 'Unknown Error',
-      status: err.response.status,
+      status: err.status,
     };
   }
 };
@@ -42,6 +43,7 @@ const fetchPost = async <T>(
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: data,
     }),
   );
@@ -55,6 +57,7 @@ const fetchGet = async <T>(url: string): Promise<FetchResponse<T>> => {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     }),
   );
   return response;
