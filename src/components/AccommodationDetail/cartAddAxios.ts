@@ -1,5 +1,5 @@
 import BASE_URL from '@/lib/constants';
-import { fetchPost } from '@/lib/fetchURL';
+import { axiosPost } from '@/lib/fetchURL';
 import { ICartAdd } from './CartAddButton';
 
 const cartAdd = async ({
@@ -16,7 +16,7 @@ const cartAdd = async ({
     checkOutDate,
   });
 
-  const { data, errorMessage } = await fetchPost(cartAddURL, dataToString);
+  const { data, errorMessage } = await axiosPost(cartAddURL, dataToString);
   return { data, errorMessage };
 };
 

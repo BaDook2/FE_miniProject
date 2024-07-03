@@ -1,5 +1,5 @@
 import BASE_URL from '@/lib/constants';
-import { fetchPost } from '@/lib/fetchURL';
+import { axiosPost } from '@/lib/fetchURL';
 
 const login = async (email: string, password: string) => {
   const loginURL = `${BASE_URL}/api/login`;
@@ -7,7 +7,7 @@ const login = async (email: string, password: string) => {
     email,
     password,
   });
-  const { errorMessage } = await fetchPost<string>(loginURL, dataToJson);
+  const { errorMessage } = await axiosPost<string>(loginURL, dataToJson);
   return errorMessage;
 };
 

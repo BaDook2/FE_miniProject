@@ -1,5 +1,5 @@
 import BASE_URL from '@/lib/constants';
-import { fetchGet } from '@/lib/fetchURL';
+import { axiosGet } from '@/lib/fetchURL';
 
 interface cartCountResponse {
   cartCount: number;
@@ -7,7 +7,7 @@ interface cartCountResponse {
 
 const fetchCartCount = async (): Promise<number> => {
   const URL = `${BASE_URL}/api/cart/count`;
-  const response = await fetchGet<cartCountResponse>(URL);
+  const response = await axiosGet<cartCountResponse>(URL);
 
   if (response.data) {
     return response.data.cartCount;

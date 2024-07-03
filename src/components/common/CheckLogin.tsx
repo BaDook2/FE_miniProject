@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { RxCross2 } from 'react-icons/rx';
-import { fetchGet } from '@/lib/fetchURL';
+import { axiosGet } from '@/lib/fetchURL';
 import BASE_URL from '../../lib/constants';
 
 const CheckLogin = () => {
@@ -22,7 +22,7 @@ const CheckLogin = () => {
     const noCheckPageArr = ['/', '/login', '/signup'];
     const checkLogin = async () => {
       const URL = `${BASE_URL}/api/check`;
-      const { errorMessage } = await fetchGet(URL);
+      const { errorMessage } = await axiosGet(URL);
       if (errorMessage) {
         openModal();
         setErr(errorMessage);
