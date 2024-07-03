@@ -8,6 +8,7 @@ interface CartFooterProps {
   handleBooking: () => void;
   alertMessage: string | null;
   closeModal: () => void;
+  canBooking: boolean;
 }
 
 const CartFooter = ({
@@ -16,10 +17,11 @@ const CartFooter = ({
   handleBooking,
   alertMessage,
   closeModal,
+  canBooking,
 }: CartFooterProps) => {
   return (
-    <div className="w-innerWidth m-auto">
-      <div className="flex justify-between items-start gap-4 mt-4">
+    <div className="w-innerWidth m-auto fixed bottom-0 left-0 right-0 bg-white shadow-[0_0_5px_0_rgba(0,0,0,0.3)] flex justify-between items-center">
+      <div className="flex w-full justify-between items-start p-1 gap-4">
         <div className="w-1/2 bg-white p-6">
           <h2 className="font-bold text-lg mb-7">예약 상품</h2>
           <div className="flex justify-between mb-2">
@@ -48,7 +50,8 @@ const CartFooter = ({
             <button
               type="button"
               onClick={handleBooking}
-              className="w-full block text-center bg-primary text-white py-3 rounded-md font-bold"
+              disabled={!canBooking}
+              className={`w-full block text-center bg-primary text-white py-3 rounded-md font-bold ${canBooking ? 'bg-primary hover:bg-primary-dark' : 'bg-gray-400 cursor-not-allowed'}`}
             >
               예약하기
             </button>

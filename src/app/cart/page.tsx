@@ -25,6 +25,7 @@ export interface Cart {
   maxPeople: number;
   totalPrice: number;
   accommodationId: number;
+  isBooking: boolean;
 }
 interface CartData {
   cartList: Cart[];
@@ -39,6 +40,7 @@ function Page() {
   const [checkAll, setCheckAll] = useState<boolean>(false); // 전체선택
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [canBooking, setCanBooking] = useState<boolean>(true); // 예약가능여부
   const { cartCount, decrementCartCount } = useCartStore();
 
   useEffect(() => {
@@ -49,13 +51,22 @@ function Page() {
     fetchCart();
   }, []);
 
-  // 가격
+  // 가격, 예약가능여부
   useEffect(() => {
     const newTotalPrice = Array.from(selectedItems).reduce((sum, itemId) => {
       const item = data?.cartList.find((cart) => cart.cartId === itemId);
       return item ? sum + item.totalPrice : sum;
     }, 0);
     setTotalPrice(newTotalPrice);
+
+    const canBookingItems = Array.from(selectedItems).some((itemId) => {
+      const item = data?.cartList.find((cart) => cart.cartId === itemId);
+      return item ? !item.isBooking : false;
+    });
+    setCanBooking(!canBookingItems);
+    if (selectedItems.size === 0) {
+      setCanBooking(false);
+    }
   }, [selectedItems, data]);
 
   // 전체선택
@@ -109,11 +120,6 @@ function Page() {
 
   // 예약 Link
   const handleBooking = () => {
-    if (selectedItems.size === 0) {
-      setAlertMessage('선택된 항목이 없습니다.');
-      return;
-    }
-
     const selectedCartItems = data?.cartList.filter((cart) =>
       selectedItems.has(cart.cartId),
     );
@@ -132,16 +138,15 @@ function Page() {
     }));
 
     const encodedItems = JSON.stringify(bookingItems);
-    handleDeleteSelected();
     router.push(`/booking?items=${encodedItems}`);
   };
 
   const handleTitleClick = (accommodationId: number) => {
-    router.push(`/${accommodationId}`);
+    router.push(`/accommodation/${accommodationId}`);
   };
 
   return (
-    <div className="w-innerWidth m-auto">
+    <div className="w-innerWidth m-auto pb-64">
       <div className="relative flex justify-center items-center my-8">
         <div className="absolute left-0">
           <BackButton />
@@ -189,6 +194,7 @@ function Page() {
             handleBooking={handleBooking}
             alertMessage={alertMessage}
             closeModal={closeModal}
+            canBooking={canBooking}
           />
         </div>
       ) : (

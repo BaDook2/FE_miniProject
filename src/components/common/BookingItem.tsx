@@ -77,15 +77,32 @@ function BookingItem({
               숙소 예약번호 {booking.orderId}
             </p>
           )}
-        <h2
-          role="none"
-          className={`text-lg font-bold text-mineshaft ${type === 'cart' ? 'cursor-pointer' : ''}`}
-          onClick={handleTitleClick}
-        >
-          {booking.accommodationTitle}
-        </h2>
+        <div className="flex justify-between">
+          <h2
+            role="none"
+            className={`text-lg font-bold text-mineshaft ${type === 'cart' ? 'cursor-pointer' : ''}`}
+            onClick={handleTitleClick}
+          >
+            {booking.accommodationTitle}
+          </h2>
+          {type === 'cart' &&
+            'cartId' in booking &&
+            booking.isBooking === false && (
+              <p className=" text-red-600">예약불가상품</p>
+            )}
+        </div>
         <hr className="border-gray-300 my-2 text-mineshaft" />
-        <p className="text-lg mb-2 font-bold">{booking.roomTitle}</p>
+        <p
+          className={`text-lg mb-2 font-bold ${
+            type === 'cart' &&
+            'cartId' in booking &&
+            booking.isBooking === false
+              ? 'text-alto'
+              : ''
+          }`}
+        >
+          {booking.roomTitle}
+        </p>
       </header>
       <section className="flex w-full">
         {type === 'cart' && 'cartId' in booking && (
@@ -97,7 +114,7 @@ function BookingItem({
           />
         )}
         {booking.roomImg && (
-          <figure className="relative w-20 h-20 mr-2 rounded-xl">
+          <figure className="relative min-w-20 h-20 mr-2 rounded-xl">
             <Image
               src={booking.roomImg}
               alt={booking.roomTitle}
@@ -110,12 +127,28 @@ function BookingItem({
           <div className="w-full flex">
             <div className="w-1/2 flex flex-col gap-1">
               <p className="text-sm text-dovegray">체크인</p>
-              <p className="text-xl font-bold">{`${formatDate(checkInDate)} (${getDayOfWeek(checkInDate)})`}</p>
+              <p
+                className={`text-xl font-bold ${
+                  type === 'cart' &&
+                  'cartId' in booking &&
+                  booking.isBooking === false
+                    ? 'text-alto'
+                    : ''
+                }`}
+              >{`${formatDate(checkInDate)} (${getDayOfWeek(checkInDate)})`}</p>
               <p className="text-sm text-dovegray">{formatTime(checkInDate)}</p>
             </div>
             <div className="w-1/2 flex flex-col gap-1">
               <p className="text-sm text-dovegray">체크아웃</p>
-              <p className="text-xl font-bold">{`${formatDate(checkOutDate)} (${getDayOfWeek(checkOutDate)})`}</p>
+              <p
+                className={`text-xl font-bold ${
+                  type === 'cart' &&
+                  'cartId' in booking &&
+                  booking.isBooking === false
+                    ? 'text-alto'
+                    : ''
+                }`}
+              >{`${formatDate(checkOutDate)} (${getDayOfWeek(checkOutDate)})`}</p>
               <p className="text-sm text-dovegray">
                 {formatTime(checkOutDate)}
               </p>
@@ -131,7 +164,15 @@ function BookingItem({
       <footer className="flex justify-end items-center gap-2">
         <p className="text-lg text-dovegray">숙박 / {bookingDay}박</p>
 
-        <p className="text-lg font-bold text-mineshaft">
+        <p
+          className={`text-lg font-bold ${
+            type === 'cart' &&
+            'cartId' in booking &&
+            booking.isBooking === false
+              ? 'line-through text-alto'
+              : 'text-mineshaft'
+          }`}
+        >
           {formatPrice(displayedPrice)}
         </p>
       </footer>
