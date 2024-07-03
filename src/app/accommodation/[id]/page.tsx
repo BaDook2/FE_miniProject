@@ -66,7 +66,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [fetchData, checkInDate, checkOutDate]);
 
   useEffect(() => {
     const check = new Date(checkInDate) <= new Date(checkOutDate);
@@ -104,9 +104,9 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
                   setPeopleCount(Number(e.target.value));
                 }}
               >
-                {[...Array(10)].map((_, i) => (
-                  <option className="absolute left-7" value={`${i + 1}`}>
-                    {i + 1}
+                {[...Array(8)].map((_, i) => (
+                  <option className="absolute left-7" value={`${i + 2}`}>
+                    {i + 2}
                   </option>
                 ))}
               </select>

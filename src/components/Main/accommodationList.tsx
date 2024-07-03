@@ -49,7 +49,6 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
   const [isRestoring, setIsRestoring] = useState(true);
 
   // 뒤로가기, sesstionStorage에 저장한 목록 불러오기
-
   useEffect(() => {
     const state = sessionStorage.getItem(`accommodationsState-${category}`);
     if (state) {
@@ -128,7 +127,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
                   원 ~
                 </div>
                 <Link
-                  href={`/${item.id}`}
+                  href={`/accommodation/${item.id}`}
                   className="my-3 block w-full py-2 bg-primary text-white text-center rounded-md hover:bg-[#db1a40] transition-all"
                   onClick={() => {
                     sessionStorage.setItem(

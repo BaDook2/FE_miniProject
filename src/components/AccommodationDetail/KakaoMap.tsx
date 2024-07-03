@@ -1,5 +1,5 @@
-import { IAccommodation } from '@/app/(main)/[id]/page';
 import { useEffect, useState } from 'react';
+import { IAccommodation } from '@/app/accommodation/[id]/page';
 import Loading from '../common/Loading';
 
 declare global {
