@@ -1,4 +1,4 @@
-import { IAccommodation } from '@/app/accommodation/[id]/page';
+import { IAccommodation } from '@/app/(main)/accommodation/[id]/page';
 
 interface AccommodationProps {
   data: IAccommodation;

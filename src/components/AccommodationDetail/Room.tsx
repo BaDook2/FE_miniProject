@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { IRoom } from '@/app/accommodation/[id]/page';
+import { IRoom } from '@/app/(main)/accommodation/[id]/page';
 import ImageSlider from './ImageSlider';
 import CartAddButton from './CartAddButton';
 import ReserveButton from './ReserveButton';
