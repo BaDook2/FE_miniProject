@@ -1,18 +1,18 @@
 import BASE_URL from '@/lib/constants';
-import { axiosPost } from '@/lib/fetchURL';
+import { fetchPost } from '@/lib/fetchURL';
 import { ISignUp } from '../../app/(auth)/signup/page';
 
 const requireAccessKey = async (email: string) => {
   const accessKeyURL = `${BASE_URL}/api/register/email`;
   const dataToJson = JSON.stringify({ email });
-  const { errorMessage } = await axiosPost(accessKeyURL, dataToJson);
+  const { errorMessage } = await fetchPost(accessKeyURL, dataToJson);
   return errorMessage;
 };
 
 const checkAccessKey = async (email: string, accessKey: string) => {
   const dataToJson = JSON.stringify({ email, accessKey });
   const checkAccessKeyURL = `${BASE_URL}/api/register/email/successKey`;
-  const { errorMessage } = await axiosPost(checkAccessKeyURL, dataToJson);
+  const { errorMessage } = await fetchPost(checkAccessKeyURL, dataToJson);
   return errorMessage;
 };
 
@@ -24,7 +24,7 @@ const signUp = async (data: ISignUp) => {
     name: data.name,
     accessKey: data.accessKey,
   });
-  const { errorMessage } = await axiosPost(registerURL, dataToJson);
+  const { errorMessage } = await fetchPost(registerURL, dataToJson);
   return errorMessage;
 };
 

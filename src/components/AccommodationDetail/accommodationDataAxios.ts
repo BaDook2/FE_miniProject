@@ -1,6 +1,6 @@
 import { IAccommodation } from '@/app/(main)/accommodation/[id]/page';
 import BASE_URL from '@/lib/constants';
-import { FetchResponse, axiosGet } from '@/lib/fetchURL';
+import { FetchResponse, fetchGet } from '@/lib/fetchURL';
 
 interface INeedData {
   params: { id: string };
@@ -14,7 +14,7 @@ const accommodationDataFetch = async ({
   checkOutDate,
 }: INeedData): Promise<FetchResponse<IAccommodation>> => {
   const URL = `${BASE_URL}/api/accommodation/${params.id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`;
-  const { data, errorMessage } = await axiosGet<IAccommodation>(URL);
+  const { data, errorMessage } = await fetchGet<IAccommodation>(URL);
   return { data, errorMessage };
 };
 

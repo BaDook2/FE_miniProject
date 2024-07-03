@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import BASE_URL from '@/lib/constants';
-import { axiosGet } from '@/lib/fetchURL';
 import axios from 'axios';
+import { fetchGet } from '@/lib/fetchURL';
 
 axios.defaults.withCredentials = true;
 export async function middleware(req: NextRequest) {
   const loginCheckURL = `${BASE_URL}/api/check`;
-  const { status } = await axiosGet(loginCheckURL);
+  const { status } = await fetchGet(loginCheckURL);
   if (status === 200) {
     return NextResponse.next();
   }

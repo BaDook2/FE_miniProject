@@ -4,7 +4,7 @@ import CartFooter from '@/components/Cart/CartFooter';
 import BackButton from '@/components/common/BackButton';
 import BookingItem from '@/components/common/BookingItem';
 import BASE_URL from '@/lib/constants';
-import { axiosGet } from '@/lib/fetchURL';
+import { fetchGet } from '@/lib/fetchURL';
 import useCartStore from '@/lib/store';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -43,7 +43,7 @@ function Page() {
 
   useEffect(() => {
     const fetchCart = async () => {
-      const res = await axiosGet<CartData>(url);
+      const res = await fetchGet<CartData>(url);
       setData(res.data);
     };
     fetchCart();
@@ -99,7 +99,7 @@ function Page() {
     setSelectedItems(new Set());
     setCheckAll(false);
 
-    const res = await axiosGet<CartData>(url);
+    const res = await fetchGet<CartData>(url);
     setData(res.data);
   };
 
