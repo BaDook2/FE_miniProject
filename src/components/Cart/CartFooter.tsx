@@ -51,7 +51,7 @@ const CartFooter = ({
               type="button"
               onClick={handleBooking}
               disabled={!canBooking}
-              className={`w-full block text-center bg-primary text-white py-3 rounded-md font-bold ${canBooking ? 'bg-primary hover:bg-primary-dark' : 'bg-gray-400 cursor-not-allowed'}`}
+              className={`w-full block text-center text-white py-3 rounded-md font-bold ${canBooking ? 'bg-primary hover:bg-primary-dark' : 'bg-gray-400 cursor-not-allowed'}`}
             >
               예약하기
             </button>
