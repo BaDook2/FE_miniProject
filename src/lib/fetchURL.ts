@@ -1,3 +1,7 @@
+import axios, { AxiosResponse } from 'axios';
+
+axios.defaults.withCredentials = true;
+
 export interface FetchResponse<T> {
   data: T | null;
   errorMessage: string | null;
@@ -5,56 +9,47 @@ export interface FetchResponse<T> {
 }
 
 const fetchURL = async <T>(
-  fetchRequest: () => Promise<Response>,
+  axiosRequest: () => Promise<AxiosResponse<T>>,
 ): Promise<FetchResponse<T>> => {
   try {
-    const response = await fetchRequest();
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText || 'Unknown error occurred');
-    }
-
-    const data = (await response.json()) as T;
-    return {
-      data,
-      errorMessage: null,
-      status: response.status,
-    };
+    const response = await axiosRequest();
+    return { data: response.data, errorMessage: null, status: response.status };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
+    if (err.response.data) {
+      return {
+        data: null,
+        errorMessage: err.response.data.message,
+        status: err.response.data.status,
+      };
+    }
     return {
       data: null,
-      errorMessage: err.message || 'Unknown Error',
-      status: err.status || null,
+      errorMessage: 'Unknown Error',
+      status: err.response.status,
     };
   }
 };
 
-const fetchPost = async <T>(
+const axiosPost = async <T>(
   url: string,
   data: string,
 ): Promise<FetchResponse<T>> => {
-  return fetchURL<T>(() =>
-    fetch(url, {
-      method: 'POST',
+  const response = await fetchURL(() =>
+    axios.post(url, data, {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
-      body: data,
     }),
   );
+  return response;
 };
 
-const fetchGet = async <T>(url: string): Promise<FetchResponse<T>> => {
-  return fetchURL<T>(() =>
-    fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    }),
+const axiosGet = async <T>(url: string): Promise<FetchResponse<T>> => {
+  const response = await fetchURL(() =>
+    axios.get(url, { withCredentials: true }),
   );
+  return response;
 };
 
-export { fetchPost, fetchGet };
+export { axiosPost, axiosGet };
