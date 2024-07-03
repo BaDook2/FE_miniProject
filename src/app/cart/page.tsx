@@ -3,6 +3,8 @@
 import CartFooter from '@/components/Cart/CartFooter';
 import BackButton from '@/components/common/BackButton';
 import BookingItem from '@/components/common/BookingItem';
+import BASE_URL from '@/lib/constants';
+import { axiosGet } from '@/lib/fetchURL';
 import useCartStore from '@/lib/store';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -22,17 +24,17 @@ export interface Cart {
   minPeople: number;
   maxPeople: number;
   totalPrice: number;
+  accommodationId: number;
 }
 interface CartData {
   cartList: Cart[];
-  totalPage: number;
 }
 
 axios.defaults.withCredentials = true;
-const url = 'https://api.ananbada.store/api/cart';
+const url = `${BASE_URL}/api/cart`;
 function Page() {
   const router = useRouter();
-  const [data, setData] = useState<CartData | null>();
+  const [data, setData] = useState<CartData | null>(null);
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set()); // 선택된 cartId
   const [checkAll, setCheckAll] = useState<boolean>(false); // 전체선택
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -41,7 +43,7 @@ function Page() {
 
   useEffect(() => {
     const fetchCart = async () => {
-      const res = await axios.get(url);
+      const res = await axiosGet<CartData>(url);
       setData(res.data);
     };
     fetchCart();
@@ -83,6 +85,11 @@ function Page() {
 
   // 삭제
   const handleDeleteSelected = async () => {
+    if (selectedItems.size === 0) {
+      setAlertMessage('선택된 항목이 없습니다.');
+      return;
+    }
+
     await axios.delete(url, {
       params: {
         cartList: Array.from(selectedItems).join(','),
@@ -92,7 +99,7 @@ function Page() {
     setSelectedItems(new Set());
     setCheckAll(false);
 
-    const res = await axios.get(url);
+    const res = await axiosGet<CartData>(url);
     setData(res.data);
   };
 
@@ -137,7 +144,7 @@ function Page() {
         </div>
         <div className="text-2xl font-bold">장바구니</div>
       </div>
-      {cartCount ? (
+      {!cartCount ? (
         <div>
           <div className="flex items-center justify-between text-lg font-bold my-6">
             <div className="flex items-center ">
@@ -152,7 +159,7 @@ function Page() {
             <div>
               <button
                 type="button"
-                className=" cursor-pointer"
+                className="cursor-pointer"
                 onClick={handleDeleteSelected}
               >
                 선택삭제

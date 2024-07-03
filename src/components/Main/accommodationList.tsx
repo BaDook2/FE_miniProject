@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { formatNumber } from '@/lib/formatNumber';
+import BASE_URL from '@/lib/constants';
 import Loading from '../common/Loading';
 
 interface Accommodation {
@@ -19,7 +20,7 @@ interface AccommodationListProps {
 }
 
 axios.defaults.withCredentials = true;
-const url = 'https://api.ananbada.store/api/accommodation';
+const url = `${BASE_URL}/api/accommodation`;
 
 // Axios get
 const fetchProjects = async ({
@@ -128,7 +129,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
                 </div>
                 <Link
                   href={`/${item.id}`}
-                  className="my-3 block w-full py-2 bg-primary text-white text-center rounded-md"
+                  className="my-3 block w-full py-2 bg-primary text-white text-center rounded-md hover:bg-[#db1a40] transition-all"
                   onClick={() => {
                     sessionStorage.setItem(
                       `scrollPosition-${category}`,

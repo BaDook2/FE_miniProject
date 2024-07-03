@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import Category from '@/components/Main/Category';
 import AccommodationList from '@/components/Main/accommodationList';
+import ScrollTopButton from '@/components/Main/ScrollTopButton';
 
 const images = [
   {
@@ -48,7 +49,7 @@ function Page() {
   }, []);
 
   return (
-    <div className="container w-innerWidth m-auto">
+    <div className="container w-innerWidth m-auto relative">
       <Category selectedCategory={category} onSelectCategory={setCategory} />
       <div className="flex justify-center">
         <Swiper
@@ -76,6 +77,7 @@ function Page() {
         </Swiper>
       </div>
       <AccommodationList category={category} />
+      <ScrollTopButton />
     </div>
   );
 }
