@@ -10,6 +10,8 @@ const fetchURL = async <T>(
   try {
     const response = await fetchRequest();
     const data = await response.json();
+    console.log('response: ', response);
+    console.log('data: ', data);
     return { data, errorMessage: null, status: response.status };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
