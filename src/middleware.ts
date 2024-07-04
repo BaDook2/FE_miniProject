@@ -8,14 +8,9 @@ const ACCESS_TOKEN = 'accessToken';
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get(ACCESS_TOKEN);
 
-  const protectedPaths = [
-    '/bookingList',
-    '/booking',
-    '/cart',
-    '/accommodation/:path*',
-  ];
+  const protectedPaths = ['/bookingList', '/booking', '/cart'];
 
-  const authPaths = ['/login', '/signup'];
+  const authPaths = ['/login', '/signup', '/accommodation'];
 
   const isProtectedPath = protectedPaths.some((path) =>
     new URL(request.url).pathname.startsWith(path),
