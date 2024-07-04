@@ -3,7 +3,7 @@
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import useCartStore from '@/lib/store';
 import checkCookie from '@/lib/checkCookie';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import cartAdd from './cartAddAxios';
 
 export interface ICartAdd {

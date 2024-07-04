@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { IRoom } from '@/app/(main)/accommodation/[id]/page';
 import ImageSlider from './ImageSlider';
-// import CartAddButton from './CartAddButton';
+import CartAddButton from './CartAddButton';
 import ReserveButton from './ReserveButton';
 
 interface RoomProps {
@@ -59,12 +59,12 @@ function Room({
         <div className="flex justify-end items-center gap-2">
           {isVaildPeriod ? (
             <>
-              {/* <CartAddButton
+              <CartAddButton
                 roomId={room.roomId}
                 people={numPeople}
                 checkInDate={`${checkInDate}`}
                 checkOutDate={`${checkOutDate}`}
-              /> */}
+              />
               <Link href={`/booking?items=[${encodedItems}]`}>
                 <ReserveButton text="예약하기" />
               </Link>
