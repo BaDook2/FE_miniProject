@@ -2,33 +2,34 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
-import useCartStore from '@/lib/store';
+import useCartStore, { useIsLoggedIn } from '@/lib/store';
 import fetchCartCount from './fetchCartCount';
 import fetchLogOut from './fetchLogOut';
 
 const Header = () => {
   const pathname = usePathname();
   const { cartCount, setCartCount } = useCartStore();
-  const [existCookie, setExistCookie] = useState<boolean | null>(null);
+  const { isLoggedIn, setLogOut } = useIsLoggedIn();
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
   }, [setCartCount]);
 
-  const clickLogOut = () => {
-    fetchLogOut();
-    setExistCookie(false);
+  const clickLogOut = async () => {
+    const statusCode = await fetchLogOut();
+    if (statusCode === 200) {
+      setLogOut();
+    }
   };
 
   useEffect(() => {
-    if (existCookie) {
-      console.log(existCookie);
+    if (isLoggedIn) {
       fetchData();
     }
-  }, [existCookie, fetchData]);
+  }, [isLoggedIn, fetchData]);
 
   return (
     <div className="flex items-center h-full w-full justify-between">
@@ -59,7 +60,7 @@ const Header = () => {
             )}
           </div>
         </Link>
-        {existCookie ? (
+        {isLoggedIn ? (
           <Link href="/">
             <button
               type="button"

@@ -3,36 +3,33 @@
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
 import fetchCheckCookie from '@/lib/fetchCheckCookie';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useIsLoggedIn } from '@/lib/store';
+import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const { isLoggedIn, setLogIn, setLogOut } = useIsLoggedIn();
   const pathName = usePathname();
   const router = useRouter();
-  const authPath = useMemo(() => ['/login', '/signup'], []);
-  const protectedPath = useMemo(
-    () => ['/booking', '/bookingList', '/bookingResult', '/cart'],
-    [],
-  );
   useEffect(() => {
     const fetchCheck = async () => {
       const checkLogin = await fetchCheckCookie();
       if (checkLogin) {
-        setIsLoggedIn(true);
+        setLogIn();
       } else {
-        setIsLoggedIn(false);
+        setLogOut();
       }
     };
     fetchCheck();
-    const isProtectedPath = protectedPath.some((path) =>
+    const isProtectedPath = PROTECTED_PATH.some((path) =>
       pathName.startsWith(path),
     );
-    const isAuthPath = authPath.some((path) => pathName.startsWith(path));
+    const isAuthPath = AUTH_PATH.some((path) => pathName.startsWith(path));
     if (isLoggedIn) {
       if (isAuthPath) {
         router.push('/');
@@ -40,8 +37,8 @@ export default function RootLayout({
     } else if (isProtectedPath) {
       router.push('/login');
     }
-    console.log('isLoggedIn: ', isLoggedIn);
-  }, [authPath, isLoggedIn, pathName, protectedPath, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, pathName]);
 
   return (
     <html lang="ko">
