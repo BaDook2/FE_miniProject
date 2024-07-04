@@ -1,9 +1,8 @@
 'use client';
 
 import { MdOutlineShoppingCart } from 'react-icons/md';
-import useCartStore from '@/lib/store';
+import useCartStore, { useIsLoggedIn } from '@/lib/store';
 import { useRouter } from 'next/navigation';
-import fetchCheckLogin from '@/lib/fetchCheckLogin';
 import { toast } from 'react-toastify';
 import cartAdd from './cartAddAxios';
 
@@ -21,6 +20,7 @@ function CartAddButton({
   people,
 }: ICartAdd) {
   const { incrementCartCount } = useCartStore();
+  const { isLoggedIn } = useIsLoggedIn();
   const router = useRouter();
   const handleClick = async () => {
     const { errorMessage } = await cartAdd({
@@ -29,7 +29,7 @@ function CartAddButton({
       checkInDate,
       checkOutDate,
     });
-    if (!fetchCheckLogin()) {
+    if (!isLoggedIn) {
       router.push('/login');
     } else if (!errorMessage) {
       incrementCartCount();

@@ -3,9 +3,8 @@
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
 import { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
-import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +16,6 @@ export default function RootLayout({
 }>) {
   const { isLoggedIn, setLogIn, setLogOut } = useIsLoggedIn();
   const pathName = usePathname();
-  const router = useRouter();
   useEffect(() => {
     const fetchCheck = async () => {
       const checkLogin = await fetchCheckLogin();
@@ -28,17 +26,6 @@ export default function RootLayout({
       }
     };
     fetchCheck();
-    const isProtectedPath = PROTECTED_PATH.some((path) =>
-      pathName.startsWith(path),
-    );
-    const isAuthPath = AUTH_PATH.some((path) => pathName.startsWith(path));
-    if (isLoggedIn) {
-      if (isAuthPath) {
-        router.push('/');
-      }
-    } else if (isProtectedPath) {
-      router.push('/login');
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, pathName]);
 
@@ -46,6 +33,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <MswComponent>
+          <div>
           {children}
           <ToastContainer
             position="top-right"
@@ -57,6 +45,7 @@ export default function RootLayout({
             pauseOnHover
             style={{}}
           />
+          </div>
         </MswComponent>
       </body>
     </html>

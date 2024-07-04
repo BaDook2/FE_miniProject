@@ -40,18 +40,18 @@ const Header = () => {
       </Link>
       <div className="flex items-center h-full gap-7 font-bold">
         <Link
-          href="/"
+          href={'/'}
           className={`text-lg ${pathname === '/' ? 'text-primary' : ''}`}
         >
           메인페이지
         </Link>
         <Link
-          href="/bookingList"
+          href={isLoggedIn ? '/bookingList' : '/login'}
           className={`text-lg ${pathname === '/bookingList' ? 'text-primary' : ''}`}
         >
           예약내역
         </Link>
-        <Link href="/cart" className="text-lg">
+        <Link href={isLoggedIn ? '/cart' : '/login'} className="text-lg">
           <div className="relative">
             <MdOutlineShoppingCart size={30} />
             {cartCount !== 0 && (
