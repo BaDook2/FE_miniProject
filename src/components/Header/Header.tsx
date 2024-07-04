@@ -31,6 +31,9 @@ const Header = () => {
       fetchData();
     }
   }, [isLoggedIn, fetchData]);
+  useEffect(()=>{
+
+  }, [pathname])
 
   return (
     <div className="flex items-center h-full w-full justify-between">
