@@ -29,37 +29,37 @@ interface AccommodationListProps {
 
 axios.defaults.withCredentials = true;
 
-// Axios get
-const fetchProjects = async ({
-  pageParam = { minPrice: 0, id: 0 },
-  fetchedCategory,
-}: {
-  pageParam: { minPrice: number; id: number };
-  fetchedCategory: string;
-}) => {
-  const { minPrice, id } = pageParam;
-
-  let queryString = `category=${fetchedCategory}&size=12`;
-  if (minPrice) {
-    queryString += `&cursorMinPrice=${minPrice}`;
-  }
-  if (id) {
-    queryString += `&cursorId=${id}`;
-  }
-
-  const url = `${BASE_URL}/api/accommodation?${queryString}`;
-  const res = await axiosGet<AccommodationData>(url);
-
-  return res.data;
-};
-
 const AccommodationList = ({ category }: AccommodationListProps) => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const [isRestoring, setIsRestoring] = useState(true);
   const [selectedMinPrice, setSelectedMinPrice] = useState<number>(0);
 
-  // 뒤로가기, sesstionStorage에 저장한 목록 불러오기
+  // Axios get
+  const fetchProjects = async ({
+    pageParam,
+    fetchedCategory,
+  }: {
+    pageParam: { minPrice: number; id: number };
+    fetchedCategory: string;
+  }) => {
+    const { minPrice, id } = pageParam;
+
+    let queryString = `category=${fetchedCategory}&size=12`;
+    if (minPrice) {
+      queryString += `&cursorMinPrice=${minPrice}`;
+    }
+    if (id) {
+      queryString += `&cursorId=${id}`;
+    }
+
+    const url = `${BASE_URL}/api/accommodation?${queryString}`;
+    const res = await axiosGet<AccommodationData>(url);
+
+    return res.data;
+  };
+
+  // 뒤로가기, sesstionStorage에 저장한 목록, option 불러오기
   useEffect(() => {
     const state = sessionStorage.getItem(`accommodationsState-${category}`);
     const savedMinPrice = sessionStorage.getItem(
@@ -88,7 +88,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
         const { nextCursorId: id, nextCursorMinPrice: minPrice } = lastPage;
         return { minPrice, id };
       },
-      initialPageParam: { minPrice: 0, id: 0 },
+      initialPageParam: { minPrice: selectedMinPrice, id: 0 },
     });
 
   // 옵저버
