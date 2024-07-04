@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 
 const checkCookie = () => {
-  const cookie = Cookies.get();
-  console.log('cookie:', cookie);
+  const cookie = Cookies.get('accessToken');
+  console.log('cookie: ', cookie);
   if (cookie) {
     return true;
   }

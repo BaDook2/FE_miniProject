@@ -7,6 +7,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
 import checkCookie from '@/lib/checkCookie';
+import Cookies from 'js-cookie';
 import fetchCartCount from './fetchCartCount';
 import fetchLogOut from './fetchLogOut';
 
@@ -19,9 +20,14 @@ const Header = () => {
     setCartCount(count);
   }, [setCartCount]);
 
+  const clickLogOut = () => {
+    fetchLogOut();
+    setExistCookie(false);
+    Cookies.remove('accessToken');
+  };
   useEffect(() => {
-    setExistCookie(checkCookie());
     if (existCookie) {
+      console.log(existCookie);
       fetchData();
     }
   }, [existCookie, fetchData]);
@@ -60,7 +66,7 @@ const Header = () => {
             <button
               type="button"
               className="bg-white text-primary rounded-xl w-36 h-12 flex items-center justify-center text-sm border-primary border-2"
-              onClick={fetchLogOut}
+              onClick={clickLogOut}
             >
               로그아웃
             </button>

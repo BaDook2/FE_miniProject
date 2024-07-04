@@ -36,7 +36,6 @@ export const config = {
     '/bookingList/:path*',
     '/booking/:path*',
     '/cart/:path*',
-    '/accommodation/:path*',
     '/login',
     '/signup',
   ],
