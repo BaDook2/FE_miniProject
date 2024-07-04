@@ -28,6 +28,7 @@ const Header = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
+      console.log('header component isLoggendIn: ', isLoggedIn);
       fetchData();
     }
   }, [isLoggedIn, fetchData]);
