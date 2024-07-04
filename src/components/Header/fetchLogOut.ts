@@ -4,7 +4,10 @@ import { axiosGet } from '@/lib/fetchURL';
 const fetchLogOut = async () => {
   const URL = `${BASE_URL}/api/logout`;
   const { status } = await axiosGet(URL);
-  return status;
+  if (status === 200) {
+    return true;
+  }
+  return false;
 };
 
 export default fetchLogOut;

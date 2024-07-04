@@ -1,7 +1,7 @@
 import BASE_URL from './constants';
 import { axiosGet } from './fetchURL';
 
-const fetchCheckCookie = async () => {
+const fetchCheckLogin = async () => {
   const URL = `${BASE_URL}/api/check`;
   const { status } = await axiosGet<number>(URL);
   if (status === 200) {
@@ -10,4 +10,4 @@ const fetchCheckCookie = async () => {
   return false;
 };
 
-export default fetchCheckCookie;
+export default fetchCheckLogin;

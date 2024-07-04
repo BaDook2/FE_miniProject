@@ -2,11 +2,11 @@
 
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
-import fetchCheckCookie from '@/lib/fetchCheckCookie';
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
 import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
+import fetchCheckLogin from '@/lib/fetchCheckLogin';
 
 export default function RootLayout({
   children,
@@ -18,7 +18,7 @@ export default function RootLayout({
   const router = useRouter();
   useEffect(() => {
     const fetchCheck = async () => {
-      const checkLogin = await fetchCheckCookie();
+      const checkLogin = await fetchCheckLogin();
       if (checkLogin) {
         setLogIn();
       } else {

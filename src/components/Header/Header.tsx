@@ -20,7 +20,8 @@ const Header = () => {
 
   const clickLogOut = async () => {
     const statusCode = await fetchLogOut();
-    if (statusCode === 200) {
+    console.log('click Log Out status Code: ', statusCode);
+    if (statusCode) {
       setLogOut();
     }
   };
