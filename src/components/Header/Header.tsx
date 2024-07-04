@@ -55,22 +55,22 @@ const Header = () => {
           </div>
         </Link>
         {existCookie ? (
+          <Link href="/">
+            <button
+              type="button"
+              className="bg-white text-primary rounded-xl w-36 h-12 flex items-center justify-center text-sm border-primary border-2"
+              onClick={fetchLogOut}
+            >
+              로그아웃
+            </button>
+          </Link>
+        ) : (
           <Link href="/login">
             <button
               type="button"
               className="bg-primary text-white rounded-xl w-36 h-12 flex items-center justify-center text-sm"
             >
               로그인/회원가입
-            </button>
-          </Link>
-        ) : (
-          <Link href="/">
-            <button
-              type="button"
-              className="bg-white text-primary rounded-xl w-36 h-12 flex items-center justify-center text-sm"
-              onClick={fetchLogOut}
-            >
-              로그아웃
             </button>
           </Link>
         )}

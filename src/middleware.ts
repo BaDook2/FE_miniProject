@@ -9,16 +9,16 @@ export function middleware(request: NextRequest) {
   const cookie = request.cookies.get(ACCESS_TOKEN);
 
   const protectedPaths = [
-    '/bookingList/:path*',
-    '/booking/:path*',
-    '/cart/:path*',
-    '/accommodation/:path*',
+    '/bookingList',
+    '/booking',
+    '/cart',
+    '/accommodation',
   ];
 
   const authPaths = ['/login', '/signup'];
 
   const isProtectedPath = protectedPaths.some((path) =>
-    new URL(request.url).pathname.match(path),
+    new URL(request.url).pathname.startsWith(path),
   );
   const isAuthPath = authPaths.some((path) =>
     new URL(request.url).pathname.startsWith(path),
