@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
     '/bookingList',
     '/booking',
     '/cart',
-    '/accommodation',
+    '/accommodation/:path*',
   ];
 
   const authPaths = ['/login', '/signup'];

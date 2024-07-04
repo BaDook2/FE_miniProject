@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
@@ -13,13 +13,14 @@ import fetchLogOut from './fetchLogOut';
 const Header = () => {
   const pathname = usePathname();
   const { cartCount, setCartCount } = useCartStore();
-  const existCookie = checkCookie();
+  const [existCookie, setExistCookie] = useState(checkCookie());
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
   }, [setCartCount]);
 
   useEffect(() => {
+    setExistCookie(checkCookie());
     if (existCookie) {
       fetchData();
     }
