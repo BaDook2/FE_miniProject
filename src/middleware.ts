@@ -8,12 +8,41 @@ const ACCESS_TOKEN = 'accessToken';
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get(ACCESS_TOKEN);
 
-  if (!cookie) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  const protectedPaths = [
+    '/bookingList/:path*',
+    '/booking/:path*',
+    '/cart/:path*',
+    '/accommodation/:path*',
+  ];
+
+  const authPaths = ['/login', '/signup'];
+
+  const isProtectedPath = protectedPaths.some((path) =>
+    new URL(request.url).pathname.match(path),
+  );
+  const isAuthPath = authPaths.some((path) =>
+    new URL(request.url).pathname.startsWith(path),
+  );
+  if (isProtectedPath) {
+    if (!cookie) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+  if (isAuthPath) {
+    if (cookie) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/bookingList/:path*', '/booking/:path*', '/cart/:path*'],
+  matcher: [
+    '/bookingList/:path*',
+    '/booking/:path*',
+    '/cart/:path*',
+    '/accommodation/:path*',
+    '/login',
+    '/signup',
+  ],
 };

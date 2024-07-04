@@ -6,19 +6,24 @@ import React, { useCallback, useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
+import checkCookie from '@/lib/checkCookie';
 import fetchCartCount from './fetchCartCount';
-// import CheckLogin from '../common/CheckLogin';
+import fetchLogOut from './fetchLogOut';
 
 const Header = () => {
   const pathname = usePathname();
   const { cartCount, setCartCount } = useCartStore();
+  const existCookie = checkCookie();
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
   }, [setCartCount]);
+
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (existCookie) {
+      fetchData();
+    }
+  }, [existCookie, fetchData]);
 
   return (
     <div className="flex items-center h-full w-full justify-between">
@@ -49,15 +54,27 @@ const Header = () => {
             )}
           </div>
         </Link>
-        <Link
-          href="/login"
-          type="button"
-          className="bg-primary text-white rounded-xl w-36 h-12 flex items-center justify-center text-sm"
-        >
-          로그인/회원가입
-        </Link>
+        {existCookie ? (
+          <Link href="/login">
+            <button
+              type="button"
+              className="bg-primary text-white rounded-xl w-36 h-12 flex items-center justify-center text-sm"
+            >
+              로그인/회원가입
+            </button>
+          </Link>
+        ) : (
+          <Link href="/">
+            <button
+              type="button"
+              className="bg-white text-primary rounded-xl w-36 h-12 flex items-center justify-center text-sm"
+              onClick={fetchLogOut}
+            >
+              로그아웃
+            </button>
+          </Link>
+        )}
       </div>
-      {/* <CheckLogin /> */}
     </div>
   );
 };
