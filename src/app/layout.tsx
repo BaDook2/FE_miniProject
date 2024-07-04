@@ -17,7 +17,7 @@ export default function RootLayout({
   const { isLoggedIn, setLogIn, setLogOut } = useIsLoggedIn();
   const pathName = usePathname();
   useEffect(() => {
-    const fetchCheck = async () => {
+    const checkLogin = async () => {
       const checkLogin = await fetchCheckLogin();
       if (checkLogin) {
         setLogIn();
@@ -25,7 +25,7 @@ export default function RootLayout({
         setLogOut();
       }
     };
-    fetchCheck();
+    checkLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, pathName]);
 

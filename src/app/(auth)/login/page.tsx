@@ -36,7 +36,7 @@ function Login() {
   return (
     <div className="h-screen mx-auto flex items-center justify-center">
       <div className="w-1/3 flex flex-col gap-12">
-        <Link href="/" className="flex gap-2 h-[100px]">
+        <Link href="/" className="flex justify-center gap-2 h-[100px] w-full">
           <Image src="/logo.png" width={110} height={100} alt="logo" />
           <h1 className="text-8xl text-primary">FAST</h1>
         </Link>
