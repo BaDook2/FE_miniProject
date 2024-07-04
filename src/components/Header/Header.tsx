@@ -14,7 +14,7 @@ import fetchLogOut from './fetchLogOut';
 const Header = () => {
   const pathname = usePathname();
   const { cartCount, setCartCount } = useCartStore();
-  const [existCookie, setExistCookie] = useState(checkCookie());
+  const [existCookie, setExistCookie] = useState<boolean | null>(null);
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
@@ -26,6 +26,7 @@ const Header = () => {
     Cookies.remove('accessToken');
   };
   useEffect(() => {
+    setExistCookie(checkCookie());
     if (existCookie) {
       console.log(existCookie);
       fetchData();
