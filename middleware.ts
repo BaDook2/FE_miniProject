@@ -1,18 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
-import BASE_URL from '@/lib/constants';
-import axios from 'axios';
-import { axiosGet } from '@/lib/fetchURL';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-axios.defaults.withCredentials = true;
-export async function middleware(req: NextRequest) {
-  const loginCheckURL = `${BASE_URL}/api/check`;
-  const { status } = await axiosGet(loginCheckURL);
-  if (status === 200) {
-    return NextResponse.next();
+// 쿠키 이름을 정의합니다.
+const COOKIE_NAME = 'yourCookieName';
+
+// 미들웨어 함수
+export function middleware(request: NextRequest) {
+  console.log('Middleware is running');
+
+  // 쿠키를 가져옵니다.
+  const cookie = request.cookies.get(COOKIE_NAME);
+
+  // 쿠키가 없는 경우 /login으로 리디렉션합니다.
+  if (!cookie) {
+    console.log('No cookie found, redirecting to /login');
+    return NextResponse.redirect(new URL('/login', request.url));
   }
-  return NextResponse.redirect(new URL('/', req.url));
+
+  // 쿠키가 있는 경우 요청을 그대로 진행합니다.
+  return NextResponse.next();
 }
 
+// 미들웨어가 적용될 경로를 지정합니다.
 export const config = {
-  matcher: ['/bookingList/:path*', '/booking/:path*', '/cart/:path*'], // 로그인 상태를 확인할 경로 설정
+  matcher: ['/bookingList/:path*', '/booking/:path*', '/cart/:path*'],
 };
