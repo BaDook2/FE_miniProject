@@ -5,6 +5,7 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { formatNumber } from '@/lib/formatNumber';
 import BASE_URL from '@/lib/constants';
+import { axiosGet } from '@/lib/fetchURL';
 import Loading from '../common/Loading';
 
 interface Accommodation {
@@ -15,30 +16,39 @@ interface Accommodation {
   thumbnailUrl: string;
 }
 
+interface AccommodationData {
+  nextData: boolean;
+  nextCursorId: number;
+  nextCursorMinPrice: number;
+  accommodationSimpleResponseList: Accommodation[];
+}
+
 interface AccommodationListProps {
   category: string;
 }
 
 axios.defaults.withCredentials = true;
-const url = `${BASE_URL}/api/accommodation`;
 
 // Axios get
 const fetchProjects = async ({
-  pageParam = { minPrice: '', id: '' },
+  pageParam = { minPrice: 0, id: 0 },
   fetchedCategory,
 }: {
-  pageParam: { minPrice: string; id: string };
+  pageParam: { minPrice: number; id: number };
   fetchedCategory: string;
 }) => {
   const { minPrice, id } = pageParam;
-  const res = await axios.get(url, {
-    params: {
-      category: fetchedCategory,
-      size: 12,
-      ...(minPrice && { cursorMinPrice: minPrice }),
-      ...(id && { cursorId: id }),
-    },
-  });
+
+  let queryString = `category=${fetchedCategory}&size=12`;
+  if (minPrice) {
+    queryString += `&cursorMinPrice=${minPrice}`;
+  }
+  if (id) {
+    queryString += `&cursorId=${id}`;
+  }
+
+  const url = `${BASE_URL}/api/accommodation?${queryString}`;
+  const res = await axiosGet<AccommodationData>(url);
 
   return res.data;
 };
@@ -64,10 +74,13 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
       queryFn: ({ pageParam }) =>
         fetchProjects({ pageParam, fetchedCategory: category }),
       getNextPageParam: (lastPage) => {
+        if (!lastPage?.nextData) {
+          return undefined;
+        }
         const { nextCursorId: id, nextCursorMinPrice: minPrice } = lastPage;
-        return lastPage.nextData ? { minPrice, id } : undefined;
+        return { minPrice, id };
       },
-      initialPageParam: { minPrice: '', id: '' },
+      initialPageParam: { minPrice: 0, id: 0 },
     });
 
   // 옵저버
@@ -101,7 +114,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
       <h2 className="text-left text-2xl font-bold mb-4">추천 숙소</h2>
       <div className="grid grid-cols-4 gap-8">
         {data?.pages.map((page) =>
-          page.accommodationSimpleResponseList.map((item: Accommodation) => (
+          page?.accommodationSimpleResponseList.map((item: Accommodation) => (
             <div
               key={item.id}
               className="border rounded-lg shadow-md flex flex-col justify-between"
