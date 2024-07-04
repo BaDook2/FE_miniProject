@@ -1,5 +1,7 @@
+import Cookies from 'js-cookie';
+
 const checkCookie = () => {
-  const { cookie } = document;
+  const cookie = Cookies.get();
   console.log('cookie:', cookie);
   if (cookie) {
     return true;
