@@ -61,7 +61,11 @@ const bookingCartPost = async (
     guestName: inputData.guestName,
     guestTel: inputData.guestTel,
   };
+  // eslint-disable-next-line no-console
+  console.log(updatedBookings);
   const dataToJson = JSON.stringify(updatedBookings);
+  // eslint-disable-next-line no-console
+  console.log(dataToJson);
   const { data, status } = await axiosPost<BookingResponse>(
     registerURL,
     dataToJson,
