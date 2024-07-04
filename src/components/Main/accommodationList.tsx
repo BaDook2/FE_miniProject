@@ -132,9 +132,6 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
     setSelectedMinPrice(optionValue);
   };
 
-  // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
-  console.log(data);
-
   return (
     <section className="mt-16">
       <div className="flex justify-between items-center mb-4">
