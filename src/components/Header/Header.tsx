@@ -13,6 +13,7 @@ const Header = () => {
   const pathname = usePathname();
   const { cartCount, setCartCount } = useCartStore();
   const { isLoggedIn, setLogOut } = useIsLoggedIn();
+
   const fetchData = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
@@ -20,8 +21,6 @@ const Header = () => {
 
   const clickLogOut = async () => {
     const statusCode = await fetchLogOut();
-    // eslint-disable-next-line no-console
-    console.log('click Log Out status Code: ', statusCode);
     if (statusCode) {
       setLogOut();
     }
@@ -29,8 +28,6 @@ const Header = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // eslint-disable-next-line no-console
-      console.log('header component isLoggendIn: ', isLoggedIn);
       fetchData();
     }
   }, [isLoggedIn, fetchData]);
