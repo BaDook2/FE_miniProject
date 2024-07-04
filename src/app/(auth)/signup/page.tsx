@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import SignUpSchema from '../../../components/SignUp/SignUpSchema';
 import SignUpInputBox from '../../../components/SignUp/SignUpInputBox';
 import {

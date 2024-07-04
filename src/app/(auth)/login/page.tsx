@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import Link from 'next/link';
 import login from '@/components/Login/loginAxois';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import loginSchema from '../../../components/Login/loginSchema';
 import LoginInputBox from '../../../components/Login/LoginInputBox';
 
