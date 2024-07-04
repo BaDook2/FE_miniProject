@@ -102,10 +102,11 @@ function BookingForm() {
     const hasAnyCartId = cartIdCount > 0;
     if (hasAnyCartId) {
       res = await bookingCartPost(inputData, bookings);
+      // eslint-disable-next-line no-console
+      console.log(res);
       const cartIds = cartIdItems.map((item) => item.cartId);
-
       if (res.status === 404) {
-        await router.push('/login');
+        router.push('/login');
       } else if (res.data && res.data.items) {
         decrementCartCount(cartIdCount);
         await axios.delete(`${BASE_URL}/api/cart`, {
@@ -113,16 +114,16 @@ function BookingForm() {
             cartList: cartIds.join(','),
           },
         });
-        await router.push(`/bookingResult?items=${res.data.items}`);
+        router.push(`/bookingResult?items=${res.data.items}`);
       }
-      // delete 요청은 라우팅 후에 수행
     } else {
       res = await bookingPost(inputData, bookings);
-
+      // eslint-disable-next-line no-console
+      console.log(res);
       if (res.status === 404) {
-        await router.push('/login');
+        router.push('/login');
       } else if (res.data && res.data.items) {
-        await router.push(`/bookingResult?items=${res.data.items}`);
+        router.push(`/bookingResult?items=${res.data.items}`);
       }
     }
   };
