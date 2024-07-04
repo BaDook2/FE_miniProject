@@ -1,17 +1,24 @@
 import { useRef, useState } from 'react';
 import { MdCheck } from 'react-icons/md';
-import bookingAxios from '@/components/Booking/bookingAxios';
+import {
+  bookingPost,
+  bookingCartPost,
+} from '@/components/Booking/bookingAxios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useBookingsFromQuery from '@/hooks/useSearchParams';
+import useCartStore from '@/lib/store';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import BASE_URL from '@/lib/constants';
 import { formatPrice } from '@/lib/formatNumber';
-import BookingSchema from './bookingSchema';
 import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
+import BookingSchema from './bookingSchema';
 
 export interface BookingFormInputs {
-  name: string;
-  phoneNumber: number;
+  guestName: string;
+  guestTel: number;
   roomId: number;
   numPeople: number;
   checkInDate: string;
@@ -21,17 +28,22 @@ function BookingForm() {
   const [agreeAll, setAgreeAll] = useState(false);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
+  const { decrementCartCount } = useCartStore();
+  const router = useRouter();
   const bookings = useBookingsFromQuery();
+
   const totalSum = bookings.reduce(
     (sum, booking) => sum + booking.totalPrice,
     0,
   );
+
   const {
     register,
     handleSubmit,
     trigger,
     formState: { errors },
   } = useForm<BookingFormInputs>({ resolver: zodResolver(BookingSchema) });
+
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneNumberRef = useRef<HTMLInputElement>(null);
   const handleKeyPress = async (
@@ -54,6 +66,7 @@ function BookingForm() {
       }
     }
   };
+
   const handleAgreeAllChange = () => {
     const newAgreeAll = !agreeAll;
     setAgreeAll(newAgreeAll);
@@ -81,30 +94,65 @@ function BookingForm() {
     }
   };
 
+  const onSubmit = async (inputData: BookingFormInputs) => {
+    let res;
+
+    const cartIdItems = bookings.filter((item) => 'cartId' in item);
+    const cartIdCount = cartIdItems.length;
+    const hasAnyCartId = cartIdCount > 0;
+    if (hasAnyCartId) {
+      res = await bookingCartPost(inputData, bookings);
+      const cartIds = cartIdItems.map((item) => item.cartId);
+
+      if (res.status === 404) {
+        await router.push('/login');
+      } else if (res.data && res.data.items) {
+        decrementCartCount(cartIdCount);
+        await axios.delete(`${BASE_URL}/api/cart`, {
+          params: {
+            cartList: cartIds.join(','),
+          },
+        });
+        await router.push(`/bookingResult?items=${res.data.items}`);
+      }
+      // delete 요청은 라우팅 후에 수행
+    } else {
+      res = await bookingPost(inputData, bookings);
+
+      if (res.status === 404) {
+        await router.push('/login');
+      } else if (res.data && res.data.items) {
+        await router.push(`/bookingResult?items=${res.data.items}`);
+      }
+    }
+  };
+
   const isSubmitDisabled = !(agreeAll && agree1 && agree2);
 
   return (
-    <form onSubmit={handleSubmit((data) => bookingAxios(data, bookings))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <section className="mb-4 p-6 bg-white">
         <h2 className="text-lg mb-2 font-bold">예약자 정보</h2>
         <section className="flex flex-col gap-2 mb-2">
           <BookingInputBox
             type="text"
             label="성명"
-            register={register('name')}
+            register={register('guestName')}
             placeholder="성명을 입력해주세요."
-            onKeyPress={(e) => handleKeyPress(e, 'name', undefined, nameRef)}
-            message={errors.name?.message}
+            onKeyPress={(e) =>
+              handleKeyPress(e, 'guestName', undefined, nameRef)
+            }
+            message={errors.guestName?.message}
           />
           <BookingInputBox
             type="text"
             label="휴대폰 번호"
-            register={register('phoneNumber')}
+            register={register('guestTel')}
             placeholder="'-' 구분없이 입력해주세요.'"
             onKeyPress={(e) =>
-              handleKeyPress(e, 'phoneNumber', undefined, phoneNumberRef)
+              handleKeyPress(e, 'guestTel', undefined, phoneNumberRef)
             }
-            message={errors.phoneNumber?.message}
+            message={errors.guestTel?.message}
           />
         </section>
       </section>

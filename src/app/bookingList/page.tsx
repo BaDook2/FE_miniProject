@@ -11,8 +11,8 @@ import Empty from '@/components/common/Empty';
 import BASE_URL from '@/lib/constants';
 
 export interface Booking {
-  name?: string;
-  phoneNumber?: number;
+  guestName?: string;
+  guestTel?: number;
   orderId?: string;
   roomId?: string;
   roomImg?: string;
@@ -24,8 +24,9 @@ export interface Booking {
   checkInDatetime: Date;
   checkOutDatetime: Date;
   totalPrice: number;
+  cartId: number;
 }
-interface BookingResponse {
+interface BookingListResponse {
   bookingList: Booking[];
   totalElements: number;
 }
@@ -37,7 +38,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 function BookingsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
-  const { data, error } = useSWR<BookingResponse>(
+  const { data, error } = useSWR<BookingListResponse>(
     `${BASE_URL}/api/booking?page=${currentPage}&size=${pageSize}`,
     fetcher,
   );

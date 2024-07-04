@@ -6,8 +6,8 @@ import BookingItem from '@/components/common/BookingItem';
 import BookingForm from '@/components/Booking/BookingForm';
 
 export interface BookingFormInputs {
-  name: string;
-  phoneNumber: number;
+  guestName: string;
+  guestTel: number;
   roomId: number;
   numPeople: number;
   checkInDate: string;
@@ -33,7 +33,7 @@ function BookingPage() {
             />
           ))
         ) : (
-          <p>No bookings found.</p>
+          <p>-</p>
         )}
       </section>
       <BookingForm />

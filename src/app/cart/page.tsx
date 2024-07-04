@@ -135,6 +135,7 @@ function Page() {
       checkInDatetime: cart.checkInDatetime,
       checkOutDatetime: cart.checkOutDatetime,
       roomId: cart.roomId,
+      cartId: cart.cartId,
     }));
 
     const encodedItems = JSON.stringify(bookingItems);
