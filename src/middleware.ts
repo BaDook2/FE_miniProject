@@ -7,12 +7,7 @@ const ACCESS_TOKEN = 'accessToken';
 // 미들웨어 함수
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get(ACCESS_TOKEN);
-  const protectedPaths = [
-    '/bookingList',
-    '/booking',
-    '/cart',
-    '/accommodation',
-  ];
+  const protectedPaths = ['/bookingList', '/booking', '/cart'];
 
   const authPaths = ['/login', '/signup'];
 
