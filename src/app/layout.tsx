@@ -7,6 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
 import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function RootLayout({
   children,
@@ -43,7 +45,19 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <MswComponent>{children}</MswComponent>
+        <MswComponent>
+          {children}
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            pauseOnHover
+            style={{}}
+          />
+        </MswComponent>
       </body>
     </html>
   );

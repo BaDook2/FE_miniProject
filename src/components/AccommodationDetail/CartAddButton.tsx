@@ -4,6 +4,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import useCartStore from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
+import { toast } from 'react-toastify';
 import cartAdd from './cartAddAxios';
 
 export interface ICartAdd {
@@ -32,6 +33,9 @@ function CartAddButton({
       router.push('/login');
     } else if (!errorMessage) {
       incrementCartCount();
+      toast.success('장바구니 추가 성공!');
+    } else {
+      toast.error('장바구니 추가 실패');
     }
   };
   return (

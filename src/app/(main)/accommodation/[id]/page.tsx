@@ -9,6 +9,7 @@ import Room from '@/components/AccommodationDetail/Room';
 import ImageSlider from '@/components/AccommodationDetail/ImageSlider';
 import Kakaomap from '@/components/AccommodationDetail/KakaoMap';
 import exportDate from '@/components/common/exportDate';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface IRoom {
   roomId: number;
