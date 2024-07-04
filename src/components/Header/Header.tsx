@@ -6,8 +6,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore from '@/lib/store';
-import checkCookie from '@/lib/checkCookie';
-import Cookies from 'js-cookie';
 import fetchCartCount from './fetchCartCount';
 import fetchLogOut from './fetchLogOut';
 
@@ -23,11 +21,7 @@ const Header = () => {
   const clickLogOut = () => {
     fetchLogOut();
     setExistCookie(false);
-    Cookies.remove('accessToken');
   };
-  useEffect(() => {
-    setExistCookie(checkCookie());
-  }, []);
 
   useEffect(() => {
     if (existCookie) {

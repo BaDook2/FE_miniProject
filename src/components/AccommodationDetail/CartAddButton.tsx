@@ -2,8 +2,8 @@
 
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import useCartStore from '@/lib/store';
-import checkCookie from '@/lib/checkCookie';
 import { useRouter } from 'next/navigation';
+import fetchCheckCookie from '@/lib/fetchCheckCookie';
 import cartAdd from './cartAddAxios';
 
 export interface ICartAdd {
@@ -28,7 +28,7 @@ function CartAddButton({
       checkInDate,
       checkOutDate,
     });
-    if (!checkCookie()) {
+    if (!fetchCheckCookie()) {
       router.push('/login');
     } else if (!errorMessage) {
       incrementCartCount();
