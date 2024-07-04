@@ -28,7 +28,7 @@ const bookingPost = async (
   inputData: BookingFormInputs,
   bookings: Booking[],
 ) => {
-  const registerURL = `${BASE_URL}//api/booking`;
+  const registerURL = `${BASE_URL}/api/booking`;
   const formatDate = (date: Date) => {
     const parsedDate = new Date(date);
     return `${parsedDate.getFullYear()}-${(parsedDate.getMonth() + 1).toString().padStart(2, '0')}-${parsedDate.getDate().toString().padStart(2, '0')}`;
@@ -55,7 +55,7 @@ const bookingCartPost = async (
   const cartList = bookings
     .filter((item) => item.cartId)
     .map((item) => item.cartId);
-  const registerURL = `${BASE_URL}//api/booking/cart`;
+  const registerURL = `${BASE_URL}/api/booking/cart`;
   const updatedBookings = {
     cartList,
     guestName: inputData.guestName,

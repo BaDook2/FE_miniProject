@@ -42,7 +42,7 @@ function BookingPayments() {
   return (
     <section className="flex flex-col gap-2 p-6 mb-4 bg-white">
       <h2 className="text-lg mb-2 font-bold">결제 수단</h2>
-      <article className="grid grid-cols-1 md:grid-cols-3 gap-1">
+      <article className="grid grid-cols-2 md:grid-cols-3 gap-1">
         <PaymentsButton
           onClick={() => {
             handleClick('naverPay');
