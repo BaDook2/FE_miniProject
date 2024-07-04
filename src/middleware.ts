@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
 
   const protectedPaths = ['/bookingList', '/booking', '/cart'];
 
-  const authPaths = ['/login', '/signup', '/accommodation'];
+  const authPaths = ['/login', '/signup'];
 
   const isProtectedPath = protectedPaths.some((path) =>
     new URL(request.url).pathname.startsWith(path),
