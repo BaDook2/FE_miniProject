@@ -27,6 +27,9 @@ const Header = () => {
   };
   useEffect(() => {
     setExistCookie(checkCookie());
+  }, []);
+
+  useEffect(() => {
     if (existCookie) {
       console.log(existCookie);
       fetchData();
