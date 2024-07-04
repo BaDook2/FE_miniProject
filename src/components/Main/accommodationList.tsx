@@ -67,13 +67,16 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
     );
     if (state) {
       const { data } = JSON.parse(state);
-      queryClient.setQueryData(['accommodations', category], data);
+      queryClient.setQueryData(
+        ['accommodations', category, selectedMinPrice],
+        data,
+      );
     }
     if (savedMinPrice) {
       setSelectedMinPrice(Number(savedMinPrice));
       sessionStorage.removeItem(`selectedMinPrice-${category}`);
     }
-  }, [category, queryClient]);
+  }, [category, queryClient, selectedMinPrice]);
 
   // InfiniteQuery - InfiniteScroll
   const { data, fetchNextPage, isLoading, isFetchingNextPage } =
@@ -119,9 +122,9 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
 
   const options = [
     { value: '0', name: '최저가' },
-    { value: '30000', name: '30000~' },
-    { value: '50000', name: '50000~' },
-    { value: '80000', name: '80000~' },
+    { value: '50000', name: '50000 ~' },
+    { value: '80000', name: '80000 ~' },
+    { value: '100000', name: '100000 ~' },
   ];
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -134,9 +137,13 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
 
   return (
     <section className="mt-16">
-      <div className="flex justify-between items-center ">
-        <h2 className="text-left text-2xl font-bold mb-4">추천 숙소</h2>
-        <select value={selectedMinPrice} onChange={handlePriceChange}>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-left text-2xl font-bold">추천 숙소</h2>
+        <select
+          value={selectedMinPrice}
+          onChange={handlePriceChange}
+          className="w-28 h-10 text-center text-sm border-2 rounded-lg"
+        >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.name}
@@ -183,6 +190,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
                       data: queryClient.getQueryData([
                         'accommodations',
                         category,
+                        selectedMinPrice,
                       ]),
                     };
                     sessionStorage.setItem(
