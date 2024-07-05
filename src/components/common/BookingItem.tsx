@@ -75,7 +75,7 @@ function BookingItem({
 
   const displayedPrice = booking.totalPrice ?? 0;
   return (
-    <article key={getKey()} className="w-full bg-white p-5 rounded-md">
+    <article key={getKey()} className="w-full bg-white p-4 rounded-md">
       <header>
         {(type === 'bookingResult' || type === 'bookingList') &&
           'orderId' in booking && (
@@ -98,17 +98,17 @@ function BookingItem({
             )}
         </div>
       </header>
-      <section className="flex w-full">
+      <section className="flex w-full gap-4">
         {type === 'cart' && 'cartId' in booking && (
           <input
             type="checkbox"
-            className="custom-checkbox mr-4 mt-1"
+            className="custom-checkbox mt-1"
             checked={isCheck}
             onChange={() => onCheckItem && onCheckItem(booking.cartId)}
           />
         )}
         {booking.roomImg && (
-          <figure className="relative min-w-20 h-20 mr-2 rounded-xl">
+          <figure className="relative min-w-20 h-20 rounded-xl">
             <Image
               src={booking.roomImg}
               alt={booking.roomTitle}
@@ -117,7 +117,7 @@ function BookingItem({
             />
           </figure>
         )}
-        <article className="w-full flex flex-col gap-5">
+        <article className="w-full flex flex-col gap-2">
           <ItemRow label="객실">
             <p
               className={`text-lg font-bold ${
