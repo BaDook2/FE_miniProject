@@ -114,7 +114,9 @@ function BookingForm() {
             cartList: cartIds.join(','),
           },
         });
-        router.push(`/bookingResult?items=${res.data.items}`);
+        router.push(
+          `/bookingResult?items=${encodeURIComponent(JSON.stringify(res.data.items))}`,
+        );
       }
     } else {
       res = await bookingPost(inputData, bookings);
@@ -123,7 +125,9 @@ function BookingForm() {
       if (res.status === 404) {
         router.push('/login');
       } else if (res.data && res.data.items) {
-        router.push(`/bookingResult?items=${res.data.items}`);
+        router.push(
+          `/bookingResult?items=${encodeURIComponent(JSON.stringify(res.data.items))}`,
+        );
       }
     }
   };
