@@ -2,7 +2,7 @@
 
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
@@ -18,6 +18,7 @@ export default function RootLayout({
   const { isLoggedIn, setLogIn, setLogOut } = useIsLoggedIn();
   const presentPath = usePathname();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCheck = async () => {
@@ -27,21 +28,28 @@ export default function RootLayout({
       } else if (!checkLogin && isLoggedIn) {
         setLogOut();
       }
+      setIsLoading(true);
     };
     fetchCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
-      router.push('/');
-    } else if (
-      !isLoggedIn &&
-      PROTECTED_PATH.some((path) => presentPath.startsWith(path))
-    ) {
-      router.push('/login');
+    if (!isLoading) {
+      if (
+        isLoggedIn &&
+        AUTH_PATH.some((path) => presentPath.startsWith(path))
+      ) {
+        router.push('/');
+      } else if (
+        !isLoggedIn &&
+        PROTECTED_PATH.some((path) => presentPath.startsWith(path))
+      ) {
+        router.push('/login');
+      }
     }
-  }, [isLoggedIn, presentPath, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, presentPath]);
 
   return (
     <html lang="ko">
