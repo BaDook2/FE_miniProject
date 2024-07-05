@@ -111,7 +111,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
-      if (scrollHeight - scrollTop <= clientHeight * 1.2) {
+      if (scrollHeight - scrollTop <= clientHeight * 1.1) {
         fetchNextPage();
       }
     };
