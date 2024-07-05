@@ -4,12 +4,12 @@
 - [GitHub 레포지토리](https://github.com/kdt8-mini-project-team5/FE_miniProject)
 
 ## 프로젝트 소개
-- 숙박 예약이 가능한 플랫폼입니다.
+- 숙박 예약이 가능한 플랫폼 FAST입니다.
 - 프로젝트 기간: 2024.06.17 ~  2024.07.05
 
 ## 팀원 구성
 |**장경빈**|**김민수**|**김여진**|
-:------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | 
+:---: | :---: | :---: | 
  <img width="180" alt="장경빈img" src="https://avatars.githubusercontent.com/u/97817208?v=4"> | <img width="180"  alt="김민수img" src="https://avatars.githubusercontent.com/u/153588816?v=4"> | <img width="180" alt="김여진img" src="https://avatars.githubusercontent.com/u/79198245?s=400&v=4"> |
 | [BaDook2](https://github.com/BaDook2) | [SSUDNG](https://github.com/SSUDNG) | [Yeojin-Kim12](https://github.com/Yeojin-Kim12)|
 | 팀장 | 팀원 | 팀원 |
@@ -17,17 +17,10 @@
 
 ## 사용 기술 스택
 - Programming<br>
-<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
-<img src="https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white"/>
-<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white"/> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
 
 - collaboration tool<br>
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"/>
-<img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"/>
-<img alt="Slack" src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"/>
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"/> <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"/> <img alt="Slack" src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"/>
 
 - Design<br>
 [<img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"/>](https://www.figma.com/design/Q54rP5deHWDnmndclAex5L/miniproject?t=OlUgedB6VZ6jKgV4-0)
