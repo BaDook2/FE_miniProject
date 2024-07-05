@@ -49,7 +49,8 @@ const nextConfig = {
         hostname: 'raw.githubusercontent.com',
       },
     ],
-    unoptimized: true,
+    unoptimized: true, // vercel 이미지 최적화 사용 안함
+    images: ['image/avif', 'image/webp'], // image 포맷 avif사용, 용량 줄이기
   },
 };
 

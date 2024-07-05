@@ -167,6 +167,8 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
                   className="rounded-lg bg-cover"
                   sizes="50vw"
                   onError={() => setIsImgError(true)}
+                  placeholder="blur"
+                  blurDataURL="../../../public/logo.png"
                 />
               </div>
               <div className="p-4">
