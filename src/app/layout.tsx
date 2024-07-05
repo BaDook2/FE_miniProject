@@ -28,7 +28,7 @@ export default function RootLayout({
       } else if (!checkLogin && isLoggedIn) {
         setLogOut();
       }
-      setIsLoading(true);
+      setIsLoading(false);
     };
     fetchCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
