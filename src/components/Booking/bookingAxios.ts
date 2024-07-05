@@ -41,7 +41,11 @@ const bookingPost = async (
     checkInDate: formatDate(booking.checkInDatetime),
     checkOutDate: formatDate(booking.checkOutDatetime),
   }));
+  // eslint-disable-next-line no-console
+  console.log(updatedBookings);
   const dataToJson = JSON.stringify(updatedBookings);
+  // eslint-disable-next-line no-console
+  console.log(dataToJson);
   const { data, status } = await axiosPost<BookingResponse>(
     registerURL,
     dataToJson,
@@ -52,12 +56,12 @@ const bookingCartPost = async (
   inputData: BookingFormInputs,
   bookings: Booking[],
 ) => {
-  const cartList = bookings
+  const cartIdList = bookings
     .filter((item) => item.cartId)
     .map((item) => item.cartId);
   const registerURL = `${BASE_URL}/api/booking/cart`;
   const updatedBookings = {
-    cartList,
+    cartIdList,
     guestName: inputData.guestName,
     guestTel: inputData.guestTel,
   };

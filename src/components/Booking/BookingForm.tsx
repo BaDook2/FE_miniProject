@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { MdCheck } from 'react-icons/md';
 import {
   bookingPost,
   bookingCartPost,
@@ -15,6 +14,7 @@ import { formatPrice } from '@/lib/formatNumber';
 import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
 import BookingSchema from './bookingSchema';
+import ConsentItem from './ConsentItem';
 
 export interface BookingFormInputs {
   guestName: string;
@@ -159,50 +159,22 @@ function BookingForm() {
       </section>
       <BookingPayments />
       <section className="flex flex-col gap-2 p-6 mb-4 bg-white">
-        <article className="flex items-center gap-4">
-          <button
-            type="button"
-            onClick={handleAgreeAllChange}
-            className={`w-10 h-10 border-2 flex justify-center items-center text-2xl font-bold rounded-lg ${agreeAll && agree1 && agree2 ? 'bg-scienceblue text-concrete' : 'text-alto'}`}
-          >
-            {' '}
-            <MdCheck />
-          </button>
-          <span className="text-2xl font-bold">필수 약관 전체 동의</span>
-        </article>
-        <article className="flex justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={handleAgree1Change}
-              className={`w-10 h-10 flex justify-center items-center text-2xl font-bold ${agree1 ? 'text-scienceblue' : 'text-alto'}`}
-            >
-              {' '}
-              <MdCheck />
-            </button>
-            <span>[필수] 개인정보 수집 및 이용</span>
-          </div>
-          <button type="button" className="text-scienceblue">
-            보기
-          </button>
-        </article>
-
-        <article className="flex justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={handleAgree2Change}
-              className={`w-10 h-10 flex justify-center items-center text-2xl font-bold ${agree2 ? 'text-scienceblue' : 'text-alto'}`}
-            >
-              {' '}
-              <MdCheck />
-            </button>
-            <span>[필수] 개인정보 제 3자 제공</span>
-          </div>
-          <button type="button" className="text-scienceblue">
-            보기
-          </button>
-        </article>
+        <ConsentItem
+          type="all"
+          onClick={handleAgreeAllChange}
+          checked={agreeAll}
+          label="필수 약관 전체 동의"
+        />
+        <ConsentItem
+          onClick={handleAgree1Change}
+          checked={agree1}
+          label="[필수] 개인정보 수집 및 이용"
+        />
+        <ConsentItem
+          onClick={handleAgree2Change}
+          checked={agree2}
+          label="[필수] 개인정보 제 3자 제공"
+        />
       </section>
       <button
         type="submit"
