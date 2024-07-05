@@ -9,6 +9,7 @@ import useBookingsFromQuery from '@/hooks/useSearchParams';
 import useCartStore from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/lib/formatNumber';
+import { toast } from 'react-toastify';
 import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
 import BookingSchema from './bookingSchema';
@@ -102,9 +103,15 @@ function BookingForm() {
       res = await bookingCartPost(inputData, bookings);
       // eslint-disable-next-line no-console
       console.log(res);
-      if (res.status === 404) {
+
+      if (res.status === 403) {
         router.push('/login');
       } else if (res.data && res.data.items) {
+        if (!res.errorMessage) {
+          toast.success('예약 성공!');
+        } else {
+          toast.error(res.errorMessage);
+        }
         decrementCartCount(cartIdCount);
         router.push(
           `/bookingResult?items=${encodeURIComponent(JSON.stringify(res.data.items))}`,
@@ -114,9 +121,14 @@ function BookingForm() {
       res = await bookingPost(inputData, bookings);
       // eslint-disable-next-line no-console
       console.log(res);
-      if (res.status === 404) {
+      if (res.status === 403) {
         router.push('/login');
       } else if (res.data && res.data.items) {
+        if (!res.errorMessage) {
+          toast.success('예약 성공!');
+        } else {
+          toast.error(res.errorMessage);
+        }
         router.push(
           `/bookingResult?items=${encodeURIComponent(JSON.stringify(res.data.items))}`,
         );

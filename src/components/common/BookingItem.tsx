@@ -3,6 +3,7 @@ import { Cart } from '@/app/cart/page';
 import { formatPrice } from '@/lib/formatNumber';
 import Image from 'next/image';
 import React from 'react';
+import ItemRow from './ItemRow';
 
 interface BookingItemProps {
   type: string;
@@ -74,7 +75,7 @@ function BookingItem({
 
   const displayedPrice = booking.totalPrice ?? 0;
   return (
-    <article key={getKey()} className="w-full bg-white p-5">
+    <article key={getKey()} className="w-full bg-white p-5 rounded-md">
       <header>
         {(type === 'bookingResult' || type === 'bookingList') &&
           'orderId' in booking && (
@@ -82,7 +83,7 @@ function BookingItem({
               숙소 예약번호 {booking.orderId}
             </p>
           )}
-        <div className="flex justify-between">
+        <div className="flex justify-between my-4">
           <h2
             role="none"
             className={`text-lg font-bold text-mineshaft ${type === 'cart' ? 'cursor-pointer' : ''}`}
@@ -96,18 +97,6 @@ function BookingItem({
               <p className=" text-red-600">예약불가상품</p>
             )}
         </div>
-        <hr className="border-gray-300 my-2 text-mineshaft" />
-        <p
-          className={`text-lg mb-2 font-bold ${
-            type === 'cart' &&
-            'isBooking' in booking &&
-            booking.isBooking === false
-              ? 'text-alto'
-              : ''
-          }`}
-        >
-          {booking.roomTitle}
-        </p>
       </header>
       <section className="flex w-full">
         {type === 'cart' && 'cartId' in booking && (
@@ -129,8 +118,21 @@ function BookingItem({
           </figure>
         )}
         <article className="w-full flex flex-col gap-2">
-          <div className="w-full flex">
-            <div className="w-1/2 flex flex-col gap-1">
+          <ItemRow label="객실">
+            <p
+              className={`text-lg font-bold ${
+                type === 'cart' &&
+                'isBooking' in booking &&
+                booking.isBooking === false
+                  ? 'text-alto'
+                  : ''
+              }`}
+            >
+              {booking.roomTitle}
+            </p>
+          </ItemRow>
+          <ItemRow label="일정">
+            <div className="flex-1 flex flex-col gap-1">
               <p className="text-sm text-dovegray">체크인</p>
               <p
                 className={`text-xl font-bold ${
@@ -143,7 +145,7 @@ function BookingItem({
               >{`${formatDate(checkInDate)} (${getDayOfWeek(checkInDate)})`}</p>
               <p className="text-sm text-dovegray">{formatTime(checkInDate)}</p>
             </div>
-            <div className="w-1/2 flex flex-col gap-1">
+            <div className="flex-1 flex flex-col gap-1">
               <p className="text-sm text-dovegray">체크아웃</p>
               <p
                 className={`text-xl font-bold ${
@@ -158,11 +160,15 @@ function BookingItem({
                 {formatTime(checkOutDate)}
               </p>
             </div>
-          </div>
-          <p className="text-xs mb-2 text-dovegray">{`기준 ${booking.minPeople}명 / 최대 ${booking.maxPeople}명`}</p>
+          </ItemRow>
+          <ItemRow label="기준인원">
+            <p className="text-sm text-dovegray">{`기준 ${booking.minPeople}명 / 최대 ${booking.maxPeople}명`}</p>
+          </ItemRow>
           {(type === 'bookingResult' || type === 'bookingList') &&
             'guestName' in booking && (
-              <p className="text-end text-xs mb-2 text-dovegray">{`${booking.guestName} / ${booking.guestTel}`}</p>
+              <ItemRow label="예약자정보">
+                <p className="text-sm text-dovegray">{`${booking.guestName} / ${booking.guestTel}`}</p>
+              </ItemRow>
             )}
         </article>
       </section>

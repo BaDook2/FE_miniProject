@@ -3,6 +3,7 @@
 import CartFooter from '@/components/Cart/CartFooter';
 import BackButton from '@/components/common/BackButton';
 import BookingItem from '@/components/common/BookingItem';
+import Button from '@/components/common/Button';
 import BASE_URL from '@/lib/constants';
 import { axiosGet } from '@/lib/fetchURL';
 import useCartStore from '@/lib/store';
@@ -204,13 +205,7 @@ function Page() {
             <MdOutlineShoppingCart size={80} className="m-5" />
             <div>장바구니에 담긴 상품이 없습니다</div>
             <div>원하는 상품을 담아보세요</div>
-            <button
-              type="button"
-              className="text-primary bg-white border border-primary px-4 py-2 rounded-md m-5 hover:bg-primary hover:text-white transition-all"
-              onClick={() => router.push('/')}
-            >
-              홈으로 가기
-            </button>
+            <Button href="/" label="홈으로 가기" />
           </div>
         </div>
       )}
