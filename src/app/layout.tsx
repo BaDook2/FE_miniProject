@@ -2,7 +2,7 @@
 
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
@@ -29,6 +29,7 @@ export default function RootLayout({
       }
     };
     fetchCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function RootLayout({
     ) {
       router.push('/login');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, presentPath]);
 
   return (

@@ -31,9 +31,6 @@ const Header = () => {
       fetchData();
     }
   }, [isLoggedIn, fetchData]);
-  useEffect(()=>{
-
-  }, [pathname])
 
   return (
     <div className="flex items-center h-full w-full justify-between">
@@ -43,7 +40,7 @@ const Header = () => {
       </Link>
       <div className="flex items-center h-full gap-7 font-bold">
         <Link
-          href={'/'}
+          href="/"
           className={`text-lg ${pathname === '/' ? 'text-primary' : ''}`}
         >
           메인페이지

@@ -80,7 +80,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
           {err}
         </div>
       ) : (
-        <>
+        <div>
           <div className="w-innerWidth flex gap-3 my-3">
             {accommodation && (
               <>
@@ -152,7 +152,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
                 />
               ))}
           </span>
-        </>
+        </div>
       )}
     </section>
   );
