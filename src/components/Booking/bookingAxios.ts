@@ -33,17 +33,17 @@ const bookingPost = async (
     const parsedDate = new Date(date);
     return `${parsedDate.getFullYear()}-${(parsedDate.getMonth() + 1).toString().padStart(2, '0')}-${parsedDate.getDate().toString().padStart(2, '0')}`;
   };
-  const updatedBookings = bookings.map((booking) => ({
+  const updatedBooking = {
     guestName: inputData.guestName,
     guestTel: inputData.guestTel,
-    roomId: booking.roomId,
-    numPeople: booking.numPeople,
-    checkInDate: formatDate(booking.checkInDatetime),
-    checkOutDate: formatDate(booking.checkOutDatetime),
-  }));
+    roomId: bookings[0].roomId,
+    numPeople: bookings[0].numPeople,
+    checkInDate: formatDate(bookings[0].checkInDatetime),
+    checkOutDate: formatDate(bookings[0].checkOutDatetime),
+  };
   // eslint-disable-next-line no-console
-  console.log(updatedBookings);
-  const dataToJson = JSON.stringify(updatedBookings);
+  console.log(updatedBooking);
+  const dataToJson = JSON.stringify(updatedBooking);
   // eslint-disable-next-line no-console
   console.log(dataToJson);
   const { data, status } = await axiosPost<BookingResponse>(
