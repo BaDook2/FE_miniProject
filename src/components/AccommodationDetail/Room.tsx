@@ -53,7 +53,7 @@ function Room({
         <span className="text-gray-600 mb-2 text-base">
           기준 {room.minPeople}명 / 최대 {room.maxPeople}명
         </span>
-        <div className="flex justify-end mb-4 gap-2">
+        <div className="flex justify-end items-center mb-4 gap-2">
           <span className="text-2xl text-dovegray">숙박 / {day}박</span>
           <span className="text-4xl font-bold">{formatPrice(totalPrice)}</span>
         </div>

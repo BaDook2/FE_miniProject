@@ -117,7 +117,7 @@ function BookingItem({
             />
           </figure>
         )}
-        <article className="w-full flex flex-col gap-2">
+        <article className="w-full flex flex-col gap-5">
           <ItemRow label="객실">
             <p
               className={`text-lg font-bold ${
