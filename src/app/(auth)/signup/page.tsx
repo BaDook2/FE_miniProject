@@ -68,12 +68,17 @@ function SignUp() {
   };
 
   const handleKeyPress = async (
-    event: React.KeyboardEvent<HTMLInputElement>,
+    event:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement>,
     fieldName: keyof ISignUp,
     clickHandler?: () => Promise<void>,
     nextRef?: React.RefObject<HTMLInputElement>,
   ) => {
-    if (event.key === 'Enter') {
+    if (
+      ('key' in event && event.key === 'Enter') ||
+      ('type' in event && event.type === 'click')
+    ) {
       const isValid = await trigger(fieldName);
       if (isValid) {
         if (clickHandler) {
@@ -99,7 +104,7 @@ function SignUp() {
 
   return (
     <div className="h-screen mx-auto flex items-center justify-center">
-      <div className="w-1/3 flex flex-col gap-12">
+      <div className="w-1/3 flex flex-col gap-12 max-w-[400px]">
         <Link href="/login" className="flex gap-2 justify-end">
           <Image src="/logo.png" width={40} height={40} alt="logo" />
           <h1 className="text-3xl text-primary">FAST</h1>
@@ -115,57 +120,41 @@ function SignUp() {
               onKeyPress={(e) => handleKeyPress(e, 'name', undefined, emailRef)}
               message={errors.name?.message}
             />
-            <div className="flex">
+            <SignUpInputBox
+              type="email"
+              register={register('email')}
+              onKeyPress={(e) =>
+                handleKeyPress(
+                  e,
+                  'email',
+                  clickAccessKeyRequireButton,
+                  accessKeyRef,
+                )
+              }
+              message={
+                errors.email?.message ||
+                (isClicked === true ? '인증코드를 보냈습니다.' : '')
+              }
+              buttonText="Send Access Key"
+            />
+            {isClicked && (
               <SignUpInputBox
-                type="email"
-                register={register('email')}
+                type="text"
+                register={register('accessKey')}
                 onKeyPress={(e) =>
                   handleKeyPress(
                     e,
-                    'email',
-                    clickAccessKeyRequireButton,
-                    accessKeyRef,
+                    'accessKey',
+                    clickAccessKeyCheckButton,
+                    phoneNumberRef,
                   )
                 }
                 message={
-                  errors.email?.message ||
-                  (isClicked === true ? '인증코드를 보냈습니다.' : '')
+                  errors.accessKey?.message ||
+                  (accessKeyChecked ? '인증코드 확인' : '')
                 }
+                buttonText="Check Access Key"
               />
-              <button
-                type="button"
-                className="bg-alto text-white rounded-lg w-6/12 font-bold"
-                onClick={clickAccessKeyRequireButton}
-              >
-                Send Access Key
-              </button>
-            </div>
-            {isClicked && (
-              <div className="flex">
-                <SignUpInputBox
-                  type="text"
-                  register={register('accessKey')}
-                  onKeyPress={(e) =>
-                    handleKeyPress(
-                      e,
-                      'accessKey',
-                      clickAccessKeyCheckButton,
-                      phoneNumberRef,
-                    )
-                  }
-                  message={
-                    errors.accessKey?.message ||
-                    (accessKeyChecked ? '인증코드 확인' : '')
-                  }
-                />
-                <button
-                  type="button"
-                  className="bg-alto text-white rounded-lg w-6/12 font-bold"
-                  onClick={clickAccessKeyCheckButton}
-                >
-                  Check Access Key
-                </button>
-              </div>
             )}
             <SignUpInputBox
               type="text"

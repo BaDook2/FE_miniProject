@@ -25,7 +25,7 @@ const fetchURL = async <T>(
     }
     return {
       data: null,
-      errorMessage: 'Unknown Error',
+      errorMessage: '예기치 못한 오류가 발생했습니다.',
       status: err.response?.status,
     };
   }

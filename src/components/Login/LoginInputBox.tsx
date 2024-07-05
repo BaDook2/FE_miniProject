@@ -22,7 +22,8 @@ function LoginInputBox({ type, placeholder, message, register }: ILogin) {
         onBlur={onBlur}
         name={name}
         ref={ref}
-        className={`${message ? 'border-primary' : null} focus:outline-none border-2 text-2xl bg-concrete rounded-lg p-3 placeholder:text-alto`}
+        className={`${message ? 'valid:border-primary' : null} focus:outline-none focus:border-blue-300
+        valid:border-blue-600 border-2 text-2xl rounded-lg p-3 placeholder:text-alto`}
       />
       {message && (
         <span

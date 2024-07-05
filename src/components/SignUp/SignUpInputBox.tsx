@@ -4,7 +4,12 @@ interface ISignUpInputBox {
   type: string;
   message?: string;
   register: UseFormRegisterReturn;
-  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyPress?: (
+    e:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement>,
+  ) => void;
+  buttonText?: string;
 }
 
 function SignUpInputBox({
@@ -12,10 +17,11 @@ function SignUpInputBox({
   message,
   register,
   onKeyPress,
+  buttonText,
 }: ISignUpInputBox) {
   const { onChange, onBlur, name, ref } = register || {};
   return (
-    <div className="flex flex-col relative">
+    <div className="flex relative">
       <input
         type={type}
         placeholder={name}
@@ -24,16 +30,26 @@ function SignUpInputBox({
         onBlur={onBlur}
         name={name}
         ref={ref}
-        onKeyPress={onKeyPress}
-        className={`${message ? 'border-primary' : ''} 
-        border-2 
+        onKeyDown={onKeyPress}
+        className={`${message ? 'border-b-primary' : ''} 
         border-white
         border-b-alto text-2xl p-2 placeholder:text-alto
         focus:outline-none
-        focus:border-b-black
-        flex-shrink
-        w-full`}
+        focus:border-blue-300
+        valid:border-b-blue-600
+        w-full
+        rounded-t-md
+        border-b-2`}
       />
+      {buttonText && (
+        <button
+          type="button"
+          className="border-2 border-white bg-primary text-white rounded-lg w-1/2 font-bold hover:bg-white hover:text-primary hover:border-2 hover:border-primary box-border"
+          onClick={onKeyPress}
+        >
+          {buttonText}
+        </button>
+      )}
       {message && (
         <span className="absolute -bottom-6 text-primary">{message}</span>
       )}
