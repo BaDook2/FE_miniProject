@@ -20,17 +20,14 @@ const Header = () => {
   }, [setCartCount]);
 
   const clickLogOut = async () => {
-    const statusCode = await fetchLogOut();
-    if (statusCode) {
+    const isSuccess = await fetchLogOut();
+    if (isSuccess) {
       setLogOut();
-      setCartCount(0);
     }
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
-      fetchData();
-    }
+    fetchData();
   }, [isLoggedIn, fetchData]);
 
   return (
