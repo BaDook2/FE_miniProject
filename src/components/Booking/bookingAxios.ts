@@ -41,16 +41,14 @@ const bookingPost = async (
     checkInDate: formatDate(bookings[0].checkInDatetime),
     checkOutDate: formatDate(bookings[0].checkOutDatetime),
   };
-  // eslint-disable-next-line no-console
-  console.log(updatedBooking);
   const dataToJson = JSON.stringify(updatedBooking);
-  // eslint-disable-next-line no-console
-  console.log(dataToJson);
-  const { data, status } = await axiosPost<BookingResponse>(
+  const { data, status, errorMessage } = await axiosPost<BookingResponse>(
     registerURL,
     dataToJson,
   );
-  return { data, status };
+  // eslint-disable-next-line no-console
+  console.log(data, status, errorMessage);
+  return { data, status, errorMessage };
 };
 const bookingCartPost = async (
   inputData: BookingFormInputs,
@@ -65,16 +63,15 @@ const bookingCartPost = async (
     guestName: inputData.guestName,
     guestTel: inputData.guestTel,
   };
-  // eslint-disable-next-line no-console
-  console.log(updatedBookings);
   const dataToJson = JSON.stringify(updatedBookings);
-  // eslint-disable-next-line no-console
-  console.log(dataToJson);
-  const { data, status } = await axiosPost<BookingResponse>(
+
+  const { data, status, errorMessage } = await axiosPost<BookingResponse>(
     registerURL,
     dataToJson,
   );
-  return { data, status };
+  // eslint-disable-next-line no-console
+  console.log(data, status, errorMessage);
+  return { data, status, errorMessage };
 };
 
 export { bookingPost, bookingCartPost };

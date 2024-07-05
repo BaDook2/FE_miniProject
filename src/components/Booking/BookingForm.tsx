@@ -8,8 +8,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import useBookingsFromQuery from '@/hooks/useSearchParams';
 import useCartStore from '@/lib/store';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import BASE_URL from '@/lib/constants';
 import { formatPrice } from '@/lib/formatNumber';
 import BookingInputBox from './bookingInputBox';
 import BookingPayments from './BookingPayments';
@@ -104,16 +102,10 @@ function BookingForm() {
       res = await bookingCartPost(inputData, bookings);
       // eslint-disable-next-line no-console
       console.log(res);
-      const cartIds = Array.from(cartIdItems, (item) => item.cartId);
       if (res.status === 404) {
         router.push('/login');
       } else if (res.data && res.data.items) {
         decrementCartCount(cartIdCount);
-        await axios.delete(`${BASE_URL}/api/cart`, {
-          params: {
-            cartList: cartIds.join(','),
-          },
-        });
         router.push(
           `/bookingResult?items=${encodeURIComponent(JSON.stringify(res.data.items))}`,
         );
