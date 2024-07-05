@@ -88,7 +88,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
                     imgArr={
                       fetchStatus === 200
                         ? accommodation.img
-                        : ['./logo.png', './logo.png']
+                        : ['/logo.png', '/logo.png']
                     }
                   />
                 </div>

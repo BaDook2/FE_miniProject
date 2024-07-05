@@ -30,7 +30,7 @@ export default function RootLayout({
     };
     fetchCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presentPath]);
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
