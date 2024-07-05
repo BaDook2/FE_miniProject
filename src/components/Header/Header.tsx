@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useEffect } from 'react';
@@ -14,19 +16,24 @@ const Header = () => {
   const { isLoggedIn, setLogOut } = useIsLoggedIn();
   const router = useRouter();
 
-  if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
-    router.push('/');
-  } else if (
-    !isLoggedIn &&
-    PROTECTED_PATH.some((path) => presentPath.startsWith(path))
-  ) {
-    router.push('/login');
-  }
-
-  const fetchData = useCallback(async (): Promise<void> => {
+  const fetchCart = useCallback(async (): Promise<void> => {
     const count = await fetchCartCount();
     setCartCount(count);
   }, [setCartCount]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchCart();
+      if (AUTH_PATH.some((path) => presentPath.startsWith(path)))
+        router.push('/');
+    } else if (
+      !isLoggedIn &&
+      PROTECTED_PATH.some((path) => presentPath.startsWith(path))
+    ) {
+      router.push('/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, presentPath]);
 
   const clickLogOut = async () => {
     const statusCode = await fetchLogOut();
@@ -35,12 +42,6 @@ const Header = () => {
       setCartCount(0);
     }
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchData();
-    }
-  }, [isLoggedIn, fetchData]);
 
   return (
     <div className="flex items-center h-full w-full justify-between">
