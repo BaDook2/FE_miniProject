@@ -23,6 +23,7 @@ const Header = () => {
     const statusCode = await fetchLogOut();
     if (statusCode) {
       setLogOut();
+      setCartCount(0);
     }
   };
 
