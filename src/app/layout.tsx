@@ -29,6 +29,10 @@ export default function RootLayout({
       }
     };
     fetchCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presentPath]);
+
+  useEffect(() => {
     if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
       router.push('/');
     } else if (
@@ -37,8 +41,7 @@ export default function RootLayout({
     ) {
       router.push('/login');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, presentPath]);
+  }, [isLoggedIn, presentPath, router]);
 
   return (
     <html lang="ko">
