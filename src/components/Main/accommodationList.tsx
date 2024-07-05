@@ -34,6 +34,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
   const queryClient = useQueryClient();
   const [isRestoring, setIsRestoring] = useState(true);
   const [selectedMinPrice, setSelectedMinPrice] = useState<number>(0);
+  const [isImgError, setIsImgError] = useState<boolean>(false);
 
   // Axios get
   const fetchProjects = async ({
@@ -98,7 +99,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && fetchNextPage(),
-      { threshold: 1.0 },
+      { threshold: 0 },
     );
     const target = bottomRef.current;
     if (target) observer.observe(target);
@@ -157,12 +158,15 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
             >
               <div className="bg-concrete w-full h-64 relative">
                 <Image
-                  src={item.thumbnailUrl}
+                  src={
+                    isImgError ? '../../../public/logo.png' : item.thumbnailUrl
+                  }
                   alt="image"
                   fill
                   style={{ objectFit: 'cover' }}
                   className="rounded-lg bg-cover"
                   sizes="50vw"
+                  onError={() => setIsImgError(true)}
                 />
               </div>
               <div className="p-4">
