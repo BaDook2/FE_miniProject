@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import login from '@/components/Login/loginAxois';
 import { useRouter } from 'next/navigation';
+import { useIsLoggedIn } from '@/lib/store';
 import loginSchema from '../../../components/Login/loginSchema';
 import LoginInputBox from '../../../components/Login/LoginInputBox';
 
@@ -25,12 +26,14 @@ function Login() {
     resolver: zodResolver(loginSchema),
   });
   const router = useRouter();
+  const { setLogIn } = useIsLoggedIn();
   const clickLoginButton = async () => {
     const errorMessage = await login(watch('email'), watch('password'));
     if (errorMessage) {
       setError('email', { type: 'custom', message: errorMessage });
     } else {
       router.push('/');
+      setLogIn();
     }
   };
   return (
