@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { IRoom } from '@/app/(main)/accommodation/[id]/page';
 import ImageSlider from './ImageSlider';
 import CartAddButton from './CartAddButton';
-import ReserveButton from './ReserveButton';
 
 interface RoomProps {
   buildingName: string;
@@ -66,7 +65,12 @@ function Room({
                 checkOutDate={`${checkOutDate}`}
               />
               <Link href={`/booking?items=[${encodedItems}]`}>
-                <ReserveButton text="예약하기" />
+                <button
+                  type="button"
+                  className="bg-primary text-white w-[130px] h-[45px] rounded-xl text-lg"
+                >
+                  예약하기
+                </button>
               </Link>
             </>
           ) : (

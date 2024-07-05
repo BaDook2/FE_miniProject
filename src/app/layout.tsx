@@ -25,12 +25,16 @@ export default function RootLayout({
       const checkLogin = await fetchCheckLogin();
       if (checkLogin) {
         setLogIn();
-      } else if (!checkLogin && isLoggedIn) {
+      } else {
         setLogOut();
       }
       setIsLoading(false);
     };
     fetchCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (!isLoading) {
       if (
         isLoggedIn &&
@@ -44,8 +48,7 @@ export default function RootLayout({
         router.push('/login');
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, presentPath]);
+  }, [isLoading, isLoggedIn, presentPath, router]);
 
   return (
     <html lang="ko">
