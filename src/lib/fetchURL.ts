@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 export interface FetchResponse<T> {
   data: T | null;
   errorMessage: string | null;
-  status?: number | null;
+  status: number | null;
 }
 
 const fetchURL = async <T>(
@@ -16,7 +16,7 @@ const fetchURL = async <T>(
     return { data: response.data, errorMessage: null, status: response.status };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    if (err.response.data) {
+    if (err.response?.data) {
       return {
         data: null,
         errorMessage: err.response.data.message,
@@ -26,7 +26,7 @@ const fetchURL = async <T>(
     return {
       data: null,
       errorMessage: 'Unknown Error',
-      status: err.response.status,
+      status: err.response?.status,
     };
   }
 };

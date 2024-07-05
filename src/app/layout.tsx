@@ -24,7 +24,7 @@ export default function RootLayout({
       const checkLogin = await fetchCheckLogin();
       if (checkLogin) {
         setLogIn();
-      } else {
+      } else if (!checkLogin && isLoggedIn) {
         setLogOut();
       }
     };

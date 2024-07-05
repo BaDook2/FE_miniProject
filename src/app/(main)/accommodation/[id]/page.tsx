@@ -52,26 +52,25 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
   const [checkInDate, setCheckInDate] = useState<string>(todayToDate);
   const [checkOutDate, setCheckOutDate] = useState<string>(tommorrowToDate);
   const [isVaildPeriod, setIsVaildPeriod] = useState(true);
-  const [err, setErr] = useState<string | null>(null);
+  const [err, setErr] = useState<string | null>();
+  const [fetchStatus, setFetchStatus] = useState<number | null>(null);
 
   const fetchData = useCallback(async (): Promise<void> => {
-    const { data, errorMessage } = await accommodationDataFetch({
+    const { data, errorMessage, status } = await accommodationDataFetch({
       params,
       checkInDate,
       checkOutDate,
     });
     setErr(errorMessage);
     setAccommodation(data);
+    setFetchStatus(status);
   }, [params, checkInDate, checkOutDate]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, checkInDate, checkOutDate]);
-
-  useEffect(() => {
     const check = new Date(checkInDate) <= new Date(checkOutDate);
     setIsVaildPeriod(check);
-  }, [checkInDate, checkOutDate]);
+  }, [checkInDate, checkOutDate, fetchData]);
 
   return (
     <section className="w-innerWidth mx-auto">
@@ -85,7 +84,13 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
             {accommodation && (
               <>
                 <div className="w-3/5 h-[400px] rounded-xl overflow-hidden">
-                  <ImageSlider imgArr={accommodation.img} />
+                  <ImageSlider
+                    imgArr={
+                      fetchStatus === 200
+                        ? accommodation.img
+                        : ['./logo.png', './logo.png']
+                    }
+                  />
                 </div>
                 <div className="w-2/5 h-[400px] rounded-xl">
                   <Kakaomap data={accommodation} />
