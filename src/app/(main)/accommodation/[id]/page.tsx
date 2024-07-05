@@ -48,7 +48,7 @@ export interface IAccommodation {
 function AccommodationDetail({ params }: { params: { id: string } }) {
   const { todayToDate, tommorrowToDate } = exportDate();
   const [accommodation, setAccommodation] = useState<IAccommodation | null>();
-  const [peopleCount, setPeopleCount] = useState<number>(1);
+  const [peopleCount, setPeopleCount] = useState<number>(2);
   const [checkInDate, setCheckInDate] = useState<string>(todayToDate);
   const [checkOutDate, setCheckOutDate] = useState<string>(tommorrowToDate);
   const [isVaildPeriod, setIsVaildPeriod] = useState(true);
