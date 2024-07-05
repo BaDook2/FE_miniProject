@@ -4,7 +4,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import axios from 'axios';
 import BookingItem from '@/components/common/BookingItem';
-import Pagination from '@/components/common/Pagination';
+import Pagination from '@/components/BookingList/Pagination';
 import Loading from '@/components/common/Loading';
 import BackButton from '@/components/common/BackButton';
 import Empty from '@/components/common/Empty';
@@ -61,7 +61,7 @@ function BookingsPage() {
     setCurrentPage(page);
   };
   return (
-    <div className="w-innerWidth m-auto">
+    <div className="w-innerWidth m-auto pb-28">
       <header className="relative my-8 flex justify-center">
         <div className="absolute left-0">
           <BackButton />
