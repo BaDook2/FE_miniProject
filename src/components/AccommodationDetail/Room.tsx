@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { IRoom } from '@/app/(main)/accommodation/[id]/page';
+import { formatPrice } from '@/lib/formatNumber';
 import ImageSlider from './ImageSlider';
 import CartAddButton from './CartAddButton';
 
@@ -53,7 +54,7 @@ function Room({
           기준 {room.minPeople}명 / 최대 {room.maxPeople}명
         </span>
         <span className="text-4xl font-bold mb-4 text-right">
-          {room.price}원
+          {formatPrice(room.price)}
         </span>
         <div className="flex justify-end items-center gap-2">
           {isVaildPeriod ? (

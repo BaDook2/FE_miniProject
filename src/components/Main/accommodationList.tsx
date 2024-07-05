@@ -190,7 +190,7 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
               <div className="p-4">
                 <div className="text-lg font-semibold mb-1">{item.title}</div>
                 <div className="text-xs mb-1">{item.region}</div>
-                <div className="text-gray-500 mt-2 text-right">
+                <div className="text-gray-500 mt-2 text-right flex items-center">
                   <span className="text-xs mr-2">최저가</span>
                   <span className="font-bold">
                     {formatNumber(item.minPrice)}
