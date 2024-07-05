@@ -28,9 +28,12 @@ function Login() {
   const router = useRouter();
   const { setLogIn } = useIsLoggedIn();
   const clickLoginButton = async () => {
-    const errorMessage = await login(watch('email'), watch('password'));
-    if (errorMessage) {
-      setError('email', { type: 'custom', message: errorMessage });
+    const responseStatus = await login(watch('email'), watch('password'));
+    if (responseStatus !== 200) {
+      setError('email', {
+        type: 'custom',
+        message: '계정 정보가 올바르지 않습니다.',
+      });
     } else {
       router.push('/');
       setLogIn();

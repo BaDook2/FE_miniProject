@@ -7,8 +7,8 @@ const login = async (email: string, password: string) => {
     email,
     password,
   });
-  const { errorMessage } = await axiosPost<string>(loginURL, dataToJson);
-  return errorMessage;
+  const { status } = await axiosPost<string>(loginURL, dataToJson);
+  return status;
 };
 
 export default login;

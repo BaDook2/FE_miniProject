@@ -41,14 +41,12 @@ export default function RootLayout({
         AUTH_PATH.some((path) => presentPath.startsWith(path))
       ) {
         router.push('/');
+      } else if (
+        !isLoggedIn &&
+        PROTECTED_PATH.some((path) => presentPath.startsWith(path))
+      ) {
+        router.push('/login');
       }
-    }
-    if (
-      isLoading &&
-      !isLoggedIn &&
-      PROTECTED_PATH.some((path) => presentPath.startsWith(path))
-    ) {
-      router.push('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, presentPath]);
