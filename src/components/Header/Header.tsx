@@ -23,11 +23,14 @@ const Header = () => {
     const isSuccess = await fetchLogOut();
     if (isSuccess) {
       setLogOut();
+      setCartCount(0);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    if (isLoggedIn) {
+      fetchData();
+    }
   }, [isLoggedIn, fetchData]);
 
   return (
