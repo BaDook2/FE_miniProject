@@ -104,7 +104,7 @@ function BookingForm() {
       res = await bookingCartPost(inputData, bookings);
       // eslint-disable-next-line no-console
       console.log(res);
-      const cartIds = cartIdItems.map((item) => item.cartId);
+      const cartIds = Array.from(cartIdItems, (item) => item.cartId);
       if (res.status === 404) {
         router.push('/login');
       } else if (res.data && res.data.items) {
