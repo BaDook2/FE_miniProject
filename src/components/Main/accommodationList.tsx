@@ -106,6 +106,22 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
     return () => observer.disconnect();
   }, [fetchNextPage]);
 
+  // 옵저버가 동작하지 않을 경우
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      if (scrollHeight - scrollTop <= clientHeight * 1.5) {
+        fetchNextPage();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [fetchNextPage]);
+
   // 뒤로가기, scroll 이동
   useEffect(() => {
     if (isRestoring && !isLoading) {
