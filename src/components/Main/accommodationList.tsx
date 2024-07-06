@@ -139,9 +139,9 @@ const AccommodationList = ({ category }: AccommodationListProps) => {
 
   const options = [
     { value: '0', name: '최저가' },
-    { value: '50000', name: '50000 ~' },
-    { value: '80000', name: '80000 ~' },
-    { value: '100000', name: '100000 ~' },
+    { value: '50000', name: '50,000 ~' },
+    { value: '80000', name: '80,000 ~' },
+    { value: '100000', name: '100,000 ~' },
   ];
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
