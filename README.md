@@ -30,7 +30,7 @@
 
 
 ## UserFlow
-![UserFlow](https://github.com/Yeojin-Kim12/my-first-blog/assets/79198245/74d8cd7b-e403-4f45-ac94-5c544dd47d59)
+![UserFlow](https://github.com/kdt8-mini-project-team5/FE_miniProject/assets/79198245/5fc21aa9-c8bc-49dc-8a3b-6ebd77089907)
 
 ## 페이지 설명
 
