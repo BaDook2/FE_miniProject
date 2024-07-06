@@ -34,6 +34,8 @@ function CartAddButton({
     } else if (!errorMessage) {
       incrementCartCount();
       toast.success('장바구니 추가 성공!');
+    } else if (errorMessage) {
+      toast.error(errorMessage);
     } else {
       toast.error('장바구니 추가 실패');
     }

@@ -45,7 +45,7 @@ function Room({
   const encodedItems = JSON.stringify(bookingItem);
   return (
     <div className="flex py-4 border-dovegray border-b-2 ">
-      <div className="w-5/12 h-[250px] rounded-xl">
+      <div className="w-5/12 h-[250px] rounded-xl overflow-hidden">
         <ImageSlider imgArr={room.img} />
       </div>
       <div className="flex flex-col ml-4 border-dovegray border-2 rounded-xl w-full h-[250px] px-6 py-4 justify-between">

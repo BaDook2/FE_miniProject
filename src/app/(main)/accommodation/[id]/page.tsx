@@ -53,17 +53,15 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
   const [checkOutDate, setCheckOutDate] = useState<string>(tommorrowToDate);
   const [isVaildPeriod, setIsVaildPeriod] = useState(true);
   const [err, setErr] = useState<string | null>();
-  const [fetchStatus, setFetchStatus] = useState<number | null>(null);
 
   const fetchData = useCallback(async (): Promise<void> => {
-    const { data, errorMessage, status } = await accommodationDataFetch({
+    const { data, errorMessage } = await accommodationDataFetch({
       params,
       checkInDate,
       checkOutDate,
     });
     setErr(errorMessage);
     setAccommodation(data);
-    setFetchStatus(status);
   }, [params, checkInDate, checkOutDate]);
 
   useEffect(() => {
@@ -84,13 +82,7 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
             {accommodation && (
               <>
                 <div className="w-3/5 h-[400px] rounded-xl overflow-hidden">
-                  <ImageSlider
-                    imgArr={
-                      fetchStatus === 200
-                        ? accommodation.img
-                        : ['/logo.png', '/logo.png']
-                    }
-                  />
+                  <ImageSlider imgArr={accommodation.img} />
                 </div>
                 <div className="w-2/5 h-[400px] rounded-xl">
                   <Kakaomap data={accommodation} />
