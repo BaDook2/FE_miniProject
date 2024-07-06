@@ -32,7 +32,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
       <div className="p-2 border-t-[1px] border-b-[1px] border-dovegray">
         <div className="grid grid-rows-2 grid-cols-4 gap-2">
           {data?.shower && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -48,12 +48,12 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.aircone && (
-            <span>
+            <span className="flex">
               <TbAirConditioning /> 에어컨
             </span>
           )}
           {data?.tv && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -69,7 +69,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.pc && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="none"
@@ -90,7 +90,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.internet && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -106,7 +106,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.refrigerator && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="none"
@@ -135,19 +135,19 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.toiletries && (
-            <span>
+            <span className="flex">
               <GiToothbrush />
               세면도구
             </span>
           )}
           {data?.kitchenware && (
-            <span>
+            <span className="flex">
               <MdOutlineSoupKitchen />
               주방용품
             </span>
           )}
           {data?.parkingLodging && (
-            <span>
+            <span className="flex">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -163,7 +163,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.dryer && (
-            <span>
+            <span className="flex">
               <PiHairDryer />
               드라이어
             </span>
