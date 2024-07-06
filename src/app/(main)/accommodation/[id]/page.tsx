@@ -70,9 +70,22 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     fetchData();
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+    if (
+      new Date(todayToDate) > checkIn ||
+      new Date(tommorrowToDate) > checkOut ||
+      checkOut < checkIn
+    ) {
+      setIsVaildPeriod(false);
+    } else {
+      setIsVaildPeriod(true);
+    }
+
     const check = new Date(checkInDate) <= new Date(checkOutDate);
     setIsVaildPeriod(check);
-  }, [checkInDate, checkOutDate, fetchData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkInDate, checkOutDate]);
 
   return (
     <section className="w-innerWidth mx-auto">
