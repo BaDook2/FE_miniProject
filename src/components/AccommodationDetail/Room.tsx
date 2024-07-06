@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { IRoom } from '@/app/(main)/accommodation/[id]/page';
 import { formatPrice } from '@/lib/formatNumber';
+import { useIsLoggedIn } from '@/lib/store';
 import ImageSlider from './ImageSlider';
 import CartAddButton from './CartAddButton';
 
@@ -43,6 +44,7 @@ function Room({
     roomId: room.roomId,
   };
   const encodedItems = JSON.stringify(bookingItem);
+  const { isLoggedIn } = useIsLoggedIn();
   return (
     <div className="flex py-4 border-dovegray border-b-2 ">
       <div className="w-5/12 h-[250px] rounded-xl overflow-hidden">
@@ -66,7 +68,11 @@ function Room({
                 checkInDate={`${checkInDate}`}
                 checkOutDate={`${checkOutDate}`}
               />
-              <Link href={`/booking?items=[${encodedItems}]`}>
+              <Link
+                href={
+                  isLoggedIn ? `/booking?items=[${encodedItems}]` : '/login'
+                }
+              >
                 <button
                   type="button"
                   className="bg-primary text-white w-[130px] h-[45px] rounded-xl text-lg"
