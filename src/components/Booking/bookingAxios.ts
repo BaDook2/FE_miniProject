@@ -46,8 +46,7 @@ const bookingPost = async (
     registerURL,
     dataToJson,
   );
-  // eslint-disable-next-line no-console
-  console.log(data, status, errorMessage);
+
   return { data, status, errorMessage };
 };
 const bookingCartPost = async (
@@ -69,8 +68,6 @@ const bookingCartPost = async (
     registerURL,
     dataToJson,
   );
-  // eslint-disable-next-line no-console
-  console.log(data, status, errorMessage);
   return { data, status, errorMessage };
 };
 

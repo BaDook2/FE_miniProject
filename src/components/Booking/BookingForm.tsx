@@ -101,11 +101,10 @@ function BookingForm() {
     const hasAnyCartId = cartIdCount > 0;
     if (hasAnyCartId) {
       res = await bookingCartPost(inputData, bookings);
-      // eslint-disable-next-line no-console
-      console.log(res);
 
       if (res.status === 403) {
         router.push('/login');
+        toast.error(res.errorMessage);
       } else if (res.data && res.data.items) {
         if (!res.errorMessage) {
           toast.success('예약 성공!');

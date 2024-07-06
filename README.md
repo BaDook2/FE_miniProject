@@ -17,10 +17,10 @@
 
 ## 사용 기술 스택
 - Programming<br>
-<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white"/> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white"/> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/> <img src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
 
 - collaboration tool<br>
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"/> <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"/> <img alt="Slack" src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"/>
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"/> <img alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"/> <img alt="Slack" src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"/> <img alt="Linear" src="https://img.shields.io/badge/linear-5E6AD2?style=for-the-badge&logo=slack&logoColor=white"/>
 
 - Design<br>
 [<img alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"/>](https://www.figma.com/design/Q54rP5deHWDnmndclAex5L/miniproject?t=OlUgedB6VZ6jKgV4-0)
@@ -103,10 +103,6 @@
   - 기능을 구현하면서, 새로운 프레임웨크를 경험하다보니 코드리뷰를 진행할 기회가 거의 없었던 것 같습니다. 다음 프로젝트에서는 코드리뷰를 진행해보고 싶습니다.
   - 인원이 늘어나고, 다른 분야의 개발자분들과 협업을 진행해보니, 커뮤니케이션이 많이 중요하다는 것을 느꼈습니다.
 
-
-#### 김민수
-- 
-
 #### 김여진
 - #### 자랑하고 싶은 부분
 
@@ -120,3 +116,14 @@
 - #### 프로젝트 관리 및 협업에 관한 내용
   - 첫 백엔드와의 협업이고 데이터를 주고 받을 때에 대한 이해도가 많이 부족해서 백엔드에서 물어보실 때나 물어볼 때 이해가 되지 않는 부분이 많았어서 백엔드에 대한 지식도 어느정도 필요하다는 것을 깨달았습니다.
   - 그래도 이번을 협업을 통해서 많이 알아가게 되었고 백엔드분과 시행착오를 겪으면서 api나 페이지네이션 등을 배울 수 있어서 좋았습니다.
+
+#### 김민수
+- #### 자랑하고 싶은 부분
+  - 예약페이지와 예약결과 페이지에서는 Url 쿼리스트링을 사용하여 불필요한 API 호출을 줄이고, 보다 빠른 랜더링을 구현했습니다. 쿼리스트링을 통해 필요한 데이터만을 로드함으로써 서버 부하를 줄이고, 클라이언트 측의 성능을 향상시킴으로써 사용자 경험을 향상시킬 수 있도록 구현했습니다.  
+  - SWR React Hooks를 사용하여 빠른 페이지네이션을 구현했습니다. SWR은 데이터 페칭을 단순화하고, 캐싱을 통해 데이터 재사용성을 극대화하여 빠른 응답 속도를 바탕으로 예약내역 페이지에서 사용자가 빠르고 원활하게 데이터를 조회할 수 있도록 구현했습니다.
+  - 재사용가능한 컴포넌트를 구성하여 다양한 페이지에서 사용할 수 있도록 구현했습니다.
+- #### 아쉬운 부분
+  - Next.js의 SSR과 msw를 제대로 활용하지 못한 것이 아쉬움이 남습니다.
+
+- #### 프로젝트 관리 및 협업에 관한 내용
+  - 백엔드와의 협업이 처음이다보니 부족한 점이 많았던 것 같습니다. 이번 미니 프로젝트를 통해 많은 것들을 알게되어서 좋았습니다.

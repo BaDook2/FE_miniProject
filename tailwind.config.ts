@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       width: {
-        innerWidth: '67.71vw',
+        innerWidth: '1300px',
       },
       colors: {
         primary: '#FB1C49',
