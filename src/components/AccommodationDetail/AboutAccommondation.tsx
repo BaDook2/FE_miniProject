@@ -32,7 +32,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
       <div className="p-2 border-t-[1px] border-b-[1px] border-dovegray">
         <div className="grid grid-rows-2 grid-cols-4 gap-2">
           {data?.shower && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -48,12 +48,12 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.aircone && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <TbAirConditioning /> 에어컨
             </span>
           )}
           {data?.tv && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -69,7 +69,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.pc && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="none"
@@ -90,7 +90,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.internet && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -106,7 +106,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.refrigerator && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="none"
@@ -135,19 +135,19 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.toiletries && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <GiToothbrush />
               세면도구
             </span>
           )}
           {data?.kitchenware && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <MdOutlineSoupKitchen />
               주방용품
             </span>
           )}
           {data?.parkingLodging && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -163,7 +163,7 @@ function AboutAccommondation({ data }: AccommodationProps) {
             </span>
           )}
           {data?.dryer && (
-            <span className="flex">
+            <span className="flex justify-center items-center">
               <PiHairDryer />
               드라이어
             </span>
