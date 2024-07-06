@@ -63,8 +63,11 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
     if (errorMessage) {
       toast.error(errorMessage);
     }
-    setAccommodation(data);
-  }, [params, checkInDate, checkOutDate]);
+    if (isVaildPeriod) {
+      setAccommodation(data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params, isVaildPeriod]);
 
   useEffect(() => {
     fetchData();
