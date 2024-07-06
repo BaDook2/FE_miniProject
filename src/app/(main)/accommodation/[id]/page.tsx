@@ -72,18 +72,13 @@ function AccommodationDetail({ params }: { params: { id: string } }) {
     fetchData();
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
-    if (
-      new Date(todayToDate) > checkIn ||
-      new Date(tommorrowToDate) > checkOut ||
-      checkOut < checkIn
-    ) {
+    const today = new Date(todayToDate);
+    const tommorrow = new Date(tommorrowToDate);
+    if (today > checkIn || tommorrow > checkOut || checkOut <= checkIn) {
       setIsVaildPeriod(false);
     } else {
       setIsVaildPeriod(true);
     }
-
-    const check = new Date(checkInDate) <= new Date(checkOutDate);
-    setIsVaildPeriod(check);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkInDate, checkOutDate]);
 
