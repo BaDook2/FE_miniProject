@@ -45,10 +45,10 @@ function Room({
   const encodedItems = JSON.stringify(bookingItem);
   return (
     <div className="flex py-4 border-dovegray border-b-2 ">
-      <div className="w-5/12 h-[250px]">
+      <div className="w-5/12 h-[250px] rounded-xl">
         <ImageSlider imgArr={room.img} />
       </div>
-      <div className="flex flex-col ml-4 border-mineshaft border-2 rounded-xl w-full h-[250px] px-6 py-4 justify-between">
+      <div className="flex flex-col ml-4 border-dovegray border-2 rounded-xl w-full h-[250px] px-6 py-4 justify-between">
         <h2 className="text-3xl font-semibold mb-2">{room.title}</h2>
         <span className="text-gray-600 mb-2 text-base">
           기준 {room.minPeople}명 / 최대 {room.maxPeople}명
