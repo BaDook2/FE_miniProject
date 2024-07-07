@@ -89,7 +89,7 @@ function Pagination({
   };
 
   return (
-    <div className="w-fit m-auto fixed bottom-0 left-0 right-0 flex justify-center items-center px-10 bg-white rounded-t-xl">
+    <div className="w-fit m-auto fixed bottom-0 left-0 right-0 flex justify-center items-center px-10 bg-white shadow-[0_0_5px_0_rgba(0,0,0,0.3)] rounded-t-xl">
       <div className="relative my-8 flex justify-center gap-2 z-0">
         <button
           type="button"
