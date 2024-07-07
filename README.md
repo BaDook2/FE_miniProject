@@ -85,8 +85,8 @@
 - 앞서 결제한 상품들의 `결과`를 확인할 수 있는 페이지입니다.
 
 ### 주문 내역 확인
-![image](https://github.com/kdt8-mini-project-team5/FE_miniProject/assets/79198245/f3e25f21-2e30-4e3c-a75a-2911dc34088c)
-- 지금까지 해당 이메일로 주문한 상품들의 `주문 내역`을 확인할 수 있는 페이지입니다.
+![image](https://github.com/kdt8-mini-project-team5/FE_miniProject/assets/153588816/74237572-e5ae-4302-a9ab-33b67f794687)
+- 지금까지 해당 이메일로 주문한 상품들의 `주문 내역`을 `Pagination`으로 확인할 수 있는 페이지입니다. 
 
 ## 라우팅
 이번에 Secure Cookie를 썻기 때문에 JS에서 Cookie를 다루지 못했습니다. 그래서 서버의 login check API를 통해 login 여부를 확인하였고 로그인 상태에서 로그인 페이지와 회원가입 페이지를 제한해야했기 때문에 전역상태 관리로 login 여부를 관리하였습니다.
