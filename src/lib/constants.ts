@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.ananbada.store';
+const BASE_URL = 'https://mini-api.limeade.dev';
 const AUTH_PATH = ['/login', '/signup'];
 const PROTECTED_PATH = ['/cart', '/booking', '/bookingList', '/bookingResult'];
 
