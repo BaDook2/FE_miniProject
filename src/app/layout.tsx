@@ -2,10 +2,10 @@
 
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
-import fetchCheckLogin from '@/lib/fetchCheckLogin';
+// import fetchCheckLogin from '@/lib/fetchCheckLogin';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
@@ -15,40 +15,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isLoggedIn, setLogIn, setLogOut } = useIsLoggedIn();
+  const { isLoggedIn } = useIsLoggedIn();
   const presentPath = usePathname();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchCheck = async () => {
+  //     const checkLogin = await fetchCheckLogin();
+  //     if (checkLogin) {
+  //       setLogIn();
+  //     } else {
+  //       setLogOut();
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   fetchCheck();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [presentPath]);
 
   useEffect(() => {
-    const fetchCheck = async () => {
-      const checkLogin = await fetchCheckLogin();
-      if (checkLogin) {
-        setLogIn();
-      } else {
-        setLogOut();
-      }
-      setIsLoading(false);
-    };
-    fetchCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presentPath]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (
-        isLoggedIn &&
-        AUTH_PATH.some((path) => presentPath.startsWith(path))
-      ) {
-        router.push('/');
-      } else if (
-        !isLoggedIn &&
-        PROTECTED_PATH.some((path) => presentPath.startsWith(path))
-      ) {
-        router.push('/login');
-      }
+    // if (!isLoading) {
+    if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
+      router.push('/');
+    } else if (
+      !isLoggedIn &&
+      PROTECTED_PATH.some((path) => presentPath.startsWith(path))
+    ) {
+      router.push('/login');
     }
-  }, [isLoading, isLoggedIn, presentPath, router]);
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, presentPath, router]);
 
   return (
     <html lang="ko">
