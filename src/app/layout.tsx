@@ -18,7 +18,6 @@ export default function RootLayout({
   const { isLoggedIn, setLogIn } = useIsLoggedIn();
   const presentPath = usePathname();
   const router = useRouter();
-  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCheck = async () => {
@@ -26,14 +25,12 @@ export default function RootLayout({
       if (checkLogin) {
         setLogIn();
       }
-      // setIsLoading(false);
     };
     fetchCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presentPath]);
 
   useEffect(() => {
-    // if (!isLoading) {
     if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
       router.push('/');
     } else if (
@@ -42,9 +39,8 @@ export default function RootLayout({
     ) {
       router.push('/login');
     }
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, presentPath, router]);
+  }, [presentPath, router]);
 
   return (
     <html lang="ko">
