@@ -2,14 +2,14 @@
 
 import MswComponent from '@/components/MSWComponent';
 import './globals.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useIsLoggedIn } from '@/lib/store';
 import fetchCheckLogin from '@/lib/fetchCheckLogin';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
-import { useQuery } from '@tanstack/react-query';
 
 export default function RootLayout({
   children,
@@ -19,17 +19,22 @@ export default function RootLayout({
   const { isLoggedIn, setLogIn } = useIsLoggedIn();
   const presentPath = usePathname();
   const router = useRouter();
-
-  const { data: checkLogin } = useQuery({
-    queryKey: ['checkLogin'],
-    queryFn: fetchCheckLogin,
-  });
+  const [queryClient] = useState(() => new QueryClient());
 
   useEffect(() => {
-    if (checkLogin) {
-      setLogIn();
+    if (typeof window !== 'undefined') {
+      queryClient
+        .fetchQuery({
+          queryKey: ['checkLogin'],
+          queryFn: fetchCheckLogin,
+        })
+        .then((data) => {
+          if (data) {
+            setLogIn();
+          }
+        });
     }
-  }, [checkLogin, setLogIn]);
+  }, [queryClient, setLogIn]);
 
   useEffect(() => {
     if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
@@ -45,21 +50,22 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <MswComponent>
-          <div>
-            {children}
-            <ToastContainer
-              position="top-right"
-              autoClose={2000}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss={false}
-              pauseOnHover
-              style={{}}
-            />
-          </div>
-        </MswComponent>
+        <QueryClientProvider client={queryClient}>
+          <MswComponent>
+            <div>
+              {children}
+              <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                pauseOnHover
+              />
+            </div>
+          </MswComponent>
+        </QueryClientProvider>
       </body>
     </html>
   );
