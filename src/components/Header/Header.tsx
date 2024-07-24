@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import useCartStore, { useIsLoggedIn } from '@/lib/store';
+import { useQuery } from '@tanstack/react-query';
 import fetchCartCount from './fetchCartCount';
 import fetchLogOut from './fetchLogOut';
 
@@ -14,10 +15,17 @@ const Header = () => {
   const { cartCount, setCartCount } = useCartStore();
   const { isLoggedIn, setLogOut } = useIsLoggedIn();
 
-  const fetchData = useCallback(async (): Promise<void> => {
-    const count = await fetchCartCount();
-    setCartCount(count);
-  }, [setCartCount]);
+  const { data: count } = useQuery({
+    queryKey: ['cartCount'],
+    queryFn: fetchCartCount,
+    enabled: isLoggedIn, // 로그인된 상태에서만 실행
+  });
+
+  useEffect(() => {
+    if (isLoggedIn && count !== undefined) {
+      setCartCount(count);
+    }
+  }, [isLoggedIn, count, setCartCount]);
 
   const clickLogOut = async () => {
     const isSuccess = await fetchLogOut();
@@ -26,12 +34,6 @@ const Header = () => {
       setCartCount(0);
     }
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchData();
-    }
-  }, [isLoggedIn, fetchData]);
 
   return (
     <div className="flex items-center h-full w-full justify-between">

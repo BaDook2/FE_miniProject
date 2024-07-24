@@ -9,6 +9,7 @@ import fetchCheckLogin from '@/lib/fetchCheckLogin';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AUTH_PATH, PROTECTED_PATH } from '@/lib/constants';
+import { useQuery } from '@tanstack/react-query';
 
 export default function RootLayout({
   children,
@@ -19,16 +20,16 @@ export default function RootLayout({
   const presentPath = usePathname();
   const router = useRouter();
 
+  const { data: checkLogin } = useQuery({
+    queryKey: ['checkLogin'],
+    queryFn: fetchCheckLogin,
+  });
+
   useEffect(() => {
-    const fetchCheck = async () => {
-      const checkLogin = await fetchCheckLogin();
-      if (checkLogin) {
-        setLogIn();
-      }
-    };
-    fetchCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presentPath]);
+    if (checkLogin) {
+      setLogIn();
+    }
+  }, [checkLogin, setLogIn]);
 
   useEffect(() => {
     if (isLoggedIn && AUTH_PATH.some((path) => presentPath.startsWith(path))) {
@@ -39,8 +40,7 @@ export default function RootLayout({
     ) {
       router.push('/login');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presentPath, router]);
+  }, [isLoggedIn, presentPath, router]);
 
   return (
     <html lang="ko">
