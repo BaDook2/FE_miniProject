@@ -111,10 +111,7 @@ function SignUp() {
         </Link>
         <form
           className="h-3/4 flex flex-col gap-20"
-          onSubmit={() => {
-            handleSubmit(clickSignUpButton);
-            console.log(errors);
-          }}
+          onSubmit={handleSubmit(clickSignUpButton)}
         >
           <div className="flex flex-col gap-8">
             <SignUpInputBox
