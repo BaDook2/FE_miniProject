@@ -20,7 +20,7 @@ const signUp = async (data: ISignUp) => {
   const registerURL = `${BASE_URL}/api/register`;
   const dataToJson = JSON.stringify({
     email: data.email,
-    password: data.password,
+    password: data.confirmPassword,
     name: data.name,
     accessKey: data.accessKey,
   });
