@@ -49,8 +49,8 @@ const SignUpSchema = z
       return values.password === values.confirmPassword;
     },
     {
-      message: '비밀번호와 비밀번호 확인이 같아야 합니다.',
       path: ['confirmPassword'],
+      message: '비밀번호와 비밀번호 확인이 같아야 합니다.',
     },
   );
 

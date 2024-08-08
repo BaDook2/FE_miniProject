@@ -94,11 +94,19 @@ function SignUp() {
   };
 
   const clickSignUpButton = async (event: ISignUp) => {
-    const errorMessage = await signUp(event);
-    if (errorMessage) {
-      setError('confirmPassword', { type: 'custom', message: errorMessage });
+    const existAccessKey = watch('accessKey') === '';
+    const existEmail = watch('email') === '';
+    if (existEmail) {
+      if (!existAccessKey) {
+        setError('email', { type: 'custom', message: 'AccessKey가 없습니다.' });
+      }
     } else {
-      router.push('/login');
+      const errorMessage = await signUp(event);
+      if (errorMessage) {
+        setError('confirmPassword', { type: 'custom', message: errorMessage });
+      } else {
+        router.push('/login');
+      }
     }
   };
 
