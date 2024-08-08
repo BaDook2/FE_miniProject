@@ -20,6 +20,17 @@ function SignUpInputBox({
   buttonText,
 }: ISignUpInputBox) {
   const { onChange, onBlur, name, ref } = register || {};
+
+  const inputClassName = () => {
+    if (!onChange) {
+      return 'border-b-alto';
+    }
+    if (message) {
+      return 'border-b-primary';
+    }
+    return 'border-b-blue-600';
+  };
+
   return (
     <div className="flex relative">
       <input
@@ -31,12 +42,11 @@ function SignUpInputBox({
         name={name}
         ref={ref}
         onKeyDown={onKeyPress}
-        className={`${message ? 'border-b-primary' : ''} 
+        className={`${inputClassName()} 
         border-white
-        border-b-alto text-2xl p-2 placeholder:text-alto
+        text-2xl p-2 placeholder:text-alto
         focus:outline-none
         focus:border-blue-300
-        valid:border-b-blue-600
         w-full
         rounded-t-md
         border-b-2`}

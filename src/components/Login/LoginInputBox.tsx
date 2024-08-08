@@ -9,6 +9,15 @@ interface ILogin {
 
 function LoginInputBox({ type, placeholder, message, register }: ILogin) {
   const { onChange, onBlur, name, ref } = register || {};
+  const inputClassName = () => {
+    if (!onChange) {
+      return 'border-b-alto';
+    }
+    if (message) {
+      return 'border-b-primary';
+    }
+    return 'border-b-blue-600';
+  };
   return (
     <div className="flex flex-col relative">
       <label htmlFor={name} className="text-2xl">
@@ -22,8 +31,14 @@ function LoginInputBox({ type, placeholder, message, register }: ILogin) {
         onBlur={onBlur}
         name={name}
         ref={ref}
-        className={`${message ? 'valid:border-primary' : null} focus:outline-none focus:border-blue-300
-        valid:border-blue-600 border-2 text-2xl rounded-lg p-3 placeholder:text-alto`}
+        className={`${inputClassName()} 
+        border-white
+        text-2xl p-2 placeholder:text-alto
+        focus:outline-none
+        focus:border-blue-300
+        w-full
+        rounded-t-md
+        border-b-2`}
       />
       {message && (
         <span
