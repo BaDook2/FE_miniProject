@@ -14,8 +14,8 @@ const accommodationDataFetch = async ({
   checkOutDate,
 }: INeedData): Promise<FetchResponse<IAccommodation>> => {
   const URL = `${BASE_URL}/api/accommodation/${params.id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`;
-  const { data, errorMessage, status } = await axiosGet<IAccommodation>(URL);
-  return { data, errorMessage, status };
+  const { data, status, errorMessage } = await axiosGet<IAccommodation>(URL);
+  return { data, status, errorMessage };
 };
 
 export default accommodationDataFetch;
